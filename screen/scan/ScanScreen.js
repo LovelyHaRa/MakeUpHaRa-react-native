@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ScanComponent from '../../components/scan/ScanComponent';
-import ResultComponent from '../../components/scan/ResultComponent';
+import ResultContainer from '../../containers/scan/ResultContainer';
 
 const Stack = createStackNavigator();
 
@@ -9,7 +9,7 @@ const ScanScreen = () => {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="ScanComponent" component={ScanComponent} />
-      <Stack.Screen name="ResultComponent" component={ResultComponent} />
+      <Stack.Screen name="ResultComponent" component={ResultContainer} />
     </Stack.Navigator>
   );
 };

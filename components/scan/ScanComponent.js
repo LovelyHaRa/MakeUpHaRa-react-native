@@ -10,12 +10,16 @@ import {
   Dimensions,
 } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { useDispatch } from 'react-redux';
+import { getTitleByBarcode } from '../../module/redux/scan';
 
 export default function ScanComponent({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [scandata, setScanData] = useState(null);
+
+  const dispatch = useDispatch();
 
   const codeTypes = [
     BarCodeScanner.Constants.BarCodeType.ean13,
@@ -62,6 +66,7 @@ export default function ScanComponent({ navigation }) {
                   style={styles.button}
                   onPress={() => {
                     setModalVisible(!modalVisible);
+                    dispatch(getTitleByBarcode({ code: data }));
                     navigation.navigate('ResultComponent');
                   }}
                 >
