@@ -20,7 +20,7 @@ const ResultContainer = () => {
     }
   }, [resultScan]);
 
-  return <ResultComponent uri={uri} />;
+  return <ResultComponent resultScan={resultScan} loading={loading} />;
 };
 
 export default ResultContainer;

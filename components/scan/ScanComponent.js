@@ -13,7 +13,10 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useDispatch } from 'react-redux';
 import { getTitleByBarcode } from '../../module/redux/scan';
 
-export default function ScanComponent({ navigation }) {
+export default function ScanComponent({ navigation, onCamera }) {
+  if (!onCamera) {
+    return null;
+  }
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -66,8 +69,8 @@ export default function ScanComponent({ navigation }) {
                   style={styles.button}
                   onPress={() => {
                     setModalVisible(!modalVisible);
-                    dispatch(getTitleByBarcode({ code: data }));
-                    navigation.navigate('ResultComponent');
+                    dispatch(getTitleByBarcode({ code: 8809612845830 }));
+                    navigation.push('ResultComponent');
                   }}
                 >
                   <Text>문서 보기</Text>
