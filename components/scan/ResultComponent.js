@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   StatusBar,
-  TouchableHighlight,
   TouchableOpacity,
 } from 'react-native';
 import WebView from 'react-native-webview';
@@ -24,32 +23,41 @@ const getInnerHtml = (body) => {
   `;
 };
 
-const ResultComponent = ({ resultScan, loading }) => {
+const ResultComponent = ({ navigation, resultScan, loading }) => {
   if (loading) {
     return null;
   }
   const { title, publishedDate, body } = resultScan;
   const titleName =
-    title.name.length <= 30 ? title.name : title.name.slice(0, 30);
+    title.name.length <= 30 ? title.name : title.name.slice(0, 25) + '...';
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <View style={styles.header}>
-        <Text style={styles.title}>{titleName}</Text>
-        <Text style={styles.date}>
-          마지막 업데이트: {dayjs(publishedDate).format('YYYY-MM-DD')}
-        </Text>
+        <View style={styles.titleBox}>
+          <Text style={styles.title}>{titleName}</Text>
+        </View>
+        <View style={styles.dateBox}>
+          <Text style={styles.date}>
+            마지막 업데이트: {dayjs(publishedDate).format('YYYY-MM-DD')}
+          </Text>
+        </View>
       </View>
-      <WebView
-        originWhitelist={['*']}
-        source={{ html: getInnerHtml(body) }}
-        style={{ p: { fontSize: '1rem' } }}
-      />
+      <View style={styles.webContainer}>
+        <WebView
+          originWhitelist={['*']}
+          source={{ html: getInnerHtml(body) }}
+          style={styles.web}
+        />
+      </View>
       <View style={styles.buttonSection}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={{ ...styles.button, ...styles.buttonFirst }}>
           <Text style={styles.buttonText}>히스토리</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.goBack()}
+        >
           <Text style={styles.buttonText}>뒤로가기</Text>
         </TouchableOpacity>
       </View>
@@ -64,23 +72,77 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
   },
-  title: {
-    fontSize: 16,
+  titleBox: {
     marginTop: 20,
     marginBottom: 20,
-    marginLeft: 8,
-    marginRight: 8,
+    marginLeft: 16,
+    marginRight: 16,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 16,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderRadius: 5,
+    backgroundColor: '#ffdeeb',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+  },
+  dateBox: {
+    marginBottom: 20,
+    marginLeft: 16,
+    marginRight: 16,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   date: {
     fontSize: 14,
-    marginLeft: 8,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
     marginRight: 8,
+    borderRadius: 5,
     textAlign: 'right',
+    backgroundColor: '#fff0f6',
   },
   buttonSection: {
     flexDirection: 'row',
   },
-  button: { flex: 1, alignItems: 'center', padding: 12 },
+  webContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderTopWidth: 2,
+    borderTopColor: '#ffdeeb',
+    borderRadius: 5,
+  },
+  web: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginLeft: 8,
+    marginRight: 8,
+    borderColor: '#ffdeeb',
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 12,
+    backgroundColor: '#ffdeeb',
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderTopColor: '#ffc9c9',
+    borderBottomColor: '#ffc9c9',
+  },
+  buttonFirst: {
+    borderRightWidth: 1,
+    borderColor: '#ffc9c9',
+  },
   buttonText: {},
 });
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ResultComponent from '../../components/scan/ResultComponent';
 import { useDispatch, useSelector } from 'react-redux';
 
-const ResultContainer = () => {
+const ResultContainer = ({ navigation }) => {
   const { resultScan, resultScanError, loading } = useSelector(
     ({ scan, loading }) => ({
       resultScan: scan.resultScan,
@@ -20,7 +20,13 @@ const ResultContainer = () => {
     }
   }, [resultScan]);
 
-  return <ResultComponent resultScan={resultScan} loading={loading} />;
+  return (
+    <ResultComponent
+      navigation={navigation}
+      resultScan={resultScan}
+      loading={loading}
+    />
+  );
 };
 
 export default ResultContainer;
