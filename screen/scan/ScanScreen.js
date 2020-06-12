@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ScanContainer from '../../containers/scan/ScanContainer';
 import ResultContainer from '../../containers/scan/ResultContainer';
+import HistoryListComponent from '../../components/scan/HistoryListComponent';
 
 const Stack = createStackNavigator();
 
@@ -10,6 +11,10 @@ const ScanScreen = () => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="ScanComponent" component={ScanContainer} />
       <Stack.Screen name="ResultComponent" component={ResultContainer} />
+      <Stack.Screen
+        name="HistoryListComponent"
+        component={HistoryListComponent}
+      />
     </Stack.Navigator>
   );
 };

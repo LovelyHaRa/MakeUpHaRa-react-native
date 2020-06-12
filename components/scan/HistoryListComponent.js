@@ -1,62 +1,46 @@
 import React from 'react';
 import {
   View,
+  StatusBar,
   Text,
   StyleSheet,
-  StatusBar,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
-import WebView from 'react-native-webview';
-import dayjs from 'dayjs';
 
-const getInnerHtml = (body) => {
-  return `
-  <!DOCTYPE html>
-  <html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-  <body>
-    ${body}
-  </body>
-  </html>
-  `;
-};
-
-const ResultComponent = ({ navigation, resultScan, loading }) => {
-  if (loading) {
-    return null;
-  }
-  const { title, publishedDate, body } = resultScan;
-  const titleName =
-    title.name.length <= 30 ? title.name : title.name.slice(0, 25) + '...';
+const HistoryListComponent = ({ navigation }) => {
+  const data = [
+    { id: '0', history: 'r3', updateDate: '2020-06-12' },
+    { id: '1', history: 'r2', updateDate: '2020-06-11' },
+    { id: '2', history: 'r1', updateDate: '2020-06-10' },
+  ];
+  const HistoryItem = ({ history, updateDate }) => {
+    return (
+      <TouchableOpacity style={styles.listItem}>
+        <Text>리비전: {history}</Text>
+        <Text>작성 일자: {updateDate}</Text>
+      </TouchableOpacity>
+    );
+  };
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <View style={styles.header}>
         <View style={styles.titleBox}>
-          <Text style={styles.title}>{titleName}</Text>
+          <Text style={styles.title}>타이틀네임</Text>
         </View>
-        <View style={styles.dateBox}>
-          <Text style={styles.date}>
-            마지막 업데이트: {dayjs(publishedDate).format('YYYY-MM-DD')}
-          </Text>
+        <View style={styles.subTitleBox}>
+          <Text style={styles.subTitle}>문서 역사</Text>
         </View>
       </View>
-      <View style={styles.webContainer}>
-        <WebView
-          originWhitelist={['*']}
-          source={{ html: getInnerHtml(body) }}
-          style={styles.web}
-        />
-      </View>
+      <FlatList
+        data={data}
+        style={styles.listContainer}
+        renderItem={({ item }) => (
+          <HistoryItem history={item.history} updateDate={item.updateDate} />
+        )}
+      />
       <View style={styles.buttonSection}>
-        <TouchableOpacity
-          style={{ ...styles.button, ...styles.buttonFirst }}
-          onPress={() => navigation.push('HistoryListComponent')}
-        >
-          <Text style={styles.buttonText}>히스토리</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.goBack()}
@@ -94,42 +78,36 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flexWrap: 'wrap',
   },
-  dateBox: {
+  subTitleBox: {
     marginBottom: 20,
     marginLeft: 16,
     marginRight: 16,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
-  date: {
+  subTitle: {
     fontSize: 14,
     paddingLeft: 12,
     paddingRight: 12,
     paddingTop: 8,
     paddingBottom: 8,
-    marginRight: 8,
     borderRadius: 5,
     backgroundColor: '#fff0f6',
   },
-  webContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderTopWidth: 2,
-    borderTopColor: '#ffdeeb',
-    borderRadius: 5,
-  },
-  web: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginLeft: 8,
-    marginRight: 8,
-    borderColor: '#ffdeeb',
-  },
   buttonSection: {
     flexDirection: 'row',
+  },
+  listContainer: {
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderTopColor: '#ffc9c9',
+  },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ffc9c9',
+    padding: 16,
   },
   button: {
     flex: 1,
@@ -148,4 +126,4 @@ const styles = StyleSheet.create({
   buttonText: {},
 });
 
-export default ResultComponent;
+export default HistoryListComponent;
