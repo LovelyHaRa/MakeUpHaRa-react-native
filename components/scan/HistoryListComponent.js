@@ -7,19 +7,30 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
+import { getRevisionDocument } from '../../module/redux/scan';
 
-const HistoryListComponent = ({ navigation }) => {
-  const data = [
-    { id: '0', history: 'r3', updateDate: '2020-06-12' },
-    { id: '1', history: 'r2', updateDate: '2020-06-11' },
-    { id: '2', history: 'r1', updateDate: '2020-06-10' },
-  ];
-  const HistoryItem = ({ history, updateDate }) => {
+const HistoryListComponent = ({ navigation, historyList, loading }) => {
+  if (loading) {
+    return null;
+  }
+  const title = historyList[0].title.name;
+  const dispatch = useDispatch();
+  const HistoryItem = ({ revision, publishedDate, borderStyle }) => {
     return (
-      <TouchableOpacity style={styles.listItem}>
-        <Text>리비전: {history}</Text>
-        <Text>작성 일자: {updateDate}</Text>
-      </TouchableOpacity>
+      <View style={borderStyle}>
+        <TouchableOpacity
+          style={styles.listItem}
+          onPress={() => {
+            dispatch(getRevisionDocument({ title, r: revision }));
+            navigation.goBack();
+          }}
+        >
+          <Text>리비전: {revision}</Text>
+          <Text>작성 일자: {dayjs(publishedDate).format('YYYY-MM-DD')}</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
   return (
@@ -34,10 +45,19 @@ const HistoryListComponent = ({ navigation }) => {
         </View>
       </View>
       <FlatList
-        data={data}
+        data={historyList}
         style={styles.listContainer}
-        renderItem={({ item }) => (
-          <HistoryItem history={item.history} updateDate={item.updateDate} />
+        keyExtractor={(item) => item._id}
+        renderItem={({ item, index }) => (
+          <HistoryItem
+            revision={item.revision}
+            publishedDate={item.publishedDate}
+            borderStyle={
+              index === 0
+                ? { ...styles.listItemBorder, ...styles.listItemBorderTop }
+                : styles.listItemBorder
+            }
+          />
         )}
       />
       <View style={styles.buttonSection}>
@@ -99,14 +119,18 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     backgroundColor: '#fff',
+  },
+  listItemBorderTop: {
     borderTopWidth: 1,
     borderTopColor: '#ffc9c9',
+  },
+  listItemBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ffc9c9',
   },
   listItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ffc9c9',
     padding: 16,
   },
   button: {

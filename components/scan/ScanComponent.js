@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useDispatch } from 'react-redux';
-import { getTitleByBarcode } from '../../module/redux/scan';
+import { getDocumentByBarcode } from '../../module/redux/scan';
 
 export default function ScanComponent({ navigation, onCamera }) {
   if (!onCamera) {
@@ -69,7 +69,7 @@ export default function ScanComponent({ navigation, onCamera }) {
                   style={styles.button}
                   onPress={() => {
                     setModalVisible(!modalVisible);
-                    dispatch(getTitleByBarcode({ code: 8809612845830 }));
+                    dispatch(getDocumentByBarcode({ code: 8809612845830 }));
                     navigation.push('ResultComponent');
                   }}
                 >

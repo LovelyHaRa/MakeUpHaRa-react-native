@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import WebView from 'react-native-webview';
 import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
+import { getHistory } from '../../module/redux/scan';
 
 const getInnerHtml = (body) => {
   return `
@@ -23,11 +25,12 @@ const getInnerHtml = (body) => {
   `;
 };
 
-const ResultComponent = ({ navigation, resultScan, loading }) => {
+const ResultComponent = ({ navigation, document, loading }) => {
   if (loading) {
     return null;
   }
-  const { title, publishedDate, body } = resultScan;
+  const dispatch = useDispatch();
+  const { title, publishedDate, body } = document;
   const titleName =
     title.name.length <= 30 ? title.name : title.name.slice(0, 25) + '...';
   return (
@@ -53,7 +56,10 @@ const ResultComponent = ({ navigation, resultScan, loading }) => {
       <View style={styles.buttonSection}>
         <TouchableOpacity
           style={{ ...styles.button, ...styles.buttonFirst }}
-          onPress={() => navigation.push('HistoryListComponent')}
+          onPress={() => {
+            dispatch(getHistory({ title: title.name }));
+            navigation.push('HistoryListComponent');
+          }}
         >
           <Text style={styles.buttonText}>히스토리</Text>
         </TouchableOpacity>
