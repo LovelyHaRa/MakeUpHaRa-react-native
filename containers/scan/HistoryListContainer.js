@@ -16,6 +16,7 @@ const HistoryListContainer = ({ navigation }) => {
       navigation={navigation}
       historyList={historyList}
       loading={loading}
+      historyListError={historyListError}
     />
   );
 };

@@ -69,7 +69,7 @@ export default function ScanComponent({ navigation, onCamera }) {
                   style={styles.button}
                   onPress={() => {
                     setModalVisible(!modalVisible);
-                    dispatch(getDocumentByBarcode({ code: 8809612845830 }));
+                    dispatch(getDocumentByBarcode({ code: data }));
                     navigation.push('ResultComponent');
                   }}
                 >

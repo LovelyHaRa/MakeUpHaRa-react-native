@@ -6,16 +6,22 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import dayjs from 'dayjs';
 import { useDispatch } from 'react-redux';
 import { getRevisionDocument } from '../../module/redux/scan';
 
 const HistoryListComponent = ({ navigation, historyList, loading }) => {
-  if (loading) {
-    return null;
+  if (loading || !historyList) {
+    return (
+      <View style={{ ...styles.container, ...styles.loading }}>
+        <ActivityIndicator size="large" color="#d6336c" />
+      </View>
+    );
   }
   const title = historyList[0].title.name;
+  const titleName = title.length <= 30 ? title : title.slice(0, 25) + '...';
   const dispatch = useDispatch();
   const HistoryItem = ({ revision, publishedDate, borderStyle }) => {
     return (
@@ -38,7 +44,7 @@ const HistoryListComponent = ({ navigation, historyList, loading }) => {
       <StatusBar barStyle="light-content" />
       <View style={styles.header}>
         <View style={styles.titleBox}>
-          <Text style={styles.title}>타이틀네임</Text>
+          <Text style={styles.title}>{titleName}</Text>
         </View>
         <View style={styles.subTitleBox}>
           <Text style={styles.subTitle}>문서 역사</Text>
@@ -73,6 +79,10 @@ const HistoryListComponent = ({ navigation, historyList, loading }) => {
 };
 
 const styles = StyleSheet.create({
+  loading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
   },

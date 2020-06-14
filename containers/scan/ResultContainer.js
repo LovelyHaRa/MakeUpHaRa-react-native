@@ -6,17 +6,17 @@ const ResultContainer = ({ navigation }) => {
   const { document, documentError, loading } = useSelector(
     ({ scan, loading }) => ({
       document: scan.document,
-      document: scan.document,
+      documentError: scan.documentError,
       loading: loading['scan/GET_DOCUNEMT_BY_BARCODE'],
     }),
   );
 
-  const [uri, setUri] = useState('http://39.113.253.217:4000');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (document) {
-      const { name } = document.title;
-      setUri(`http://39.113.253.217:4000/w/${name}`);
+    setError(false);
+    if (document && document.error === true) {
+      setError(true);
     }
   }, [document]);
 
@@ -25,6 +25,8 @@ const ResultContainer = ({ navigation }) => {
       navigation={navigation}
       document={document}
       loading={loading}
+      documentError={documentError}
+      error={error}
     />
   );
 };

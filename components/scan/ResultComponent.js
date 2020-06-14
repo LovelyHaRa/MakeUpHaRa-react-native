@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import WebView from 'react-native-webview';
 import dayjs from 'dayjs';
@@ -25,9 +26,34 @@ const getInnerHtml = (body) => {
   `;
 };
 
-const ResultComponent = ({ navigation, document, loading }) => {
-  if (loading) {
-    return null;
+const ResultComponent = ({ navigation, document, loading, error }) => {
+  if (loading || !document) {
+    return (
+      <View style={{ ...styles.container, ...styles.loading }}>
+        <ActivityIndicator size="large" color="#d6336c" />
+      </View>
+    );
+  }
+  if (error) {
+    return (
+      <View style={styles.error}>
+        <StatusBar barStyle="light-content" />
+        <View style={styles.header}>
+          <View style={styles.titleBox}>
+            <Text style={styles.title}>스캔 결과</Text>
+          </View>
+        </View>
+        <Text style={styles.errorMessage}>{document.message}</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            style={styles.errorButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.errorButtonText}>뒤로가기</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   }
   const dispatch = useDispatch();
   const { title, publishedDate, body } = document;
@@ -75,6 +101,10 @@ const ResultComponent = ({ navigation, document, loading }) => {
 };
 
 const styles = StyleSheet.create({
+  loading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
   },
@@ -152,6 +182,29 @@ const styles = StyleSheet.create({
     borderColor: '#ffc9c9',
   },
   buttonText: {},
+  error: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  errorMessage: {
+    fontSize: 20,
+    margin: 16,
+  },
+  errorButton: {
+    flex: 1,
+    paddingLeft: 28,
+    paddingRight: 28,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: '#ffdeeb',
+    borderWidth: 2,
+    borderColor: '#ffc9c9',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  errorButtonText: { fontSize: 16 },
 });
 
 export default ResultComponent;
