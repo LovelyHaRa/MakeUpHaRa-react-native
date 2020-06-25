@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import WebView from 'react-native-webview';
-import dayjs from 'dayjs';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { getHistory } from '../../module/redux/scan';
 
@@ -68,7 +68,7 @@ const ResultComponent = ({ navigation, document, loading, error }) => {
         </View>
         <View style={styles.dateBox}>
           <Text style={styles.date}>
-            마지막 업데이트: {dayjs(publishedDate).format('YYYY-MM-DD')}
+            마지막 업데이트: {moment(publishedDate).format('YYYY-MM-DD')}
           </Text>
         </View>
       </View>

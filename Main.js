@@ -6,14 +6,19 @@ import SearchScreen from './screen/search/SearchScreen';
 import BlogScreen from './screen/post/BlogScreen';
 import ProfileScreen from './screen/profile/ProfileScreen';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { useColorScheme } from 'react-native-appearance';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const Main = () => {
+  const colorScheme = useColorScheme();
+  console.log(colorScheme);
   return (
     <NavigationContainer>
       <Tab.Navigator
-        barStyle={{ backgroundColor: '#f8f9fa' }}
+        barStyle={{
+          backgroundColor: colorScheme === 'dark' ? '#212529' : '#f8f9fa',
+        }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             switch (route.name) {
@@ -22,17 +27,23 @@ const Main = () => {
                   <MaterialCommunityIcons
                     name="barcode-scan"
                     size={24}
-                    color="black"
+                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
                   />
                 );
               case 'SEARCH':
-                return <MaterialIcons name="search" size={24} color="black" />;
+                return (
+                  <MaterialIcons
+                    name="search"
+                    size={24}
+                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
+                  />
+                );
               case 'BLOG':
                 return (
                   <MaterialCommunityIcons
                     name="pencil"
                     size={24}
-                    color="black"
+                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
                   />
                 );
               case 'PROFILE':
@@ -40,7 +51,7 @@ const Main = () => {
                   <MaterialIcons
                     name={focused ? 'favorite' : 'favorite-border'}
                     size={24}
-                    color="black"
+                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
                   />
                 );
             }

@@ -13,7 +13,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useDispatch } from 'react-redux';
 import { getDocumentByBarcode } from '../../module/redux/scan';
 
-export default function ScanComponent({ navigation, onCamera }) {
+export default function ScanComponent({ navigation, onCamera, colorScheme }) {
   if (!onCamera) {
     return null;
   }
@@ -51,19 +51,34 @@ export default function ScanComponent({ navigation, onCamera }) {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}
         >
           <View style={styles.container}>
-            <View style={styles.modal}>
-              <Text style={styles.title}>
+            <View
+              style={
+                colorScheme === 'dark'
+                  ? { ...styles.commonModal, ...styles.darkModal }
+                  : { ...styles.commonModal, ...styles.lightModal }
+              }
+            >
+              <Text
+                style={
+                  colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle
+                }
+              >
                 바코드 타입:{' '}
                 {type === BarCodeScanner.Constants.BarCodeType.ean13
                   ? 'EAN-13'
                   : 'QR'}
               </Text>
-              <Text style={styles.title}>코드내용: {data}</Text>
+              <Text
+                style={
+                  colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle
+                }
+              >
+                코드내용: {data}
+              </Text>
               <View style={styles.buttonGroup}>
                 <TouchableHighlight
                   style={styles.button}
@@ -109,7 +124,11 @@ export default function ScanComponent({ navigation, onCamera }) {
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         barCodeTypes={codeTypes}
-        style={StyleSheet.absoluteFillObject}
+        style={
+          colorScheme === 'dark'
+            ? { ...StyleSheet.absoluteFillObject, ...styles.darkBody }
+            : { ...StyleSheet.absoluteFillObject, ...styles.lightBody }
+        }
       />
 
       {scanned && (
@@ -132,18 +151,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modal: {
+  commonModal: {
     justifyContent: 'center',
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.9,
     height: Dimensions.get('window').height * 0.2,
     marginTop: Dimensions.get('window').height * 0.4,
     borderRadius: 8,
-    backgroundColor: '#f8f9fa',
   },
-  title: {
+  lightModal: { backgroundColor: '#f1f3f5' },
+  darkModal: { backgroundColor: '#343a40' },
+  lightTitle: {
     margin: 10,
     textAlign: 'center',
+    color: '#212529',
+  },
+  darkTitle: {
+    margin: 10,
+    textAlign: 'center',
+    color: '#f8f9fa',
   },
   buttonGroup: {
     display: 'flex',
@@ -157,5 +183,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 10,
+  },
+  lightBody: {
+    backgroundColor: '#f8f9fa',
+  },
+  darkBody: {
+    backgroundColor: '#212529',
   },
 });

@@ -8,7 +8,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import dayjs from 'dayjs';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { getRevisionDocument } from '../../module/redux/scan';
 
@@ -34,7 +34,7 @@ const HistoryListComponent = ({ navigation, historyList, loading }) => {
           }}
         >
           <Text>리비전: {revision}</Text>
-          <Text>작성 일자: {dayjs(publishedDate).format('YYYY-MM-DD')}</Text>
+          <Text>작성 일자: {moment(publishedDate).format('YYYY-MM-DD')}</Text>
         </TouchableOpacity>
       </View>
     );
