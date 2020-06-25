@@ -7,17 +7,18 @@ import BlogScreen from './screen/post/BlogScreen';
 import ProfileScreen from './screen/profile/ProfileScreen';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useColorScheme } from 'react-native-appearance';
+import palette from './lib/styles/open-color';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const Main = () => {
   const colorScheme = useColorScheme();
-  console.log(colorScheme);
   return (
     <NavigationContainer>
       <Tab.Navigator
         barStyle={{
-          backgroundColor: colorScheme === 'dark' ? '#212529' : '#f8f9fa',
+          backgroundColor:
+            colorScheme === 'dark' ? palette.gray[9] : palette.gray[0],
         }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -27,7 +28,7 @@ const Main = () => {
                   <MaterialCommunityIcons
                     name="barcode-scan"
                     size={24}
-                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
+                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
                   />
                 );
               case 'SEARCH':
@@ -35,7 +36,7 @@ const Main = () => {
                   <MaterialIcons
                     name="search"
                     size={24}
-                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
+                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
                   />
                 );
               case 'BLOG':
@@ -43,7 +44,7 @@ const Main = () => {
                   <MaterialCommunityIcons
                     name="pencil"
                     size={24}
-                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
+                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
                   />
                 );
               case 'PROFILE':
@@ -51,7 +52,7 @@ const Main = () => {
                   <MaterialIcons
                     name={focused ? 'favorite' : 'favorite-border'}
                     size={24}
-                    color={colorScheme === 'dark' ? '#f8f9fa' : '#212529'}
+                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
                   />
                 );
             }

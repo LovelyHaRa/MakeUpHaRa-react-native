@@ -5,13 +5,13 @@ import {
   StyleSheet,
   Button,
   Modal,
-  Alert,
   TouchableHighlight,
   Dimensions,
 } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useDispatch } from 'react-redux';
 import { getDocumentByBarcode } from '../../module/redux/scan';
+import palette from '../../lib/styles/open-color';
 
 export default function ScanComponent({ navigation, onCamera, colorScheme }) {
   if (!onCamera) {
@@ -58,30 +58,44 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
             <View
               style={
                 colorScheme === 'dark'
-                  ? { ...styles.commonModal, ...styles.darkModal }
-                  : { ...styles.commonModal, ...styles.lightModal }
+                  ? { ...styles.modal, ...styles.darkModal }
+                  : { ...styles.modal, ...styles.lightModal }
               }
             >
-              <Text
-                style={
-                  colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle
-                }
-              >
-                바코드 타입:{' '}
-                {type === BarCodeScanner.Constants.BarCodeType.ean13
-                  ? 'EAN-13'
-                  : 'QR'}
-              </Text>
-              <Text
-                style={
-                  colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle
-                }
-              >
-                코드내용: {data}
-              </Text>
+              <View>
+                <Text
+                  style={
+                    colorScheme === 'dark'
+                      ? styles.darkTitle
+                      : styles.lightTitle
+                  }
+                >
+                  바코드 타입:{' '}
+                  {type === BarCodeScanner.Constants.BarCodeType.ean13
+                    ? 'EAN-13'
+                    : 'QR'}
+                </Text>
+                <Text
+                  style={
+                    colorScheme === 'dark'
+                      ? styles.darkTitle
+                      : styles.lightTitle
+                  }
+                >
+                  코드내용:{' '}
+                  {data.length > 20 ? `${data.slice(0, 17)}...` : data}
+                </Text>
+              </View>
               <View style={styles.buttonGroup}>
                 <TouchableHighlight
-                  style={styles.button}
+                  style={
+                    colorScheme === 'dark'
+                      ? { ...styles.button, ...styles.darkButton }
+                      : { ...styles.button, ...styles.lightButton }
+                  }
+                  underlayColor={
+                    colorScheme === 'dark' ? palette.violet[1] : palette.pink[1]
+                  }
                   onPress={() => {
                     setModalVisible(!modalVisible);
                     dispatch(getDocumentByBarcode({ code: data }));
@@ -91,12 +105,19 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
                   <Text>문서 보기</Text>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  style={styles.button}
+                  style={
+                    colorScheme === 'dark'
+                      ? { ...styles.button, ...styles.darkButton }
+                      : { ...styles.button, ...styles.lightButton }
+                  }
+                  underlayColor={
+                    colorScheme === 'dark' ? palette.violet[1] : palette.pink[1]
+                  }
                   onPress={() => {
                     setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text>Hide Modal</Text>
+                  <Text>닫기</Text>
                 </TouchableHighlight>
               </View>
             </View>
@@ -134,9 +155,9 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
       {scanned && (
         <>
           <Button
-            title={'Tap to Scan Again'}
+            title={'다시 스캔하기'}
             onPress={() => setScanned(false)}
-            color="#364fc7"
+            color={colorScheme === 'dark' ? palette.violet[3] : palette.pink[3]}
           />
           <ScanResult />
         </>
@@ -151,43 +172,56 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  commonModal: {
-    justifyContent: 'center',
+  modal: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.9,
-    height: Dimensions.get('window').height * 0.2,
-    marginTop: Dimensions.get('window').height * 0.4,
+    height: Dimensions.get('window').height * 0.15,
+    marginTop: Dimensions.get('window').height * 0.65,
     borderRadius: 8,
+    elevation: 10,
   },
-  lightModal: { backgroundColor: '#f1f3f5' },
-  darkModal: { backgroundColor: '#343a40' },
+  lightModal: { backgroundColor: palette.pink[0] },
+  darkModal: { backgroundColor: palette.gray[8] },
   lightTitle: {
-    margin: 10,
-    textAlign: 'center',
-    color: '#212529',
+    marginLeft: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    color: palette.gray[9],
   },
   darkTitle: {
-    margin: 10,
-    textAlign: 'center',
-    color: '#f8f9fa',
+    marginLeft: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    color: palette.gray[0],
   },
   buttonGroup: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    marginRight: 5,
   },
   button: {
     marginTop: 10,
     marginLeft: 5,
     marginRight: 5,
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    borderRadius: 5,
     padding: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  lightButton: {
+    backgroundColor: palette.pink[2],
+  },
+  darkButton: {
+    backgroundColor: palette.violet[2],
   },
   lightBody: {
-    backgroundColor: '#f8f9fa',
+    backgroundColor: palette.gray[0],
   },
   darkBody: {
-    backgroundColor: '#212529',
+    backgroundColor: palette.gray[9],
   },
 });
