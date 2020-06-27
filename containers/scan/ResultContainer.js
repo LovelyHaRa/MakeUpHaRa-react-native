@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ResultComponent from '../../components/scan/ResultComponent';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useColorScheme } from 'react-native-appearance';
 
 const ResultContainer = ({ navigation }) => {
+  const colorScheme = useColorScheme();
   const { document, documentError, loading } = useSelector(
     ({ scan, loading }) => ({
       document: scan.document,
@@ -23,6 +25,7 @@ const ResultContainer = ({ navigation }) => {
   return (
     <ResultComponent
       navigation={navigation}
+      colorScheme={colorScheme}
       document={document}
       loading={loading}
       documentError={documentError}

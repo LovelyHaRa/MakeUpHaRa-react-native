@@ -11,14 +11,25 @@ import WebView from 'react-native-webview';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { getHistory } from '../../module/redux/scan';
+import palette from '../../lib/styles/open-color';
 
-const getInnerHtml = (body) => {
+const getInnerHtml = ({ body, colorScheme }) => {
+  const style = {
+    backgroundColor: colorScheme === 'dark' ? palette.gray[9] : palette.gray[0],
+    color: colorScheme === 'dark' ? palette.gray[0] : palette.gray[9],
+  };
   return `
   <!DOCTYPE html>
   <html>
-    <head>
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+    <style>
+      body {
+        background-color: ${style.backgroundColor};
+        color: ${style.color};
+      }
+    </style>
+  </head>
   <body>
     ${body}
   </body>
@@ -26,7 +37,13 @@ const getInnerHtml = (body) => {
   `;
 };
 
-const ResultComponent = ({ navigation, document, loading, error }) => {
+const ResultComponent = ({
+  navigation,
+  colorScheme,
+  document,
+  loading,
+  error,
+}) => {
   if (loading || !document) {
     return (
       <View style={{ ...styles.container, ...styles.loading }}>
@@ -36,17 +53,51 @@ const ResultComponent = ({ navigation, document, loading, error }) => {
   }
   if (error) {
     return (
-      <View style={styles.error}>
-        <StatusBar barStyle="light-content" />
-        <View style={styles.header}>
+      <View
+        style={[
+          { ...styles.error },
+          colorScheme === 'dark'
+            ? { ...styles.darkError }
+            : { ...styles.lightError },
+        ]}
+      >
+        <StatusBar barStyle="default" />
+        <View
+          style={
+            colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader
+          }
+        >
           <View style={styles.titleBox}>
-            <Text style={styles.title}>스캔 결과</Text>
+            <Text
+              style={[
+                { ...styles.title },
+                colorScheme === 'dark'
+                  ? { ...styles.darkTitle }
+                  : { ...styles.lightTitle },
+              ]}
+            >
+              스캔 결과
+            </Text>
           </View>
         </View>
-        <Text style={styles.errorMessage}>{document.message}</Text>
+        <Text
+          style={[
+            { ...styles.errorMessage },
+            colorScheme === 'dark'
+              ? { ...styles.darkError }
+              : { ...styles.lightError },
+          ]}
+        >
+          {document.message}
+        </Text>
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
-            style={styles.errorButton}
+            style={[
+              { ...styles.button },
+              colorScheme === 'dark'
+                ? { ...styles.darkButton }
+                : { ...styles.lightButton },
+            ]}
             onPress={() => navigation.goBack()}
           >
             <Text style={styles.errorButtonText}>뒤로가기</Text>
@@ -61,39 +112,79 @@ const ResultComponent = ({ navigation, document, loading, error }) => {
     title.name.length <= 30 ? title.name : title.name.slice(0, 25) + '...';
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.header}>
+      <StatusBar barStyle="default" />
+      <View
+        style={colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader}
+      >
         <View style={styles.titleBox}>
-          <Text style={styles.title}>{titleName}</Text>
+          <Text
+            style={[
+              { ...styles.title },
+              colorScheme === 'dark'
+                ? { ...styles.darkTitle }
+                : { ...styles.lightTitle },
+            ]}
+          >
+            {titleName}
+          </Text>
         </View>
         <View style={styles.dateBox}>
-          <Text style={styles.date}>
+          <Text
+            style={[
+              { ...styles.date },
+              colorScheme === 'dark'
+                ? { ...styles.darkDate }
+                : { ...styles.lightDate },
+            ]}
+          >
             마지막 업데이트: {moment(publishedDate).format('YYYY-MM-DD')}
           </Text>
         </View>
       </View>
-      <View style={styles.webContainer}>
+      <View
+        style={[
+          { ...styles.webContainer },
+          colorScheme === 'dark'
+            ? { ...styles.darkWeb }
+            : { ...styles.lightWeb },
+        ]}
+      >
         <WebView
           originWhitelist={['*']}
-          source={{ html: getInnerHtml(body) }}
-          style={styles.web}
+          source={{ html: getInnerHtml({ body, colorScheme }) }}
+          style={[
+            { ...styles.web },
+            colorScheme === 'dark'
+              ? { ...styles.darkWeb }
+              : { ...styles.lightWeb },
+          ]}
         />
       </View>
       <View style={styles.buttonSection}>
         <TouchableOpacity
-          style={{ ...styles.button, ...styles.buttonFirst }}
+          style={[
+            { ...styles.button, ...styles.buttonFirst },
+            colorScheme === 'dark'
+              ? { ...styles.darkButton }
+              : { ...styles.lightButton },
+          ]}
           onPress={() => {
             dispatch(getHistory({ title: title.name }));
             navigation.push('HistoryListComponent');
           }}
         >
-          <Text style={styles.buttonText}>히스토리</Text>
+          <Text>히스토리</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={[
+            { ...styles.button },
+            colorScheme === 'dark'
+              ? { ...styles.darkButton }
+              : { ...styles.lightButton },
+          ]}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.buttonText}>뒤로가기</Text>
+          <Text>뒤로가기</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -108,8 +199,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    backgroundColor: '#fff',
+  lightHeader: {
+    backgroundColor: palette.gray[0],
+  },
+  darkHeader: {
+    backgroundColor: palette.gray[9],
   },
   titleBox: {
     marginTop: 20,
@@ -126,9 +220,16 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
     borderRadius: 5,
-    backgroundColor: '#ffdeeb',
     textAlign: 'center',
     flexWrap: 'wrap',
+  },
+  lightTitle: {
+    backgroundColor: palette.pink[1],
+    color: palette.gray[9],
+  },
+  darkTitle: {
+    backgroundColor: palette.violet[9],
+    color: palette.gray[0],
   },
   dateBox: {
     marginBottom: 20,
@@ -145,24 +246,36 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     marginRight: 8,
     borderRadius: 5,
-    backgroundColor: '#fff0f6',
+  },
+  lightDate: {
+    backgroundColor: palette.pink[0],
+    color: palette.gray[9],
+  },
+  darkDate: {
+    backgroundColor: palette.violet[7],
+    color: palette.gray[0],
   },
   webContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
     borderTopWidth: 2,
-    borderTopColor: '#ffdeeb',
-    borderRadius: 5,
   },
   web: {
     flex: 1,
-    backgroundColor: '#fff',
     marginLeft: 8,
     marginRight: 8,
-    borderColor: '#ffdeeb',
+  },
+  lightWeb: {
+    backgroundColor: palette.gray[0],
+    borderColor: palette.red[2],
+    color: palette.gray[9],
+  },
+  darkWeb: {
+    backgroundColor: palette.gray[9],
+    borderColor: palette.violet[5],
+    color: palette.gray[0],
   },
   buttonSection: {
     flexDirection: 'row',
@@ -171,26 +284,37 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 12,
-    backgroundColor: '#ffdeeb',
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    borderTopColor: '#ffc9c9',
-    borderBottomColor: '#ffc9c9',
   },
   buttonFirst: {
     borderRightWidth: 1,
-    borderColor: '#ffc9c9',
   },
-  buttonText: {},
+  lightButton: {
+    backgroundColor: palette.pink[1],
+    borderColor: palette.red[2],
+  },
+  darkButton: {
+    backgroundColor: palette.violet[3],
+    borderColor: palette.violet[5],
+  },
   error: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
+  },
+  lightError: {
+    backgroundColor: palette.gray[0],
+    color: palette.gray[9],
+  },
+  darkError: {
+    backgroundColor: palette.gray[9],
+    color: palette.gray[0],
   },
   errorMessage: {
     fontSize: 20,
     margin: 16,
+    marginTop: 0,
   },
   errorButton: {
     flex: 1,

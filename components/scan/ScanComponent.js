@@ -56,11 +56,12 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
         >
           <View style={styles.container}>
             <View
-              style={
+              style={[
+                { ...styles.modal },
                 colorScheme === 'dark'
-                  ? { ...styles.modal, ...styles.darkModal }
-                  : { ...styles.modal, ...styles.lightModal }
-              }
+                  ? { ...styles.darkModal }
+                  : { ...styles.lightModal },
+              ]}
             >
               <View>
                 <Text
@@ -88,11 +89,12 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
               </View>
               <View style={styles.buttonGroup}>
                 <TouchableHighlight
-                  style={
+                  style={[
+                    { ...styles.button },
                     colorScheme === 'dark'
-                      ? { ...styles.button, ...styles.darkButton }
-                      : { ...styles.button, ...styles.lightButton }
-                  }
+                      ? { ...styles.darkButton }
+                      : { ...styles.lightButton },
+                  ]}
                   underlayColor={
                     colorScheme === 'dark' ? palette.violet[1] : palette.pink[1]
                   }
@@ -105,11 +107,12 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
                   <Text>문서 보기</Text>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  style={
+                  style={[
+                    { ...styles.button },
                     colorScheme === 'dark'
-                      ? { ...styles.button, ...styles.darkButton }
-                      : { ...styles.button, ...styles.lightButton }
-                  }
+                      ? { ...styles.darkButton }
+                      : { ...styles.lightButton },
+                  ]}
                   underlayColor={
                     colorScheme === 'dark' ? palette.violet[1] : palette.pink[1]
                   }
@@ -145,11 +148,12 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         barCodeTypes={codeTypes}
-        style={
+        style={[
+          { ...StyleSheet.absoluteFillObject },
           colorScheme === 'dark'
-            ? { ...StyleSheet.absoluteFillObject, ...styles.darkBody }
-            : { ...StyleSheet.absoluteFillObject, ...styles.lightBody }
-        }
+            ? { ...styles.darkBody }
+            : { ...styles.lightBody },
+        ]}
       />
 
       {scanned && (
