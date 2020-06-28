@@ -12,6 +12,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { getHistory } from '../../module/redux/scan';
 import palette from '../../lib/styles/open-color';
+import CustomStatusBar from '../common/CustomStatusBar';
 
 const getInnerHtml = ({ body, colorScheme }) => {
   const style = {
@@ -46,7 +47,15 @@ const ResultComponent = ({
 }) => {
   if (loading || !document) {
     return (
-      <View style={{ ...styles.container, ...styles.loading }}>
+      <View
+        style={[
+          { ...styles.container, ...styles.loading },
+          colorScheme === 'dark'
+            ? { ...styles.darkLoading }
+            : { ...styles.lightLoading },
+        ]}
+      >
+        <CustomStatusBar colorScheme={colorScheme} />
         <ActivityIndicator size="large" color="#d6336c" />
       </View>
     );
@@ -61,7 +70,7 @@ const ResultComponent = ({
             : { ...styles.lightError },
         ]}
       >
-        <StatusBar barStyle="default" />
+        <CustomStatusBar colorScheme={colorScheme} />
         <View
           style={
             colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader
@@ -112,7 +121,7 @@ const ResultComponent = ({
     title.name.length <= 30 ? title.name : title.name.slice(0, 25) + '...';
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <CustomStatusBar colorScheme={colorScheme} />
       <View
         style={colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader}
       >
@@ -195,6 +204,12 @@ const styles = StyleSheet.create({
   loading: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  lightLoading: {
+    backgroundColor: palette.gray[0],
+  },
+  darkLoading: {
+    backgroundColor: palette.gray[9],
   },
   container: {
     flex: 1,
