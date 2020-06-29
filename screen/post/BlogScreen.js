@@ -1,8 +1,8 @@
 import React from 'react';
-import PostViewer from '../../components/post/PostViewer';
+import PostViewContainer from '../../containers/post/PostViewContainer';
 
 const BlogScreen = () => {
-  return <PostViewer />;
+  return <PostViewContainer />;
 };
 
 export default BlogScreen;

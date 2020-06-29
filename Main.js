@@ -28,7 +28,9 @@ const Main = () => {
                   <MaterialCommunityIcons
                     name="barcode-scan"
                     size={24}
-                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
+                    color={
+                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                    }
                   />
                 );
               case 'SEARCH':
@@ -36,7 +38,9 @@ const Main = () => {
                   <MaterialIcons
                     name="search"
                     size={24}
-                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
+                    color={
+                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                    }
                   />
                 );
               case 'BLOG':
@@ -44,7 +48,9 @@ const Main = () => {
                   <MaterialCommunityIcons
                     name="pencil"
                     size={24}
-                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
+                    color={
+                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                    }
                   />
                 );
               case 'PROFILE':
@@ -52,15 +58,17 @@ const Main = () => {
                   <MaterialIcons
                     name={focused ? 'favorite' : 'favorite-border'}
                     size={24}
-                    color={colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]}
+                    color={
+                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                    }
                   />
                 );
             }
           },
         })}
       >
-        <Tab.Screen name="SCAN" component={ScanScreen} />
         <Tab.Screen name="SEARCH" component={SearchScreen} />
+        <Tab.Screen name="SCAN" component={ScanScreen} />
         <Tab.Screen name="BLOG" component={BlogScreen} />
         <Tab.Screen name="PROFILE" component={ProfileScreen} />
       </Tab.Navigator>

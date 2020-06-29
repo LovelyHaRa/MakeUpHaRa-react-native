@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ScanComponent from '../../components/scan/ScanComponent';
 import { useColorScheme } from 'react-native-appearance';
+import { Platform } from 'react-native';
 
 const ScanContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
@@ -16,6 +17,9 @@ const ScanContainer = ({ navigation }) => {
       setOnCamera(false);
     };
   }, [navigation]);
+  if (Platform.OS === 'web') {
+    return null;
+  }
   return (
     <ScanComponent
       navigation={navigation}
