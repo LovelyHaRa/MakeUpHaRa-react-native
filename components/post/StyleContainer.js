@@ -23,11 +23,11 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    fontWeight: '700',
     paddingLeft: 12,
     paddingRight: 12,
     paddingTop: 8,
     paddingBottom: 8,
-    borderRadius: 5,
     flexWrap: 'wrap',
   },
   lightTitle: {
@@ -81,4 +81,10 @@ export const styles = StyleSheet.create({
     borderColor: palette.violet[5],
     color: palette.gray[0],
   },
+  listItem: { margin: 12 },
+  itemTitle: { fontSize: 24, fontWeight: '700' },
+  itemPublisher: { fontSize: 18, textAlign: 'right' },
+  itemPublishDate: { fontSize: 18, textAlign: 'right' },
+  itemTag: { fontSize: 18, textAlign: 'right' },
+  itemBody: { fontSize: 16 },
 });
