@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 const ScanScreen = () => {
   return (
-    <Stack.Navigator headerMode="none">
+    <Stack.Navigator headerMode="none" mode="card">
       <Stack.Screen name="ScanComponent" component={ScanContainer} />
       <Stack.Screen name="ResultComponent" component={ResultContainer} />
       <Stack.Screen

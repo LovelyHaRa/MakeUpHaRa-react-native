@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { getRevisionDocument } from '../../module/redux/scan';
 import CustomStatusBar from '../common/CustomStatusBar';
 import palette from '../../lib/styles/open-color';
+import LoadingComponent from '../common/LoadingComponent';
 
 const HistoryListComponent = ({
   navigation,
@@ -20,19 +21,7 @@ const HistoryListComponent = ({
   loading,
 }) => {
   if (loading || !historyList) {
-    return (
-      <View
-        style={[
-          { ...styles.container, ...styles.loading },
-          colorScheme === 'dark'
-            ? { ...styles.darkLoading }
-            : { ...styles.lightLoading },
-        ]}
-      >
-        <CustomStatusBar colorScheme={colorScheme} />
-        <ActivityIndicator size="large" color="#d6336c" />
-      </View>
-    );
+    return <LoadingComponent colorScheme={colorScheme} />;
   }
   const title = historyList[0].title.name;
   const titleName = title.length <= 30 ? title : title.slice(0, 25) + '...';
@@ -148,16 +137,6 @@ const HistoryListComponent = ({
 };
 
 const styles = StyleSheet.create({
-  loading: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  lightLoading: {
-    backgroundColor: palette.gray[0],
-  },
-  darkLoading: {
-    backgroundColor: palette.gray[9],
-  },
   container: {
     flex: 1,
   },
