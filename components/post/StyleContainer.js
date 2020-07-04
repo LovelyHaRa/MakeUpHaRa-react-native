@@ -45,10 +45,13 @@ export const styles = StyleSheet.create({
   },
   lightSubinfo: { color: palette.gray[6] },
   darkSubinfo: { color: palette.gray[5] },
+  tagContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   tag: {
     fontSize: 18,
-    paddingLeft: 18,
-    paddingRight: 18,
+    paddingLeft: 8,
     paddingTop: 8,
     paddingBottom: 8,
     borderRadius: 5,
