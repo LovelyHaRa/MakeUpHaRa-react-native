@@ -12,6 +12,7 @@ const [
   READ_POST_SUCCESS,
   READ_POST_FAILURE,
 ] = createRequestActionTypes('post/READ_POST');
+<<<<<<< HEAD
 const [GET_LIST, GET_LIST_SUCCESS, GET_LIST_FAILURE] = createRequestActionTypes(
   'post/GET_LIST',
 );
@@ -38,14 +39,28 @@ const getListSaga = createRequestSaga(GET_LIST, postAPI.getList);
 export function* postSaga() {
   yield takeLatest(READ_POST, readPostSaga);
   yield takeLatest(GET_LIST, getListSaga);
+=======
+
+/* action */
+export const readPost = createAction(READ_POST, (id) => id);
+
+/* redux-saga */
+const readPostSaga = createRequestSaga(READ_POST, postAPI.readPost);
+
+export function* postSaga() {
+  yield takeLatest(READ_POST, readPostSaga);
+>>>>>>> 7271b9899b89b0151d28cff8855027a3bdeea3ba
 }
 
 /* initialize state */
 const initialState = {
   post: null,
   postError: null,
+<<<<<<< HEAD
   postList: [],
   postListError: null,
+=======
+>>>>>>> 7271b9899b89b0151d28cff8855027a3bdeea3ba
 };
 
 /* reducer */
@@ -61,6 +76,7 @@ const post = handleActions(
       post: null,
       postError,
     }),
+<<<<<<< HEAD
     [GET_LIST_SUCCESS]: (state, { payload: postList }) => ({
       ...state,
       postList,
@@ -71,6 +87,8 @@ const post = handleActions(
       postList: null,
       postListError,
     }),
+=======
+>>>>>>> 7271b9899b89b0151d28cff8855027a3bdeea3ba
   },
   initialState,
 );
