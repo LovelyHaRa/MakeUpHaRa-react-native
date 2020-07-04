@@ -13,6 +13,7 @@ import { getHistory } from '../../module/redux/scan';
 import palette from '../../lib/styles/open-color';
 import CustomStatusBar from '../common/CustomStatusBar';
 import getInnerHtml from '../../lib/getInnerHtml';
+import LoadingComponent from '../common/LoadingComponent';
 
 const ResultComponent = ({
   navigation,
@@ -22,19 +23,7 @@ const ResultComponent = ({
   error,
 }) => {
   if (loading || !document) {
-    return (
-      <View
-        style={[
-          { ...styles.container, ...styles.loading },
-          colorScheme === 'dark'
-            ? { ...styles.darkLoading }
-            : { ...styles.lightLoading },
-        ]}
-      >
-        <CustomStatusBar colorScheme={colorScheme} />
-        <ActivityIndicator size="large" color="#d6336c" />
-      </View>
-    );
+    return <LoadingComponent colorScheme={colorScheme} />;
   }
   if (error) {
     return (
@@ -177,16 +166,6 @@ const ResultComponent = ({
 };
 
 const styles = StyleSheet.create({
-  loading: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  lightLoading: {
-    backgroundColor: palette.gray[0],
-  },
-  darkLoading: {
-    backgroundColor: palette.gray[9],
-  },
   container: {
     flex: 1,
   },

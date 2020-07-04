@@ -5,8 +5,20 @@ import moment from 'moment';
 import WebView from 'react-native-webview';
 import getInnerHtml from '../../lib/getInnerHtml';
 import CustomStatusBar from '../common/CustomStatusBar';
+import LoadingComponent from '../common/LoadingComponent';
 
-const PostView = ({ colorScheme }) => {
+const PostView = ({ post, error, loading, colorScheme }) => {
+  if (loading || !post) {
+    return <LoadingComponent colorScheme={colorScheme} />;
+  }
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text>잘못된 접근입니다.</Text>
+      </View>
+    );
+  }
+  const { title, publisher, publishedDate, tags, body } = post;
   return (
     <View style={styles.container}>
       <CustomStatusBar colorScheme={colorScheme} />
@@ -20,7 +32,7 @@ const PostView = ({ colorScheme }) => {
                 : { ...styles.lightTitle },
             ]}
           >
-            Title
+            {title}
           </Text>
           <Text
             style={[
@@ -30,7 +42,7 @@ const PostView = ({ colorScheme }) => {
                 : { ...styles.lightSubinfo },
             ]}
           >
-            usename
+            {publisher.usename}
           </Text>
           <Text
             style={[
@@ -40,18 +52,23 @@ const PostView = ({ colorScheme }) => {
                 : { ...styles.lightSubinfo },
             ]}
           >
-            {moment().format('YYYY-MM-DD HH:mm:ss')}
+            {moment(publishedDate).format('YYYY-MM-DD HH:mm:ss')}
           </Text>
-          <Text
-            style={[
-              { ...styles.tag },
-              colorScheme === 'dark'
-                ? { ...styles.darkTag }
-                : { ...styles.lightTag },
-            ]}
-          >
-            #tag1 #tag2 #tag3
-          </Text>
+          <View>
+            {tags.map((tag) => (
+              <Text
+                key={tag}
+                style={[
+                  { ...styles.tag },
+                  colorScheme === 'dark'
+                    ? { ...styles.darkTag }
+                    : { ...styles.lightTag },
+                ]}
+              >
+                #{tag}
+              </Text>
+            ))}
+          </View>
         </View>
       </View>
       <View
@@ -65,7 +82,7 @@ const PostView = ({ colorScheme }) => {
         <WebView
           originWhitelist={['*']}
           source={{
-            html: getInnerHtml({ body: '<span>test</span>', colorScheme }),
+            html: getInnerHtml({ body, colorScheme }),
           }}
           style={[
             { ...styles.web },

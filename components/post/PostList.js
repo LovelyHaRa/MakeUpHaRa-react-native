@@ -3,11 +3,20 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { styles } from './StyleContainer';
 import CustomStatusBar from '../common/CustomStatusBar';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { readPost } from '../../module/redux/post';
 
-const PostList = ({ colorScheme }) => {
-  const PostItem = ({ title, publisher, publishDate, tag, body }) => (
+const PostList = ({ navigation, colorScheme }) => {
+  const dispatch = useDispatch();
+  const PostItem = ({ id, title, publisher, publishDate, tag, body }) => (
     <View>
-      <TouchableOpacity style={styles.listItem}>
+      <TouchableOpacity
+        style={styles.listItem}
+        onPress={() => {
+          dispatch(readPost({ id }));
+          navigation.push('PostView');
+        }}
+      >
         <Text
           style={[
             { ...styles.itemTitle },
@@ -53,7 +62,7 @@ const PostList = ({ colorScheme }) => {
   );
   const testitem = [
     {
-      _id: '1',
+      _id: '5ed8fbdcd3fb0639901ba4a8',
       title: '블로그 타이틀1',
       tag: 'testTag',
       publisher: { username: 'username1' },
@@ -156,6 +165,7 @@ const PostList = ({ colorScheme }) => {
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => (
           <PostItem
+            id={item._id}
             title={item.title}
             publisher={item.publisher}
             publishDate={item.publishDate}
