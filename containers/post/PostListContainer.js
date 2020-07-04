@@ -6,7 +6,6 @@ import { getList } from '../../module/redux/post';
 
 const PostListContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
-<<<<<<< HEAD
   const dispatch = useDispatch();
   const { postList, error, loading } = useSelector(({ post, loading }) => ({
     postList: post.postList,
@@ -27,9 +26,6 @@ const PostListContainer = ({ navigation }) => {
       colorScheme={colorScheme}
     />
   );
-=======
-  return <PostList navigation={navigation} colorScheme={colorScheme} />;
->>>>>>> 7271b9899b89b0151d28cff8855027a3bdeea3ba
 };
 
 export default PostListContainer;

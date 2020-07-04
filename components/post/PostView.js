@@ -54,11 +54,7 @@ const PostView = ({ post, error, loading, colorScheme }) => {
           >
             {moment(publishedDate).format('YYYY-MM-DD HH:mm:ss')}
           </Text>
-<<<<<<< HEAD
           <View style={styles.tagContainer}>
-=======
-          <View>
->>>>>>> 7271b9899b89b0151d28cff8855027a3bdeea3ba
             {tags.map((tag) => (
               <Text
                 key={tag}
