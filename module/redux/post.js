@@ -15,6 +15,7 @@ const [
 const [GET_LIST, GET_LIST_SUCCESS, GET_LIST_FAILURE] = createRequestActionTypes(
   'post/GET_LIST',
 );
+const INITIALIZE_LIST = 'post/INITIALIZE_LIST';
 
 /* action */
 export const readPost = createAction(READ_POST, (id) => id);
@@ -30,6 +31,7 @@ export const getList = createAction(
     day,
   }),
 );
+export const initializeList = createAction(INITIALIZE_LIST);
 
 /* redux-saga */
 const readPostSaga = createRequestSaga(READ_POST, postAPI.readPost);
@@ -70,6 +72,11 @@ const post = handleActions(
       ...state,
       postList: null,
       postListError,
+    }),
+    [INITIALIZE_LIST]: (state) => ({
+      ...state,
+      postList: [],
+      postListError: null,
     }),
   },
   initialState,

@@ -7,15 +7,17 @@ const ScanContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const [onCamera, setOnCamera] = useState(false);
   useEffect(() => {
-    navigation.addListener('focus', () => {
+    const e = navigation.addListener('focus', () => {
       setOnCamera(true);
     });
-    navigation.addListener('blur', () => {
+    return e;
+  }, [navigation]);
+
+  useEffect(() => {
+    const e = navigation.addListener('blur', () => {
       setOnCamera(false);
     });
-    return () => {
-      setOnCamera(false);
-    };
+    return e;
   }, [navigation]);
   if (Platform.OS === 'web') {
     return null;

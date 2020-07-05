@@ -1,16 +1,28 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
 import { styles } from './StyleContainer';
 import CustomStatusBar from '../common/CustomStatusBar';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { readPost } from '../../module/redux/post';
+import { readPost, getList } from '../../module/redux/post';
 import LoadingComponent from '../common/LoadingComponent';
+import palette from '../../lib/styles/open-color';
 
-const PostList = ({ postList, error, loading, navigation, colorScheme }) => {
-  if (loading) {
-    return <LoadingComponent colorScheme={colorScheme} />;
-  }
+const PostList = ({
+  postList,
+  error,
+  loading,
+  handleMoreList,
+  handleRefresh,
+  navigation,
+  colorScheme,
+}) => {
   if (error) {
     return (
       <View style={styles.container}>
@@ -112,6 +124,21 @@ const PostList = ({ postList, error, loading, navigation, colorScheme }) => {
             body={item.body}
           />
         )}
+        onEndReached={() => {
+          handleMoreList();
+        }}
+        onEndReachedThreshold={0.1}
+        refreshControl={
+          <RefreshControl
+            refreshing={!!loading}
+            onRefresh={() => {
+              handleRefresh();
+            }}
+            progressBackgroundColor={
+              colorScheme === 'dark' ? palette.violet[3] : palette.pink[1]
+            }
+          />
+        }
       />
     </View>
   );
