@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,9 @@ import { styles } from './StyleContainer';
 import CustomStatusBar from '../common/CustomStatusBar';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { readPost, getList } from '../../module/redux/post';
-import LoadingComponent from '../common/LoadingComponent';
+import { readPost } from '../../module/redux/post';
 import palette from '../../lib/styles/open-color';
+import LoadingComponent from '../common/LoadingComponent';
 
 const PostList = ({
   postList,
@@ -20,6 +20,8 @@ const PostList = ({
   loading,
   handleMoreList,
   handleRefresh,
+  refresh,
+  isLastPage,
   navigation,
   colorScheme,
 }) => {
@@ -32,7 +34,14 @@ const PostList = ({
   }
   const dispatch = useDispatch();
   const PostItem = ({ id, title, publisher, publishedDate, tags, body }) => (
-    <View>
+    <View
+      style={[
+        { ...styles.listItemBorder },
+        colorScheme === 'dark'
+          ? { ...styles.darkListItemBorder }
+          : { ...styles.lightListItemBorder },
+      ]}
+    >
       <TouchableOpacity
         style={styles.listItem}
         onPress={() => {
@@ -96,20 +105,6 @@ const PostList = ({
   return (
     <View style={styles.container}>
       <CustomStatusBar colorScheme={colorScheme} />
-      <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
-        <View style={styles.header}>
-          <Text
-            style={[
-              { ...styles.title },
-              colorScheme === 'dark'
-                ? { ...styles.darkTitle }
-                : { ...styles.lightTitle },
-            ]}
-          >
-            BLOG
-          </Text>
-        </View>
-      </View>
       <FlatList
         data={postList}
         style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
@@ -130,7 +125,7 @@ const PostList = ({
         onEndReachedThreshold={0.1}
         refreshControl={
           <RefreshControl
-            refreshing={!!loading}
+            refreshing={!!refresh}
             onRefresh={() => {
               handleRefresh();
             }}
@@ -138,6 +133,11 @@ const PostList = ({
               colorScheme === 'dark' ? palette.violet[3] : palette.pink[1]
             }
           />
+        }
+        ListFooterComponent={
+          postList.length > 0 && !isLastPage ? (
+            <LoadingComponent colorScheme={colorScheme} hasMarginTop />
+          ) : null
         }
       />
     </View>

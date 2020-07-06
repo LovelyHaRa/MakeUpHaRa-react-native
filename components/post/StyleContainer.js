@@ -84,10 +84,19 @@ export const styles = StyleSheet.create({
     borderColor: palette.violet[5],
     color: palette.gray[0],
   },
-  listItem: { margin: 12 },
+  listItem: { margin: 18 },
   itemTitle: { fontSize: 24, fontWeight: '700' },
   itemPublisher: { fontSize: 18, textAlign: 'right' },
   itemPublishDate: { fontSize: 18, textAlign: 'right' },
   itemTag: { fontSize: 18, textAlign: 'right' },
   itemBody: { fontSize: 16 },
+  listItemBorder: {
+    borderBottomWidth: 1,
+  },
+  lightListItemBorder: {
+    borderColor: palette.gray[3],
+  },
+  darkListItemBorder: {
+    borderColor: palette.gray[7],
+  },
 });

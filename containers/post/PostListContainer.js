@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useColorScheme } from 'react-native-appearance';
 import PostList from '../../components/post/PostList';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,13 +14,29 @@ const PostListContainer = ({ navigation }) => {
   }));
   const [listItem, setListitem] = useState([]);
   const [page, setPage] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const firstLoading = useRef(true);
 
   useEffect(() => {
+    if (refresh) {
+      setRefresh(false);
+      setListitem([]);
+    }
+    if (postList.length === 0) {
+      setIsLastPage(true);
+    } else {
+      setIsLastPage(false);
+    }
     setListitem((listItem) => listItem.concat(postList));
   }, [postList]);
 
   useEffect(() => {
     const e = navigation.addListener('focus', () => {
+      if (firstLoading.current) {
+        setListitem([]);
+        !firstLoading.current;
+      }
       dispatch(getList({ page }));
       setPage((page) => page + 1);
     });
@@ -42,7 +58,7 @@ const PostListContainer = ({ navigation }) => {
 
   const handleRefresh = useCallback(() => {
     setPage(1);
-    setListitem([]);
+    setRefresh(true);
     dispatch(getList({ page: 1 }));
     setPage((page) => page + 1);
   }, [dispatch, page]);
@@ -54,6 +70,8 @@ const PostListContainer = ({ navigation }) => {
       loading={loading}
       handleMoreList={handleMoreList}
       handleRefresh={handleRefresh}
+      refresh={refresh}
+      isLastPage={isLastPage}
       navigation={navigation}
       colorScheme={colorScheme}
     />

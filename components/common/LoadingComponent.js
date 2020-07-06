@@ -3,7 +3,7 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import CustomStatusBar from './CustomStatusBar';
 import palette from '../../lib/styles/open-color';
 
-const LoadingComponent = ({colorScheme}) => {
+const LoadingComponent = ({ colorScheme, hasMarginTop }) => {
   return (
     <View
       style={[
@@ -11,6 +11,7 @@ const LoadingComponent = ({colorScheme}) => {
         colorScheme === 'dark'
           ? { ...styles.darkLoading }
           : { ...styles.lightLoading },
+        hasMarginTop && { ...styles.hasMarginTop },
       ]}
     >
       <CustomStatusBar colorScheme={colorScheme} />
@@ -32,6 +33,9 @@ const styles = StyleSheet.create({
   },
   darkLoading: {
     backgroundColor: palette.gray[9],
+  },
+  hasMarginTop: {
+    marginTop: 16,
   },
 });
 
