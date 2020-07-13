@@ -80,7 +80,7 @@ const PostList = ({
             <TouchableOpacity key={tag}>
               <Text
                 style={[
-                  { ...styles.tag },
+                  { ...styles.itemTag },
                   colorScheme === 'dark'
                     ? { ...styles.darkTag }
                     : { ...styles.lightTag },
@@ -105,6 +105,27 @@ const PostList = ({
   return (
     <View style={styles.container}>
       <CustomStatusBar colorScheme={colorScheme} />
+      <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
+        <View
+          style={[
+            { ...styles.header },
+            colorScheme === 'dark'
+              ? { ...styles.darkListItemBorder }
+              : { ...styles.lightListItemBorder },
+          ]}
+        >
+          <Text
+            style={[
+              { ...styles.headerTitle },
+              colorScheme === 'dark'
+                ? { ...styles.darkText }
+                : { ...styles.lightText },
+            ]}
+          >
+            포스트 목록
+          </Text>
+        </View>
+      </View>
       <FlatList
         data={postList}
         style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}

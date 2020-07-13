@@ -20,6 +20,7 @@ const Main = () => {
           backgroundColor:
             colorScheme === 'dark' ? palette.gray[9] : palette.gray[0],
         }}
+        backBehavior="none"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             switch (route.name) {

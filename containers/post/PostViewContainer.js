@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native-appearance';
 import PostView from '../../components/post/PostView';
 import { useSelector } from 'react-redux';
 
-const PostViewContainer = () => {
+const PostViewContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const { post, error, loading } = useSelector(({ post, loading }) => ({
     post: post.post,
@@ -16,6 +16,7 @@ const PostViewContainer = () => {
       error={error}
       loading={loading}
       colorScheme={colorScheme}
+      navigation={navigation}
     />
   );
 };

@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   darkText: {
     color: palette.gray[0],
   },
-  header: {
+  topContainer: {
     marginTop: 16,
     marginBottom: 16,
   },
@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
     borderRadius: 5,
+    marginRight: 12,
     textAlign: 'right',
   },
   lightTag: {
@@ -83,6 +84,27 @@ export const styles = StyleSheet.create({
     backgroundColor: palette.gray[9],
     borderColor: palette.violet[5],
     color: palette.gray[0],
+  },
+  header: {
+    marginTop: 4,
+    marginBottom: 4,
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerBackButton: {
+    paddingLeft: 12,
+    paddingRight: 4,
+    paddingTop: 16,
+    paddingBottom: 16,
+  },
+  headerTitle: {
+    marginLeft: 12,
+    marginRight: 12,
+    marginTop: 16,
+    marginBottom: 16,
+    fontSize: 20,
+    fontWeight: '700',
   },
   listItem: { margin: 18 },
   itemTitle: { fontSize: 24, fontWeight: '700' },

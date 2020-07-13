@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { styles } from './StyleContainer';
 import moment from 'moment';
 import WebView from 'react-native-webview';
 import getInnerHtml from '../../lib/getInnerHtml';
 import CustomStatusBar from '../common/CustomStatusBar';
 import LoadingComponent from '../common/LoadingComponent';
+import { MaterialIcons } from '@expo/vector-icons';
 
-const PostView = ({ post, error, loading, colorScheme }) => {
+const PostView = ({ post, error, loading, colorScheme, navigation }) => {
   if (loading || !post) {
     return <LoadingComponent colorScheme={colorScheme} />;
   }
@@ -21,9 +22,44 @@ const PostView = ({ post, error, loading, colorScheme }) => {
   const { title, publisher, publishedDate, tags, body } = post;
   return (
     <View style={styles.container}>
+      <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
+        <View
+          style={[
+            { ...styles.header },
+            colorScheme === 'dark'
+              ? { ...styles.darkListItemBorder }
+              : { ...styles.lightListItemBorder },
+          ]}
+        >
+          <TouchableOpacity
+            style={styles.headerBackButton}
+            onPress={() => navigation.goBack()}
+          >
+            <MaterialIcons
+              name="keyboard-arrow-left"
+              size={24}
+              color={
+                colorScheme === 'dark'
+                  ? styles.darkText.color
+                  : styles.lightText.color
+              }
+            />
+          </TouchableOpacity>
+          <Text
+            style={[
+              { ...styles.headerTitle },
+              colorScheme === 'dark'
+                ? { ...styles.darkText }
+                : { ...styles.lightText },
+            ]}
+          >
+            포스트
+          </Text>
+        </View>
+      </View>
       <CustomStatusBar colorScheme={colorScheme} />
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
-        <View style={styles.header}>
+        <View style={styles.topContainer}>
           <Text
             style={[
               { ...styles.title },
