@@ -22,6 +22,7 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
   const { title, publisher, publishedDate, tags, body } = post;
   return (
     <View style={styles.container}>
+      <CustomStatusBar colorScheme={colorScheme} />
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <View
           style={[
@@ -57,7 +58,6 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
           </Text>
         </View>
       </View>
-      <CustomStatusBar colorScheme={colorScheme} />
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <View style={styles.topContainer}>
           <Text
