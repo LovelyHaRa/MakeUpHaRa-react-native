@@ -40,4 +40,12 @@ export const styles = StyleSheet.create({
   darkThemeColor: {
     color: palette.violet[7],
   },
+  tagContainer: {
+    flexDirection: 'row',
+  },
+  tag: {
+    marginRight: 8,
+  },
+  lightSubinfo: { color: palette.gray[6] },
+  darkSubinfo: { color: palette.gray[5] },
 });
