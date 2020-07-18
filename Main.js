@@ -70,7 +70,7 @@ const Main = () => {
       >
         <Tab.Screen name="SEARCH" component={SearchScreen} />
         <Tab.Screen name="SCAN" component={ScanScreen} />
-        <Tab.Screen name="BLOG" component={BlogScreen} />
+        {/* <Tab.Screen name="BLOG" component={BlogScreen} /> */}
         <Tab.Screen name="PROFILE" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
