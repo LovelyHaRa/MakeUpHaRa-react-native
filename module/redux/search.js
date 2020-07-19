@@ -6,6 +6,7 @@ const CHANGE_INPUT = 'search/CHANGE_INPUT';
 const CHANGE_OPTION = 'search/CHANGE_OPTION';
 const INITIALIZE = 'search/INITIALIZE';
 const INITIALIZE_OPTION = 'search/INITIALIZE_OPTION';
+const INITIALIZE_RESULT_LIST = 'serach/INITIALIZE_RESULT_LIST';
 
 /* action */
 export const changeInput = createAction(CHANGE_INPUT, (value) => value);
@@ -15,6 +16,10 @@ export const changeOption = createAction(CHANGE_OPTION, ({ key, value }) => ({
 }));
 export const initialize = createAction(INITIALIZE);
 export const initializeOption = createAction(INITIALIZE_OPTION);
+export const initializeResultList = createAction(
+  INITIALIZE_RESULT_LIST,
+  (requestList) => requestList,
+);
 
 /* initialize state */
 const initialState = {
@@ -27,6 +32,7 @@ const initialState = {
     blogSort: '',
     blogTerm: '',
   },
+  requestList: false,
 };
 
 /* reducer */
@@ -41,6 +47,10 @@ const search = handleActions(
     [INITIALIZE_OPTION]: (state) => ({
       ...state,
       option: initialState.option,
+    }),
+    [INITIALIZE_RESULT_LIST]: (state, { payload: requestList }) => ({
+      ...state,
+      requestList,
     }),
   },
   initialState,

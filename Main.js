@@ -5,7 +5,11 @@ import ScanScreen from './screen/scan/ScanScreen';
 import SearchScreen from './screen/search/SearchScreen';
 import BlogScreen from './screen/post/BlogScreen';
 import ProfileScreen from './screen/profile/ProfileScreen';
-import { MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons';
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Entypo,
+} from '@expo/vector-icons';
 import { useColorScheme } from 'react-native-appearance';
 import palette from './lib/styles/open-color';
 
@@ -47,7 +51,8 @@ const Main = () => {
                 );
               case 'BLOG':
                 return (
-                  <Entypo name="documents"
+                  <Entypo
+                    name="documents"
                     size={24}
                     color={
                       colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
@@ -70,7 +75,7 @@ const Main = () => {
       >
         <Tab.Screen name="SEARCH" component={SearchScreen} />
         <Tab.Screen name="SCAN" component={ScanScreen} />
-        {/* <Tab.Screen name="BLOG" component={BlogScreen} /> */}
+        <Tab.Screen name="BLOG" component={BlogScreen} />
         <Tab.Screen name="PROFILE" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>

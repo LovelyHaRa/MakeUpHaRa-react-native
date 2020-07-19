@@ -48,4 +48,10 @@ export const styles = StyleSheet.create({
   },
   lightSubinfo: { color: palette.gray[6] },
   darkSubinfo: { color: palette.gray[5] },
+  lightLoading: {
+    color: palette.pink[1],
+  },
+  darkLoading: {
+    color: palette.violet[3],
+  },
 });

@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, RefreshControl } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { styles } from './StyleContainer';
 import { Appearance } from 'react-native-appearance';
 import { testWiki, testPost } from './TestData';
 import moment from 'moment';
+import LoadingComponent from '../common/LoadingComponent';
 
 const colorScheme = Appearance.getColorScheme();
 
@@ -111,7 +112,16 @@ export const WikiResultSearch = () => {
   );
 };
 
-export const BlogResultSearch = () => {
+export const BlogResultSearch = ({
+  postList,
+  error,
+  loading,
+  handleMoreList,
+  handleRefresh,
+  refresh,
+  isLastPage,
+  colorScheme,
+}) => {
   const PostListItem = ({ item }) => (
     <ListItem
       containerStyle={
@@ -164,10 +174,32 @@ export const BlogResultSearch = () => {
       ]}
     >
       <FlatList
-        data={testPost}
+        data={postList}
         style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
         keyExtractor={(item) => item._id}
         renderItem={PostListItem}
+        onEndReached={() => {
+          handleMoreList();
+        }}
+        onEndReachedThreshold={0.1}
+        refreshControl={
+          <RefreshControl
+            refreshing={!!refresh}
+            onRefresh={() => {
+              handleRefresh();
+            }}
+            progressBackgroundColor={
+              colorScheme === 'dark'
+                ? styles.darkLoading.color
+                : styles.lightLoading.color
+            }
+          />
+        }
+        ListFooterComponent={
+          postList.length > 0 && !isLastPage ? (
+            <LoadingComponent colorScheme={colorScheme} hasMarginTop />
+          ) : null
+        }
       />
     </View>
   );
