@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React from 'react';
 import { useColorScheme } from 'react-native-appearance';
 import SearchComponent from '../../components/search/SearchComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeInput, initializeResultList } from '../../module/redux/search';
-import { getSearchList } from '../../module/redux/post';
+import { getSearchList as getPostSearchList } from '../../module/redux/post';
+import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from 'react-native';
 import { styles } from '../../components/search/StyleContainer';
@@ -27,7 +28,8 @@ const SearchContainer = ({ navigation }) => {
   };
   const handleSubmit = () => {
     dispatch(initializeResultList(true));
-    dispatch(getSearchList({ query: searchQuery }));
+    dispatch(getWikiSearchList({ query: searchQuery }));
+    dispatch(getPostSearchList({ query: searchQuery }));
   };
 
   return (

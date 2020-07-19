@@ -4,13 +4,14 @@ import loading from './loading';
 import scan, { scanSaga } from './scan';
 import post, { postSaga } from './post';
 import search from './search';
+import wiki, { wikiSaga } from './wiki';
 
 /* root reducer */
-const rootReducer = combineReducers({ loading, scan, post, search });
+const rootReducer = combineReducers({ loading, scan, post, search, wiki });
 
 /* root saga */
 export function* rootSaga() {
-  yield all([scanSaga(), postSaga()]);
+  yield all([scanSaga(), postSaga(), wikiSaga()]);
 }
 
 export default rootReducer;
