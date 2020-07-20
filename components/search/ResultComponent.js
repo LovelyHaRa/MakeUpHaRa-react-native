@@ -2,31 +2,30 @@ import React from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { styles } from './StyleContainer';
-import { Appearance } from 'react-native-appearance';
 import moment from 'moment';
 import LoadingComponent from '../common/LoadingComponent';
-import { testWiki } from './TestData';
 
-const colorScheme = Appearance.getColorScheme();
-
-export const TotalResultSearch = () => {
-  const TotalListItem = ({ item }) => (
-    <ListItem
-      containerStyle={
-        colorScheme === 'dark' ? styles.darkBody : styles.lightBody
-      }
-      title={item.name || item.title}
-      titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
-      subtitle={
-        <View>
-          <Text
-            style={
-              colorScheme === 'dark' ? styles.darkSubinfo : styles.lightSubinfo
-            }
-          >
-            {!!item.revision ? '위키문서' : '블로그 포스트'}
-          </Text>
-          {!item.revision && (
+export const TotalResultSearch = ({
+  totalList,
+  error,
+  loading,
+  handleMoreList,
+  handleRefresh,
+  refresh,
+  colorScheme,
+  isLastPage,
+}) => {
+  const TotalListItem = ({ item }) => {
+    const type = !!item.lately ? 'wiki' : 'post';
+    return (
+      <ListItem
+        containerStyle={
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody
+        }
+        title={item.name || item.title}
+        titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
+        subtitle={
+          <View>
             <Text
               style={
                 colorScheme === 'dark'
@@ -34,34 +33,49 @@ export const TotalResultSearch = () => {
                   : styles.lightSubinfo
               }
             >
-              {item.publisher}
-              {'  \u00B7  '}
-              {moment(item.publishedDate).format('YYYY-MM-DD')}
+              {type === 'wiki' ? '위키문서' : '블로그 포스트'}
             </Text>
-          )}
-          {!item.revision && (
-            <View style={styles.tagContainer}>
-              {item.tags.map((tag) => (
-                <Text
-                  key={`${item._id}${tag}`}
-                  style={[
-                    { ...styles.tag },
-                    colorScheme === 'dark'
-                      ? { ...styles.darkThemeColor }
-                      : { ...styles.lightThemeColor },
-                  ]}
-                >
-                  #{tag}
-                </Text>
-              ))}
-            </View>
-          )}
-        </View>
-      }
-      bottomDivider
-      chevron
-    />
-  );
+            {type === 'post' ? (
+              <Text
+                style={
+                  colorScheme === 'dark'
+                    ? styles.darkSubinfo
+                    : styles.lightSubinfo
+                }
+              >
+                {item.publisher.username}
+                {'  \u00B7  '}
+                {moment(item.publishedDate).format('YYYY-MM-DD')}
+              </Text>
+            ) : (
+              <View></View>
+            )}
+            {type === 'post' ? (
+              <View style={styles.tagContainer}>
+                {item.tags.map((tag) => (
+                  <Text
+                    key={`${item._id}${tag}`}
+                    style={[
+                      { ...styles.tag },
+                      colorScheme === 'dark'
+                        ? { ...styles.darkThemeColor }
+                        : { ...styles.lightThemeColor },
+                    ]}
+                  >
+                    #{tag}
+                  </Text>
+                ))}
+              </View>
+            ) : (
+              <View></View>
+            )}
+          </View>
+        }
+        bottomDivider
+        chevron
+      />
+    );
+  };
   return (
     <View
       style={[
@@ -72,10 +86,32 @@ export const TotalResultSearch = () => {
       ]}
     >
       <FlatList
-        data={testWiki}
+        data={totalList}
         style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
         keyExtractor={(item) => item._id}
         renderItem={TotalListItem}
+        onEndReached={() => {
+          handleMoreList();
+        }}
+        onEndReachedThreshold={0.1}
+        refreshControl={
+          <RefreshControl
+            refreshing={!!refresh.wiki || !!refresh.post}
+            onRefresh={() => {
+              handleRefresh();
+            }}
+            progressBackgroundColor={
+              colorScheme === 'dark'
+                ? styles.darkLoading.color
+                : styles.lightLoading.color
+            }
+          />
+        }
+        ListFooterComponent={
+          totalList.length > 0 && !isLastPage ? (
+            <LoadingComponent colorScheme={colorScheme} hasMarginTop />
+          ) : null
+        }
       />
     </View>
   );
