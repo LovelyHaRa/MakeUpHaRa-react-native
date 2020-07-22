@@ -6,6 +6,7 @@ import moment from 'moment';
 import LoadingComponent from '../common/LoadingComponent';
 import { useDispatch } from 'react-redux';
 import { readPost } from '../../module/redux/post';
+import { readDocument } from '../../module/redux/wiki';
 
 export const TotalResultSearch = ({
   totalList,
@@ -128,12 +129,18 @@ export const WikiResultSearch = ({
   refresh,
   isLastPage,
   colorScheme,
+  navigation,
 }) => {
+  const dispatch = useDispatch();
   const WikiListItem = ({ item }) => (
     <ListItem
       containerStyle={
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody
       }
+      onPress={() => {
+        dispatch(readDocument({ id: item.name }));
+        navigation.push('ResultWikiView');
+      }}
       title={item.name}
       titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
       bottomDivider

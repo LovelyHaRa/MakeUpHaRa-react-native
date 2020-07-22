@@ -78,7 +78,7 @@ export const TotalResultContainer = () => {
   );
 };
 
-export const WikiResultContainer = () => {
+export const WikiResultContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const {
@@ -146,6 +146,7 @@ export const WikiResultContainer = () => {
       handleRefresh={handleRefresh}
       refresh={refresh}
       isLastPage={isLastPage}
+      navigation={navigation}
     />
   );
 };

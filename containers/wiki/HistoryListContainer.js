@@ -1,10 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import HistoryListComponent from '../../components/scan/HistoryListComponent';
+import HistoryListComponent from '../../components/wiki/HistoryListComponent';
 import { useColorScheme } from 'react-native-appearance';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { readDocument } from '../../module/redux/wiki';
 
 const HistoryListContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
+  const dispatch = useDispatch();
   const { historyList, historyListError, loading } = useSelector(
     ({ scan, loading }) => ({
       historyList: scan.historyList,
@@ -13,6 +16,10 @@ const HistoryListContainer = ({ navigation }) => {
     }),
   );
 
+  const handlePress = ({ id, r }) => {
+    dispatch(readDocument({ id, r }));
+  };
+
   return (
     <HistoryListComponent
       navigation={navigation}
@@ -20,6 +27,7 @@ const HistoryListContainer = ({ navigation }) => {
       historyList={historyList}
       loading={loading}
       historyListError={historyListError}
+      handlePress={handlePress}
     />
   );
 };
