@@ -4,6 +4,8 @@ import { ListItem } from 'react-native-elements';
 import { styles } from './StyleContainer';
 import moment from 'moment';
 import LoadingComponent from '../common/LoadingComponent';
+import { useDispatch } from 'react-redux';
+import { readPost } from '../../module/redux/post';
 
 export const TotalResultSearch = ({
   totalList,
@@ -188,14 +190,17 @@ export const BlogResultSearch = ({
   refresh,
   isLastPage,
   colorScheme,
+  navigation,
 }) => {
+  const dispatch = useDispatch();
   const PostListItem = ({ item }) => (
     <ListItem
       containerStyle={
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody
       }
       onPress={() => {
-        /* dispatch */
+        dispatch(readPost({ id: item._id }));
+        navigation.push('ResultPostView');
       }}
       title={item.title}
       titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}

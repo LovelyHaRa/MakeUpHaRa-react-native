@@ -150,7 +150,7 @@ export const WikiResultContainer = () => {
   );
 };
 
-export const BlogResultContainer = () => {
+export const BlogResultContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const { searchQuery, postList, error, loading, requestList } = useSelector(
@@ -214,6 +214,7 @@ export const BlogResultContainer = () => {
       handleRefresh={handleRefresh}
       refresh={refresh}
       isLastPage={isLastPage}
+      navigation={navigation}
     />
   );
 };
