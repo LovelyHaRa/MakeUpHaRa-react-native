@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import styles from './StyleContainer';
-import { getHistory } from '../../module/redux/scan';
 
 const HistoryActionButton = ({
   navigation,
   colorScheme,
+  getHistory,
   dispatch,
   title,
   component,

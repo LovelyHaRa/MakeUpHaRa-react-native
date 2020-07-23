@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import ResultComponent from '../../components/scan/ResultComponent';
 import { useSelector } from 'react-redux';
 import { useColorScheme } from 'react-native-appearance';
+import DocumentViewComponent from '../../components/wiki/DocumentViewComponent';
+import { getHistory } from '../../module/redux/scan';
 
 const ResultContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
-  const { document, documentError, loading } = useSelector(
+  const { document, documentError, scanLoading, revisionLoading } = useSelector(
     ({ scan, loading }) => ({
       document: scan.document,
       documentError: scan.documentError,
-      loading: loading['scan/GET_DOCUNEMT_BY_BARCODE'],
+      scanLoading: loading['scan/GET_DOCUNEMT_BY_BARCODE'],
+      revisionLoading: loading['scan/GET_REVISION_DOCUMENT'],
     }),
   );
 
@@ -23,11 +25,13 @@ const ResultContainer = ({ navigation }) => {
   }, [document]);
 
   return (
-    <ResultComponent
+    <DocumentViewComponent
       navigation={navigation}
+      getHistory={getHistory}
+      historyListComponent="HistoryListComponent"
       colorScheme={colorScheme}
       document={document}
-      loading={loading}
+      loading={scanLoading || revisionLoading}
       documentError={documentError}
       error={error}
     />

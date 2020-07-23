@@ -17,9 +17,19 @@ export const TotalResultSearch = ({
   refresh,
   colorScheme,
   isLastPage,
+  navigation,
 }) => {
+  const dispatch = useDispatch();
   const TotalListItem = ({ item }) => {
     const type = !!item.lately ? 'wiki' : 'post';
+    const handleWikiItemPress = () => {
+      dispatch(readDocument({ id: item.name }));
+      navigation.push('ResultWikiView');
+    };
+    const handlePostItemPress = () => {
+      dispatch(readPost({ id: item._id }));
+      navigation.push('ResultPostView');
+    };
     return (
       <ListItem
         containerStyle={
@@ -27,6 +37,7 @@ export const TotalResultSearch = ({
         }
         title={item.name || item.title}
         titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
+        onPress={type === 'wiki' ? handleWikiItemPress : handlePostItemPress}
         subtitle={
           <View>
             <Text

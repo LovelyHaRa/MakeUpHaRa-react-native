@@ -20,6 +20,16 @@ const [
   READ_DOCUMENT_FAILURE,
 ] = createRequestActionTypes('wiki/READ_DOCUMENT');
 const UNLOAD_DOCUMENT = 'wiki/UNLOAD_DOCUMENT'; // 위키 문서 뷰 언마운트시 문서 정보 제거
+const [
+  GET_HISTORY,
+  GET_HISTORY_SUCCESS,
+  GET_HISTORY_FAILURE,
+] = createRequestActionTypes('wiki/GET_HISTORY');
+const [
+  GET_REVISION_DOCUMENT,
+  GET_REVISION_DOCUMENT_SUCCESS,
+  GET_REVISION_DOCUMENT_FAILURE,
+] = createRequestActionTypes('wiki/GET_REVISION_DOCUMENT');
 
 /* action */
 export const getSearchList = createAction(
@@ -39,6 +49,11 @@ export const readDocument = createAction(READ_DOCUMENT, ({ id, r }) => ({
   r,
 }));
 export const unloadDocument = createAction(UNLOAD_DOCUMENT);
+export const getHistory = createAction(GET_HISTORY, ({ title }) => ({ title }));
+export const getRevisionDocument = createAction(
+  GET_REVISION_DOCUMENT,
+  ({ title, r }) => ({ title, r }),
+);
 
 /* redux-saga */
 const getSearchListSaga = createRequestSaga(
@@ -46,10 +61,17 @@ const getSearchListSaga = createRequestSaga(
   wikiAPI.getSearchList,
 );
 const readDocumentSaga = createRequestSaga(READ_DOCUMENT, wikiAPI.readDocument);
+const getHistorySaga = createRequestSaga(GET_HISTORY, wikiAPI.getHistory);
+const getRevisionDocumentSaga = createRequestSaga(
+  GET_REVISION_DOCUMENT,
+  wikiAPI.getRevisionDocument,
+);
 
 export function* wikiSaga() {
   yield takeLatest(GET_SEARCH_LIST, getSearchListSaga);
   yield takeLatest(READ_DOCUMENT, readDocumentSaga);
+  yield takeLatest(GET_HISTORY, getHistorySaga);
+  yield takeLatest(GET_REVISION_DOCUMENT, getRevisionDocumentSaga);
 }
 
 /* initialize state */
@@ -58,6 +80,8 @@ const initialState = {
   searchListError: null,
   document: null,
   documentError: null,
+  historyList: null,
+  historyListError: null,
 };
 
 /* reducer */
@@ -87,6 +111,22 @@ const wiki = handleActions(
       ...state,
       document: null,
       documentError: null,
+    }),
+    [GET_HISTORY_SUCCESS]: (state, { payload: historyList }) => ({
+      ...state,
+      historyList,
+    }),
+    [GET_HISTORY_FAILURE]: (state, { payload: historyListError }) => ({
+      ...state,
+      historyListError,
+    }),
+    [GET_REVISION_DOCUMENT_SUCCESS]: (state, { payload: document }) => ({
+      ...state,
+      document,
+    }),
+    [GET_REVISION_DOCUMENT_FAILURE]: (state, { payload: documentError }) => ({
+      ...state,
+      documentError,
     }),
   },
   initialState,

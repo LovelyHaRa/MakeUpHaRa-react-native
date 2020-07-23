@@ -10,7 +10,7 @@ import { getSearchList as getPostSearchList } from '../../module/redux/post';
 import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
 import { initializeResultList, getTotalList } from '../../module/redux/search';
 
-export const TotalResultContainer = () => {
+export const TotalResultContainer = ({navigation}) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const { searchQuery, totalList, error, loading, requestList } = useSelector(
@@ -74,6 +74,7 @@ export const TotalResultContainer = () => {
       handleRefresh={handleRefresh}
       refresh={refresh}
       isLastPage={isLastPage}
+      navigation={navigation}
     />
   );
 };

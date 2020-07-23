@@ -1,18 +1,17 @@
 import React from 'react';
 import HistoryListComponent from '../../components/wiki/HistoryListComponent';
 import { useColorScheme } from 'react-native-appearance';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { readDocument } from '../../module/redux/wiki';
 
 const HistoryListContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const { historyList, historyListError, loading } = useSelector(
-    ({ scan, loading }) => ({
-      historyList: scan.historyList,
-      historyListError: scan.historyListError,
-      loading: loading['scan/GET_HISTORY'],
+    ({ wiki, loading }) => ({
+      historyList: wiki.historyList,
+      historyListError: wiki.historyListError,
+      loading: loading['wiki/GET_HISTORY'],
     }),
   );
 

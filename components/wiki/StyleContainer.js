@@ -5,6 +5,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  lightContainer: {
+    backgroundColor: palette.gray[0],
+  },
+  darkContainer: {
+    backgroundColor: palette.gray[9],
+  },
   lightHeader: {
     backgroundColor: palette.gray[0],
   },

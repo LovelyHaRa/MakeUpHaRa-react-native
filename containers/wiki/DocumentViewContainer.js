@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DocumentViewComponent from '../../components/wiki/DocumentViewComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import { useColorScheme } from 'react-native-appearance';
-import { unloadDocument } from '../../module/redux/wiki';
+import { getHistory } from '../../module/redux/wiki';
 
 const DocumentViewContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
@@ -27,6 +27,7 @@ const DocumentViewContainer = ({ navigation }) => {
   return (
     <DocumentViewComponent
       navigation={navigation}
+      getHistory={getHistory}
       historyListComponent="ResultHistoryView"
       colorScheme={colorScheme}
       document={document}

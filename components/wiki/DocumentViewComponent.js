@@ -12,6 +12,7 @@ import HistoryActionButton from './HistoryActionButton';
 const DocumentViewComponent = ({
   navigation,
   historyListComponent,
+  getHistory,
   colorScheme,
   document,
   loading,
@@ -106,7 +107,7 @@ const DocumentViewComponent = ({
                 : { ...styles.lightDate },
             ]}
           >
-            마지막 업데이트: {moment(publishedDate).format('YYYY-MM-DD')}
+            문서 업데이트: {moment(publishedDate).format('YYYY-MM-DD')}
           </Text>
         </View>
       </View>
@@ -132,6 +133,7 @@ const DocumentViewComponent = ({
       <HistoryActionButton
         navigation={navigation}
         colorScheme={colorScheme}
+        getHistory={getHistory}
         dispatch={dispatch}
         title={title}
         component={historyListComponent}
