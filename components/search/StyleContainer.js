@@ -5,6 +5,10 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  infoBody: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   lightBody: {
     backgroundColor: palette.gray[0],
   },

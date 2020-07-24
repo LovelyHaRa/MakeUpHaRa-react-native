@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useColorScheme } from 'react-native-appearance';
 import SearchComponent from '../../components/search/SearchComponent';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ import {
   TotalResultContainer,
   WikiResultContainer,
 } from './ResultContainer';
+import InfoComponent from '../../components/search/InfoComponent';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -26,11 +27,13 @@ const SearchContainer = ({ navigation }) => {
   const { searchQuery } = useSelector(({ search, post, loading }) => ({
     searchQuery: search.query,
   }));
+  const [onSearchState, setOnSearchState] = useState(false);
 
   const handleQueryChange = (search) => {
     dispatch(changeInput(search));
   };
   const handleSubmit = () => {
+    setOnSearchState(true);
     dispatch(initializeResultList(true));
     dispatch(getTotalList({ query: searchQuery }));
     dispatch(getWikiSearchList({ query: searchQuery }));
@@ -45,23 +48,27 @@ const SearchContainer = ({ navigation }) => {
         handleQueryChange={handleQueryChange}
         handleSubmit={handleSubmit}
       />
-      <Tab.Navigator
-        tabBarOptions={{
-          activeTintColor:
-            colorScheme === 'dark'
-              ? styles.darkText.color
-              : styles.lightText.color,
-          indicatorStyle:
-            colorScheme === 'dark'
-              ? styles.darkThemeBackgroundColor
-              : styles.lightThemeBackgroundColor,
-          style: colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
-        }}
-      >
-        <Tab.Screen name="통합검색" component={TotalResultContainer} />
-        <Tab.Screen name="위키" component={WikiResultContainer} />
-        <Tab.Screen name="블로그" component={BlogResultContainer} />
-      </Tab.Navigator>
+      {!onSearchState ? (
+        <InfoComponent colorScheme={colorScheme} />
+      ) : (
+        <Tab.Navigator
+          tabBarOptions={{
+            activeTintColor:
+              colorScheme === 'dark'
+                ? styles.darkText.color
+                : styles.lightText.color,
+            indicatorStyle:
+              colorScheme === 'dark'
+                ? styles.darkThemeBackgroundColor
+                : styles.lightThemeBackgroundColor,
+            style: colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
+          }}
+        >
+          <Tab.Screen name="통합검색" component={TotalResultContainer} />
+          <Tab.Screen name="위키" component={WikiResultContainer} />
+          <Tab.Screen name="블로그" component={BlogResultContainer} />
+        </Tab.Navigator>
+      )}
     </View>
   );
 };
