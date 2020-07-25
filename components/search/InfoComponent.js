@@ -12,13 +12,34 @@ const InfoComponent = ({ colorScheme }) => {
           : { ...styles.lightBody },
       ]}
     >
-      <Text style={colorScheme === 'dark' ? styles.darkText : styles.lightText}>
-        통합 검색
+      <Text
+        style={[
+          styles.infoTitle,
+          colorScheme === 'dark'
+            ? { ...styles.darkText }
+            : { ...styles.lightText },
+        ]}
+      >
+        MAKE UP HARA - 통합검색
       </Text>
-      <Text style={colorScheme === 'dark' ? styles.darkText : styles.lightText}>
+      <Text
+        style={[
+          styles.infoSubTitle,
+          colorScheme === 'dark'
+            ? { ...styles.darkText, ...styles.darkSubinfo }
+            : { ...styles.lightText, ...styles.lightSubinfo },
+        ]}
+      >
         위키 문서, 블로그 포스트를 검색할 수 있습니다.
       </Text>
-      <Text style={colorScheme === 'dark' ? styles.darkText : styles.lightText}>
+      <Text
+        style={[
+          styles.infoSubTitle,
+          colorScheme === 'dark'
+            ? { ...styles.darkText, ...styles.darkSubinfo }
+            : { ...styles.lightText, ...styles.lightSubinfo },
+        ]}
+      >
         검색 결과가 최신 업데이트 순서로 제공됩니다.
       </Text>
     </View>

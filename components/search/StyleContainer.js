@@ -58,4 +58,12 @@ export const styles = StyleSheet.create({
   darkLoading: {
     color: palette.violet[3],
   },
+  infoTitle: {
+    fontSize: 20,
+    margin: 16,
+  },
+  infoSubTitle: {
+    fontSize: 16,
+    marginBottom: 12,
+  },
 });
