@@ -59,11 +59,13 @@ export const styles = StyleSheet.create({
     color: palette.violet[3],
   },
   infoTitle: {
-    fontSize: 20,
-    margin: 16,
+    fontSize: 22,
+    margin: 40,
+    fontFamily: 'NanumGothic_400Regular',
   },
   infoSubTitle: {
     fontSize: 16,
     marginBottom: 12,
+    fontFamily: 'NanumGothic_400Regular',
   },
 });

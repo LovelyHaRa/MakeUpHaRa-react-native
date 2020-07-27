@@ -958,6 +958,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/nanum-gothic@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/nanum-gothic/-/nanum-gothic-0.1.0.tgz#a284c4c65b7dc84423569638972555d1c3d8690c"
+  integrity sha512-4DsVSDBcGbXeOPSt8epaHUjk1ca77XkTMsb9dIN3SM0fFDwlRw9zjhJG68hp7845Y22lX5QRKyLuXrGupDZRzQ==
+
 "@expo/vector-icons@^10.0.2":
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.2.0.tgz#3c70656683a6a873e18efc00bc61fc160a80dc55"

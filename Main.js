@@ -12,11 +12,24 @@ import {
 } from '@expo/vector-icons';
 import { useColorScheme } from 'react-native-appearance';
 import palette from './lib/styles/open-color';
+import {
+  useFonts,
+  NanumGothic_400Regular,
+  NanumGothic_700Bold,
+} from '@expo-google-fonts/nanum-gothic';
+import { AppLoading } from 'expo';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const Main = () => {
   const colorScheme = useColorScheme();
+  let [fontsLoaded] = useFonts({
+    NanumGothic_400Regular,
+    NanumGothic_700Bold,
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <NavigationContainer>
       <Tab.Navigator

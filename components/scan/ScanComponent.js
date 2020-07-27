@@ -65,11 +65,12 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
             >
               <View>
                 <Text
-                  style={
+                  style={[
+                    { ...styles.text },
                     colorScheme === 'dark'
-                      ? styles.darkTitle
-                      : styles.lightTitle
-                  }
+                      ? { ...styles.darkTitle }
+                      : { ...styles.lightTitle },
+                  ]}
                 >
                   바코드 타입:{' '}
                   {type === BarCodeScanner.Constants.BarCodeType.ean13
@@ -77,11 +78,12 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
                     : 'QR'}
                 </Text>
                 <Text
-                  style={
+                  style={[
+                    { ...styles.text },
                     colorScheme === 'dark'
-                      ? styles.darkTitle
-                      : styles.lightTitle
-                  }
+                      ? { ...styles.darkTitle }
+                      : { ...styles.lightTitle },
+                  ]}
                 >
                   코드내용:{' '}
                   {data.length > 20 ? `${data.slice(0, 17)}...` : data}
@@ -188,16 +190,19 @@ const styles = StyleSheet.create({
   },
   lightModal: { backgroundColor: palette.pink[0] },
   darkModal: { backgroundColor: palette.gray[8] },
+  text: { fontFamily: 'NanumGothic_400Regular' },
   lightTitle: {
     marginLeft: 10,
     marginTop: 5,
     marginBottom: 5,
+    fontSize: 14,
     color: palette.gray[9],
   },
   darkTitle: {
     marginLeft: 10,
     marginTop: 5,
     marginBottom: 5,
+    fontSize: 14,
     color: palette.gray[0],
   },
   buttonGroup: {
