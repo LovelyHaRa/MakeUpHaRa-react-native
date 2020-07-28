@@ -10,7 +10,7 @@ import { getSearchList as getPostSearchList } from '../../module/redux/post';
 import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
 import { initializeResultList, getTotalList } from '../../module/redux/search';
 
-export const TotalResultContainer = ({navigation}) => {
+export const TotalResultContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const { searchQuery, totalList, error, loading, requestList } = useSelector(
@@ -18,7 +18,7 @@ export const TotalResultContainer = ({navigation}) => {
       searchQuery: search.query,
       totalList: search.totalList,
       error: search.totalListError,
-      loading: loading['wiki/GET_SEARCH_LIST'],
+      loading: loading['search/GET_TOTAL_LIST'],
       requestList: search.requestList,
     }),
   );

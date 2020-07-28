@@ -16,9 +16,13 @@ const PostListContainer = ({ navigation }) => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const firstLoading = useRef(true);
+  const firstLoading = useRef(false);
 
   useEffect(() => {
+    if (firstLoading.current) {
+      setListitem([]);
+      firstLoading.current = false;
+    }
     if (refresh) {
       setRefresh(false);
       setListitem([]);
@@ -29,14 +33,11 @@ const PostListContainer = ({ navigation }) => {
       setIsLastPage(false);
     }
     setListitem((listItem) => listItem.concat(postList));
-  }, [postList]);
+  }, [postList, error]);
 
   useEffect(() => {
     const e = navigation.addListener('focus', () => {
-      if (firstLoading.current) {
-        setListitem([]);
-        !firstLoading.current;
-      }
+      firstLoading.current = true;
       dispatch(getList({ page }));
       setPage((page) => page + 1);
     });
@@ -67,7 +68,7 @@ const PostListContainer = ({ navigation }) => {
     <PostList
       postList={listItem}
       error={error}
-      loading={loading}
+      loading={!!firstLoading.current}
       handleMoreList={handleMoreList}
       handleRefresh={handleRefresh}
       refresh={refresh}

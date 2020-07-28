@@ -25,6 +25,9 @@ const PostList = ({
   navigation,
   colorScheme,
 }) => {
+  if (loading) {
+    return <LoadingComponent colorScheme={colorScheme} />;
+  }
   if (error) {
     return (
       <View style={styles.container}>
