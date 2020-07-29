@@ -27,6 +27,7 @@ export const TotalResultContainer = ({ navigation }) => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [emptyResult, setEmptyResult] = useState(false);
 
   const handleMoreList = useCallback(() => {
     dispatch(getTotalList({ query: searchQuery, page: page }));
@@ -49,8 +50,12 @@ export const TotalResultContainer = ({ navigation }) => {
       setListitem([]);
     }
     if (totalList.length === 0) {
+      if (page === 1) {
+        setEmptyResult(true);
+      }
       setIsLastPage(true);
     } else {
+      setEmptyResult(false);
       setIsLastPage(false);
     }
     setListitem((listItem) => listItem.concat(totalList));
@@ -74,6 +79,7 @@ export const TotalResultContainer = ({ navigation }) => {
       handleRefresh={handleRefresh}
       refresh={refresh}
       isLastPage={isLastPage}
+      emptyResult={emptyResult}
       navigation={navigation}
     />
   );
@@ -100,6 +106,7 @@ export const WikiResultContainer = ({ navigation }) => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [emptyResult, setEmptyResult] = useState(false);
 
   const handleMoreList = useCallback(() => {
     dispatch(getWikiSearchList({ query: searchQuery, page: page }));
@@ -122,8 +129,12 @@ export const WikiResultContainer = ({ navigation }) => {
       setListitem([]);
     }
     if (documentList.length === 0) {
+      if (page === 1) {
+        setEmptyResult(true);
+      }
       setIsLastPage(true);
     } else {
+      setEmptyResult(false);
       setIsLastPage(false);
     }
     setListitem((listItem) => listItem.concat(documentList));
@@ -147,6 +158,7 @@ export const WikiResultContainer = ({ navigation }) => {
       handleRefresh={handleRefresh}
       refresh={refresh}
       isLastPage={isLastPage}
+      emptyResult={emptyResult}
       navigation={navigation}
     />
   );
@@ -169,6 +181,7 @@ export const BlogResultContainer = ({ navigation }) => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [emptyResult, setEmptyResult] = useState(false);
 
   const handleMoreList = useCallback(() => {
     dispatch(getPostSearchList({ query: searchQuery, page: page }));
@@ -191,8 +204,12 @@ export const BlogResultContainer = ({ navigation }) => {
       setListitem([]);
     }
     if (postList.length === 0) {
+      if (page === 1) {
+        setEmptyResult(true);
+      }
       setIsLastPage(true);
     } else {
+      setEmptyResult(false);
       setIsLastPage(false);
     }
     setListitem((listItem) => listItem.concat(postList));
@@ -216,6 +233,7 @@ export const BlogResultContainer = ({ navigation }) => {
       handleRefresh={handleRefresh}
       refresh={refresh}
       isLastPage={isLastPage}
+      emptyResult={emptyResult}
       navigation={navigation}
     />
   );

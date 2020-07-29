@@ -9,6 +9,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  resultInfoBody: {
+    justifyContent: 'center',
+  },
   lightBody: {
     backgroundColor: palette.gray[0],
   },
@@ -66,6 +69,18 @@ export const styles = StyleSheet.create({
   infoSubTitle: {
     fontSize: 16,
     marginBottom: 12,
+    fontFamily: 'NanumGothic_400Regular',
+  },
+  resultInfoTitle: {
+    fontSize: 16,
+    margin: 16,
+    marginBottom: 28,
+    fontFamily: 'NanumGothic_400Regular',
+  },
+  resultInfoSubTitle: {
+    fontSize: 16,
+    margin: 16,
+    marginBottom: 4,
     fontFamily: 'NanumGothic_400Regular',
   },
 });
