@@ -10,6 +10,7 @@ import { readDocument } from '../../module/redux/wiki';
 
 export const TotalResultSearch = ({
   totalList,
+  searchQuery,
   error,
   loading,
   handleMoreList,
@@ -101,7 +102,7 @@ export const TotalResultSearch = ({
       ]}
     >
       {emptyResult ? (
-        <EmptyResultComponent colorScheme={colorScheme} />
+        <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
       ) : (
         <FlatList
           data={totalList}
@@ -138,6 +139,7 @@ export const TotalResultSearch = ({
 
 export const WikiResultSearch = ({
   documentList,
+  searchQuery,
   error,
   loading,
   handleMoreList,
@@ -174,7 +176,7 @@ export const WikiResultSearch = ({
       ]}
     >
       {emptyResult ? (
-        <EmptyResultComponent colorScheme={colorScheme} />
+        <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
       ) : (
         <FlatList
           data={documentList}
@@ -211,6 +213,7 @@ export const WikiResultSearch = ({
 
 export const BlogResultSearch = ({
   postList,
+  searchQuery,
   error,
   loading,
   handleMoreList,
@@ -275,7 +278,7 @@ export const BlogResultSearch = ({
       ]}
     >
       {emptyResult ? (
-        <EmptyResultComponent colorScheme={colorScheme} />
+        <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
       ) : (
         <FlatList
           data={postList}
@@ -310,7 +313,7 @@ export const BlogResultSearch = ({
   );
 };
 
-const EmptyResultComponent = ({ colorScheme }) => (
+const EmptyResultComponent = ({ colorScheme, query }) => (
   <View
     style={[
       styles.container,
@@ -333,7 +336,7 @@ const EmptyResultComponent = ({ colorScheme }) => (
             : styles.lightThemeColor
         }
       >
-        'SearchQuery'
+        '{query}'
       </Text>
       에 대한 검색결과가 없습니다.
     </Text>

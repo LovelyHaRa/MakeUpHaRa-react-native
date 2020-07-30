@@ -9,7 +9,9 @@ import { takeLatest } from 'redux-saga/effects';
 
 /* action type */
 const CHANGE_INPUT = 'search/CHANGE_INPUT';
+const SET_QUERY = 'search/SET_QUERY';
 const CHANGE_OPTION = 'search/CHANGE_OPTION';
+const SET_IS_EMPTY_RESULT = 'search/SET_IS_EMPTY_RESULT';
 const INITIALIZE = 'search/INITIALIZE';
 const INITIALIZE_OPTION = 'search/INITIALIZE_OPTION';
 const INITIALIZE_RESULT_LIST = 'serach/INITIALIZE_RESULT_LIST';
@@ -22,10 +24,15 @@ const INITIALIZE_TOTAL_LIST = 'serach/INITIALIZE_TOTAL_LIST';
 
 /* action */
 export const changeInput = createAction(CHANGE_INPUT, (value) => value);
+export const setQuery = createAction(SET_QUERY, (query) => query);
 export const changeOption = createAction(CHANGE_OPTION, ({ key, value }) => ({
   key,
   value,
 }));
+export const setIsEmptyResult = createAction(
+  SET_IS_EMPTY_RESULT,
+  (isEmptyResult) => isEmptyResult,
+);
 export const initialize = createAction(INITIALIZE);
 export const initializeOption = createAction(INITIALIZE_OPTION);
 export const initializeResultList = createAction(
@@ -50,6 +57,7 @@ export function* searchSaga() {
 
 /* initialize state */
 const initialState = {
+  inputQuery: '',
   query: '',
   option: {
     totalSort: '',
@@ -59,6 +67,7 @@ const initialState = {
     blogSort: '',
     blogTerm: '',
   },
+  isEmptyResult: false,
   requestList: false,
   totalList: [],
   totalListError: null,
@@ -67,11 +76,19 @@ const initialState = {
 /* reducer */
 const search = handleActions(
   {
-    [CHANGE_INPUT]: (state, { payload: value }) => ({ ...state, query: value }),
+    [CHANGE_INPUT]: (state, { payload: value }) => ({
+      ...state,
+      inputQuery: value,
+    }),
+    [SET_QUERY]: (state, { payload: query }) => ({ ...state, query }),
     [CHANGE_OPTION]: (state, { payload: { key, value } }) =>
       produce(state, (draft) => {
         draft.option[key] = value;
       }),
+    [SET_IS_EMPTY_RESULT]: (state, { payload: isEmptyResult }) => ({
+      ...state,
+      isEmptyResult,
+    }),
     [INITIALIZE]: () => initialState,
     [INITIALIZE_OPTION]: (state) => ({
       ...state,

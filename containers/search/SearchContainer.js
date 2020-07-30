@@ -6,6 +6,8 @@ import {
   changeInput,
   initializeResultList,
   getTotalList,
+  setQuery,
+  setIsEmptyResult,
 } from '../../module/redux/search';
 import { getSearchList as getPostSearchList } from '../../module/redux/post';
 import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
@@ -21,11 +23,11 @@ import InfoComponent from '../../components/search/InfoComponent';
 
 const Tab = createMaterialTopTabNavigator();
 
-const SearchContainer = ({ navigation }) => {
+const SearchContainer = () => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-  const { searchQuery } = useSelector(({ search, post, loading }) => ({
-    searchQuery: search.query,
+  const { inputQuery } = useSelector(({ search }) => ({
+    inputQuery: search.inputQuery,
   }));
   const [onSearchState, setOnSearchState] = useState(false);
 
@@ -34,17 +36,19 @@ const SearchContainer = ({ navigation }) => {
   };
   const handleSubmit = () => {
     setOnSearchState(true);
+    dispatch(setIsEmptyResult(false));
+    dispatch(setQuery(inputQuery));
     dispatch(initializeResultList(true));
-    dispatch(getTotalList({ query: searchQuery }));
-    dispatch(getWikiSearchList({ query: searchQuery }));
-    dispatch(getPostSearchList({ query: searchQuery }));
+    dispatch(getTotalList({ query: inputQuery }));
+    dispatch(getWikiSearchList({ query: inputQuery }));
+    dispatch(getPostSearchList({ query: inputQuery }));
   };
 
   return (
     <View style={styles.container}>
       <SearchComponent
         colorScheme={colorScheme}
-        searchQuery={searchQuery}
+        inputQuery={inputQuery}
         handleQueryChange={handleQueryChange}
         handleSubmit={handleSubmit}
       />

@@ -5,7 +5,7 @@ import CustomStatusBar from '../common/CustomStatusBar';
 import { SearchBar } from 'react-native-elements';
 
 const SearchComponent = ({
-  searchQuery,
+  inputQuery,
   handleQueryChange,
   handleSubmit,
   colorScheme,
@@ -24,7 +24,7 @@ const SearchComponent = ({
           }
           onChangeText={handleQueryChange}
           placeholder="검색어를 입력하세요."
-          value={searchQuery}
+          value={inputQuery}
         />
       </View>
     </View>
