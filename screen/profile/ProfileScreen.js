@@ -1,8 +1,8 @@
 import React from 'react';
-import Profile from '../../components/profile/Profile';
+import AuthForm from '../../components/auth/AuthForm';
 
 const ProfileScreen = () => {
-  return <Profile />;
+  return <AuthForm />;
 };
 
 export default ProfileScreen;
