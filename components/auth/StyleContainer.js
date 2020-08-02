@@ -17,16 +17,16 @@ export const styles = StyleSheet.create({
     color: palette.gray[0],
   },
   lightThemeBackgroundColor: {
-    backgroundColor: palette.cyan[7],
+    backgroundColor: palette.pink[1],
   },
   darkThemeBackgroundColor: {
-    backgroundColor: palette.violet[7],
+    backgroundColor: palette.violet[9],
   },
   lightThemeColor: {
-    color: palette.cyan[7],
+    color: palette.pink[1],
   },
   darkThemeColor: {
-    color: palette.violet[7],
+    color: palette.violet[9],
   },
   logoContainer: {
     justifyContent: 'center',
@@ -36,7 +36,6 @@ export const styles = StyleSheet.create({
   logo: {
     fontFamily: 'NanumGothic_700Bold',
     fontSize: 32,
-    color: palette.gray[0],
     margin: 4,
   },
   inputContainer: { margin: 16 },
@@ -50,13 +49,26 @@ export const styles = StyleSheet.create({
     margin: 10,
     fontSize: 16,
   },
+  lightInput: {
+    borderColor: palette.pink[5],
+    color: palette.gray[9],
+  },
+  darkInput: {
+    borderColor: palette.violet[3],
+    color: palette.gray[0],
+  },
   buttonContainer: {
     margin: 16,
   },
   button: {
-    backgroundColor: '#cc7e8f',
     margin: 10,
     height: 48,
     borderRadius: 10,
+  },
+  lightButton: {
+    backgroundColor: palette.red[4],
+  },
+  darkButton: {
+    backgroundColor: palette.violet[4],
   },
 });
