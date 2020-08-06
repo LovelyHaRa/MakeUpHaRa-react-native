@@ -5,7 +5,8 @@ import scan, { scanSaga } from './scan';
 import post, { postSaga } from './post';
 import search, { searchSaga } from './search';
 import wiki, { wikiSaga } from './wiki';
-import auth from './auth';
+import auth, { authSaga } from './auth';
+import user, { userSaga } from './user';
 
 /* root reducer */
 const rootReducer = combineReducers({
@@ -15,11 +16,19 @@ const rootReducer = combineReducers({
   search,
   wiki,
   auth,
+  user,
 });
 
 /* root saga */
 export function* rootSaga() {
-  yield all([scanSaga(), postSaga(), wikiSaga(), searchSaga()]);
+  yield all([
+    scanSaga(),
+    postSaga(),
+    wikiSaga(),
+    searchSaga(),
+    authSaga(),
+    userSaga(),
+  ]);
 }
 
 export default rootReducer;

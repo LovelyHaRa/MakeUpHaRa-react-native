@@ -31,7 +31,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         </View>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Email"
+            placeholder="Email or ID"
             placeholderTextColor={
               colorScheme === 'dark' ? palette.violet[5] : palette.pink[7]
             }
@@ -69,6 +69,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
                 ? { ...styles.darkLoginButton }
                 : { ...styles.lightLoginButton },
             ]}
+            onPress={onSubmit}
           />
           <Button
             title="회원가입"
