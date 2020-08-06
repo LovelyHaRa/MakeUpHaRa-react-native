@@ -28,6 +28,8 @@
     },
     "android": {
       "userInterfaceStyle": "automatic"
-    }    
+    },
+    "description": "MakeUpHaRa for React-Native",
+    "githubUrl": "https://github.com/LovelyHaRa/MakeUpHaRa-react-native"
   }
 }

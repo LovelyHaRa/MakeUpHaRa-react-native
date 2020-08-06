@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import { useColorScheme } from 'react-native-appearance';
 import palette from '../../lib/styles/open-color';
 
-const AuthForm = () => {
+const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const colorScheme = useColorScheme();
   return (
     <View style={styles.container}>
@@ -41,6 +41,8 @@ const AuthForm = () => {
                 ? { ...styles.darkInput }
                 : { ...styles.lightInput },
             ]}
+            value={form.username}
+            onChangeText={(text) => onChange('username', text)}
           />
           <TextInput
             placeholder="Password"
@@ -54,6 +56,8 @@ const AuthForm = () => {
                 : { ...styles.lightInput },
             ]}
             secureTextEntry={true}
+            value={form.password}
+            onChangeText={(text) => onChange('password', text)}
           />
         </View>
         <View style={styles.buttonContainer}>
@@ -62,8 +66,8 @@ const AuthForm = () => {
             buttonStyle={[
               styles.button,
               colorScheme === 'dark'
-                ? { ...styles.darkButton }
-                : { ...styles.lightButton },
+                ? { ...styles.darkLoginButton }
+                : { ...styles.lightLoginButton },
             ]}
           />
           <Button
@@ -71,8 +75,8 @@ const AuthForm = () => {
             buttonStyle={[
               styles.button,
               colorScheme === 'dark'
-                ? { ...styles.darkButton }
-                : { ...styles.lightButton },
+                ? { ...styles.darkSignUpButton }
+                : { ...styles.lightSignUpButton },
             ]}
           />
         </View>

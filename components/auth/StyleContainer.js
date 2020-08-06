@@ -65,10 +65,16 @@ export const styles = StyleSheet.create({
     height: 48,
     borderRadius: 10,
   },
-  lightButton: {
+  lightLoginButton: {
     backgroundColor: palette.red[4],
   },
-  darkButton: {
+  darkLoginButton: {
     backgroundColor: palette.violet[4],
+  },
+  lightSignUpButton: {
+    backgroundColor: palette.red[3],
+  },
+  darkSignUpButton: {
+    backgroundColor: palette.violet[3],
   },
 });
