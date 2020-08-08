@@ -72,10 +72,10 @@ const Main = () => {
                     }
                   />
                 );
-              case 'PROFILE':
+              case 'MY PAGE':
                 return (
-                  <MaterialIcons
-                    name={focused ? 'favorite' : 'favorite-border'}
+                  <MaterialCommunityIcons
+                    name={focused ? 'account' : 'account-outline'}
                     size={24}
                     color={
                       colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
@@ -89,7 +89,7 @@ const Main = () => {
         <Tab.Screen name="SEARCH" component={SearchScreen} />
         <Tab.Screen name="SCAN" component={ScanScreen} />
         <Tab.Screen name="BLOG" component={BlogScreen} />
-        <Tab.Screen name="PROFILE" component={ProfileScreen} />
+        <Tab.Screen name="MY PAGE" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -4,8 +4,12 @@ import { styles } from './StyleContainer';
 import { Button } from 'react-native-elements';
 import { useColorScheme } from 'react-native-appearance';
 import palette from '../../lib/styles/open-color';
+import LoadingComponent from '../common/LoadingComponent';
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const AuthForm = ({ type, form, onChange, onSubmit, error, user }) => {
+  if (user) {
+    return <LoadingComponent />;
+  }
   const colorScheme = useColorScheme();
   return (
     <View style={styles.container}>

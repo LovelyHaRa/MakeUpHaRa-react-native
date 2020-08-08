@@ -4,21 +4,27 @@ import {
 } from '../../lib/createRequest';
 import { createAction, handleActions } from 'redux-actions';
 import * as authAPI from '../../lib/api/auth';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, call } from 'redux-saga/effects';
 
 /* action type */
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
   'user/CHECK',
 );
+const LOGOUT = 'user/LOGOUT';
 
 /* action */
 export const check = createAction(CHECK);
+export const logout = createAction(LOGOUT);
 
 /* redux-saga */
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
+function* logoutSaga() {
+  yield call(authAPI.logout);
+}
 
 export function* userSaga() {
   yield takeLatest(CHECK, checkSaga);
+  yield takeLatest(LOGOUT, logoutSaga);
 }
 
 /* initialize state */
@@ -39,6 +45,10 @@ const user = handleActions(
       ...state,
       user: null,
       checkError,
+    }),
+    [LOGOUT]: (state) => ({
+      ...state,
+      user: null,
     }),
   },
   initialState,
