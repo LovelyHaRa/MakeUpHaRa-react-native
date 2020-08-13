@@ -3,16 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import LoginForm from '../../containers/auth/LoginForm';
 import { logout } from '../../module/redux/user';
 import Profile from '../../components/profile/Profile';
+import { useColorScheme } from 'react-native-appearance';
 
 const ProfileContainer = () => {
+  const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-  const { user } = useSelector(({ user }) => ({ user: user.user }));
-
+  // const { user } = useSelector(({ user }) => ({ user: user.user }));
+  const user = {
+    username: 'testID',
+    name: 'testname',
+  };
   const onLogout = () => {
     dispatch(logout());
   };
 
-  return <Profile user={user} onLogout={onLogout} />;
+  return <Profile colorScheme={colorScheme} user={user} onLogout={onLogout} />;
 };
 
 export default ProfileContainer;
