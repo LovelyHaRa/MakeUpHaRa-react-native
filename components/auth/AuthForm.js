@@ -30,7 +30,17 @@ const AuthForm = ({ type, form, onChange, onSubmit, error, user }) => {
                 : { ...styles.lightText },
             ]}
           >
-            MAKE UP HARA
+            로그인
+          </Text>
+          <Text
+            style={[
+              styles.subTitle,
+              colorScheme === 'dark'
+                ? { ...styles.darkSubText }
+                : { ...styles.lightSubText },
+            ]}
+          >
+            계속 진행하려면 사용자 정보가 필요합니다.
           </Text>
         </View>
         <View style={styles.inputContainer}>
@@ -85,6 +95,25 @@ const AuthForm = ({ type, form, onChange, onSubmit, error, user }) => {
             ]}
           />
         </View>
+      </View>
+      <View
+        style={[
+          styles.footerContainer,
+          colorScheme === 'dark'
+            ? { ...styles.darkBody }
+            : { ...styles.lightBody },
+        ]}
+      >
+        <Text
+          style={[
+            styles.footer,
+            colorScheme === 'dark'
+              ? { ...styles.darkSubText }
+              : { ...styles.lightSubText },
+          ]}
+        >
+          MAKE UP HARA
+        </Text>
       </View>
     </View>
   );

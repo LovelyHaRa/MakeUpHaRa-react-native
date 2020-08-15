@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 const ProfileScreen = () => {
   const { user } = useSelector(({ user }) => ({ user: user.user }));
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     // setIsLoggedIn(!!user);
   }, [user]);

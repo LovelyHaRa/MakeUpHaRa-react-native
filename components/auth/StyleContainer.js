@@ -16,6 +16,12 @@ export const styles = StyleSheet.create({
   darkText: {
     color: palette.gray[0],
   },
+  lightSubText: {
+    color: palette.gray[6],
+  },
+  darkSubText: {
+    color: palette.gray[5],
+  },
   lightThemeBackgroundColor: {
     backgroundColor: palette.pink[1],
   },
@@ -30,22 +36,22 @@ export const styles = StyleSheet.create({
   },
   logoContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
+    margin: 20,
   },
   logo: {
-    fontFamily: 'NanumGothic_700Bold',
+    fontFamily: 'NanumGothic_400Regular',
     fontSize: 32,
     margin: 4,
   },
+  subTitle: { fontSize: 16, margin: 4 },
   inputContainer: { margin: 16 },
   input: {
     backgroundColor: 'transparent',
     borderColor: '#ba5370',
-    borderWidth: 2,
-    borderRadius: 10,
+    borderBottomWidth: 2,
+    borderRadius: 0,
     height: 48,
-    padding: 10,
+    padding: 4,
     margin: 10,
     fontSize: 16,
   },
@@ -76,5 +82,12 @@ export const styles = StyleSheet.create({
   },
   darkSignUpButton: {
     backgroundColor: palette.violet[3],
+  },
+  footerContainer: {
+    alignItems: 'center',
+    paddingBottom: 12,
+  },
+  footerText: {
+    fontFamily: 'NanumGothic_400Regular',
   },
 });
