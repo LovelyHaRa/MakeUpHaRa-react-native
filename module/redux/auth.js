@@ -38,6 +38,12 @@ const initialState = {
     username: '',
     password: '',
   },
+  register: {
+    username: '',
+    password: '',
+    passwordConfirm: '',
+    name: '',
+  },
   auth: null,
   authError: null,
 };

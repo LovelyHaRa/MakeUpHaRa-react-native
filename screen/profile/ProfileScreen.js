@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginForm from '../../containers/auth/LoginForm';
 import ProfileContainer from '../../containers/profile/ProfileContainer';
 import { useSelector } from 'react-redux';
+import RegisterForm from '../../containers/auth/RegisterForm';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,10 @@ const ProfileScreen = () => {
       {isLoggedIn ? (
         <Stack.Screen name="Profile" component={ProfileContainer} />
       ) : (
-        <Stack.Screen name="Login" component={LoginForm} />
+        <>
+          <Stack.Screen name="Login" component={LoginForm} />
+          <Stack.Screen name="Register" component={RegisterForm} />
+        </>
       )}
     </Stack.Navigator>
   );

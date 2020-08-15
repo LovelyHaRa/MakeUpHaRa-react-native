@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     backgroundColor: palette.violet[9],
   },
   lightThemeColor: {
-    color: palette.pink[1],
+    color: palette.pink[5],
   },
   darkThemeColor: {
     color: palette.violet[9],
@@ -82,6 +82,10 @@ export const styles = StyleSheet.create({
   },
   darkSignUpButton: {
     backgroundColor: palette.violet[3],
+  },
+  goBacktoLogin: {
+    alignItems: 'center',
+    marginTop: 12,
   },
   footerContainer: {
     alignItems: 'center',

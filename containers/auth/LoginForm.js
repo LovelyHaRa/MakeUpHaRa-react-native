@@ -4,7 +4,7 @@ import { changeField, login, initializeForm } from '../../module/redux/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { check } from '../../module/redux/user';
 
-const LoginForm = () => {
+const LoginForm = ({ navigation }) => {
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.login,
@@ -47,6 +47,7 @@ const LoginForm = () => {
       onChange={handleChange}
       onSubmit={handleOnLogin}
       user={user}
+      navigation={navigation}
     />
   );
 };
