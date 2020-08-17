@@ -8,11 +8,7 @@ import { useColorScheme } from 'react-native-appearance';
 const ProfileContainer = () => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-  // const { user } = useSelector(({ user }) => ({ user: user.user }));
-  const user = {
-    username: 'testID',
-    name: 'testname',
-  };
+  const { user } = useSelector(({ user }) => ({ user: user.user }));
   const onLogout = () => {
     dispatch(logout());
   };

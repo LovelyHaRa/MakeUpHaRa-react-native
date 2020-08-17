@@ -11,7 +11,7 @@ const ProfileScreen = () => {
   const { user } = useSelector(({ user }) => ({ user: user.user }));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    // setIsLoggedIn(!!user);
+    setIsLoggedIn(!!user);
   }, [user]);
   return (
     <Stack.Navigator headerMode="none">

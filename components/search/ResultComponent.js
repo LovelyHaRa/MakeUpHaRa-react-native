@@ -7,6 +7,7 @@ import LoadingComponent from '../common/LoadingComponent';
 import { useDispatch } from 'react-redux';
 import { readPost } from '../../module/redux/post';
 import { readDocument } from '../../module/redux/wiki';
+import DismissKeyboard from '../common/DismissKeyboard';
 
 export const TotalResultSearch = ({
   totalList,
@@ -93,47 +94,49 @@ export const TotalResultSearch = ({
     );
   };
   return (
-    <View
-      style={[
-        { ...styles.container },
-        colorScheme === 'dark'
-          ? { ...styles.darkBody }
-          : { ...styles.lightBody },
-      ]}
-    >
-      {emptyResult ? (
-        <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
-      ) : (
-        <FlatList
-          data={totalList}
-          style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
-          keyExtractor={(item) => item._id}
-          renderItem={TotalListItem}
-          onEndReached={() => {
-            handleMoreList();
-          }}
-          onEndReachedThreshold={0.1}
-          refreshControl={
-            <RefreshControl
-              refreshing={!!refresh.wiki || !!refresh.post}
-              onRefresh={() => {
-                handleRefresh();
-              }}
-              progressBackgroundColor={
-                colorScheme === 'dark'
-                  ? styles.darkLoading.color
-                  : styles.lightLoading.color
-              }
-            />
-          }
-          ListFooterComponent={
-            totalList.length > 0 && !isLastPage ? (
-              <LoadingComponent colorScheme={colorScheme} hasMarginTop />
-            ) : null
-          }
-        />
-      )}
-    </View>
+    <DismissKeyboard>
+      <View
+        style={[
+          { ...styles.container },
+          colorScheme === 'dark'
+            ? { ...styles.darkBody }
+            : { ...styles.lightBody },
+        ]}
+      >
+        {emptyResult ? (
+          <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
+        ) : (
+          <FlatList
+            data={totalList}
+            style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
+            keyExtractor={(item) => item._id}
+            renderItem={TotalListItem}
+            onEndReached={() => {
+              handleMoreList();
+            }}
+            onEndReachedThreshold={0.1}
+            refreshControl={
+              <RefreshControl
+                refreshing={!!refresh.wiki || !!refresh.post}
+                onRefresh={() => {
+                  handleRefresh();
+                }}
+                progressBackgroundColor={
+                  colorScheme === 'dark'
+                    ? styles.darkLoading.color
+                    : styles.lightLoading.color
+                }
+              />
+            }
+            ListFooterComponent={
+              totalList.length > 0 && !isLastPage ? (
+                <LoadingComponent colorScheme={colorScheme} hasMarginTop />
+              ) : null
+            }
+          />
+        )}
+      </View>
+    </DismissKeyboard>
   );
 };
 
@@ -167,47 +170,49 @@ export const WikiResultSearch = ({
     />
   );
   return (
-    <View
-      style={[
-        { ...styles.container },
-        colorScheme === 'dark'
-          ? { ...styles.darkBody }
-          : { ...styles.lightBody },
-      ]}
-    >
-      {emptyResult ? (
-        <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
-      ) : (
-        <FlatList
-          data={documentList}
-          style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
-          keyExtractor={(item) => item._id}
-          renderItem={WikiListItem}
-          onEndReached={() => {
-            handleMoreList();
-          }}
-          onEndReachedThreshold={0.1}
-          refreshControl={
-            <RefreshControl
-              refreshing={!!refresh}
-              onRefresh={() => {
-                handleRefresh();
-              }}
-              progressBackgroundColor={
-                colorScheme === 'dark'
-                  ? styles.darkLoading.color
-                  : styles.lightLoading.color
-              }
-            />
-          }
-          ListFooterComponent={
-            documentList.length > 0 && !isLastPage ? (
-              <LoadingComponent colorScheme={colorScheme} hasMarginTop />
-            ) : null
-          }
-        />
-      )}
-    </View>
+    <DismissKeyboard>
+      <View
+        style={[
+          { ...styles.container },
+          colorScheme === 'dark'
+            ? { ...styles.darkBody }
+            : { ...styles.lightBody },
+        ]}
+      >
+        {emptyResult ? (
+          <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
+        ) : (
+          <FlatList
+            data={documentList}
+            style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
+            keyExtractor={(item) => item._id}
+            renderItem={WikiListItem}
+            onEndReached={() => {
+              handleMoreList();
+            }}
+            onEndReachedThreshold={0.1}
+            refreshControl={
+              <RefreshControl
+                refreshing={!!refresh}
+                onRefresh={() => {
+                  handleRefresh();
+                }}
+                progressBackgroundColor={
+                  colorScheme === 'dark'
+                    ? styles.darkLoading.color
+                    : styles.lightLoading.color
+                }
+              />
+            }
+            ListFooterComponent={
+              documentList.length > 0 && !isLastPage ? (
+                <LoadingComponent colorScheme={colorScheme} hasMarginTop />
+              ) : null
+            }
+          />
+        )}
+      </View>
+    </DismissKeyboard>
   );
 };
 
@@ -269,47 +274,49 @@ export const BlogResultSearch = ({
     />
   );
   return (
-    <View
-      style={[
-        { ...styles.container },
-        colorScheme === 'dark'
-          ? { ...styles.darkBody }
-          : { ...styles.lightBody },
-      ]}
-    >
-      {emptyResult ? (
-        <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
-      ) : (
-        <FlatList
-          data={postList}
-          style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
-          keyExtractor={(item) => item._id}
-          renderItem={PostListItem}
-          onEndReached={() => {
-            handleMoreList();
-          }}
-          onEndReachedThreshold={0.1}
-          refreshControl={
-            <RefreshControl
-              refreshing={!!refresh}
-              onRefresh={() => {
-                handleRefresh();
-              }}
-              progressBackgroundColor={
-                colorScheme === 'dark'
-                  ? styles.darkLoading.color
-                  : styles.lightLoading.color
-              }
-            />
-          }
-          ListFooterComponent={
-            postList.length > 0 && !isLastPage ? (
-              <LoadingComponent colorScheme={colorScheme} hasMarginTop />
-            ) : null
-          }
-        />
-      )}
-    </View>
+    <DismissKeyboard>
+      <View
+        style={[
+          { ...styles.container },
+          colorScheme === 'dark'
+            ? { ...styles.darkBody }
+            : { ...styles.lightBody },
+        ]}
+      >
+        {emptyResult ? (
+          <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />
+        ) : (
+          <FlatList
+            data={postList}
+            style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
+            keyExtractor={(item) => item._id}
+            renderItem={PostListItem}
+            onEndReached={() => {
+              handleMoreList();
+            }}
+            onEndReachedThreshold={0.1}
+            refreshControl={
+              <RefreshControl
+                refreshing={!!refresh}
+                onRefresh={() => {
+                  handleRefresh();
+                }}
+                progressBackgroundColor={
+                  colorScheme === 'dark'
+                    ? styles.darkLoading.color
+                    : styles.lightLoading.color
+                }
+              />
+            }
+            ListFooterComponent={
+              postList.length > 0 && !isLastPage ? (
+                <LoadingComponent colorScheme={colorScheme} hasMarginTop />
+              ) : null
+            }
+          />
+        )}
+      </View>
+    </DismissKeyboard>
   );
 };
 

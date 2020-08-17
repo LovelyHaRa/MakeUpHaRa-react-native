@@ -39,6 +39,7 @@ const Main = () => {
         }}
         sceneAnimationEnabled={false}
         backBehavior="none"
+        keyboardHidesNavigationBar={false}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             switch (route.name) {

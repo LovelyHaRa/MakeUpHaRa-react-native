@@ -94,4 +94,10 @@ export const styles = StyleSheet.create({
   footerText: {
     fontFamily: 'NanumGothic_400Regular',
   },
+  errorContainer: {
+    alignItems: 'center',
+  },
+  errorText: {
+    color: palette.red[7],
+  },
 });
