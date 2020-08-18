@@ -12,6 +12,8 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useDispatch } from 'react-redux';
 import { getDocumentByBarcode } from '../../module/redux/scan';
 import palette from '../../lib/styles/open-color';
+import LoadingComponent from '../common/LoadingComponent';
+import AccessDenied from '../common/AccessDenied';
 
 export default function ScanComponent({ navigation, onCamera, colorScheme }) {
   if (!onCamera) {
@@ -133,10 +135,10 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return <LoadingComponent colorScheme={colorScheme} />;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <AccessDenied target={'카메라'} colorScheme={colorScheme} />;
   }
 
   return (
