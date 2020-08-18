@@ -12,6 +12,7 @@ const CHANGE_INPUT = 'search/CHANGE_INPUT';
 const SET_QUERY = 'search/SET_QUERY';
 const CHANGE_OPTION = 'search/CHANGE_OPTION';
 const SET_IS_EMPTY_RESULT = 'search/SET_IS_EMPTY_RESULT';
+const INITIALIZE_IS_EMPTY_RESULT = 'search/INITIALIZE_IS_EMPTY_RESULT';
 const INITIALIZE = 'search/INITIALIZE';
 const INITIALIZE_OPTION = 'search/INITIALIZE_OPTION';
 const INITIALIZE_RESULT_LIST = 'serach/INITIALIZE_RESULT_LIST';
@@ -31,8 +32,9 @@ export const changeOption = createAction(CHANGE_OPTION, ({ key, value }) => ({
 }));
 export const setIsEmptyResult = createAction(
   SET_IS_EMPTY_RESULT,
-  (isEmptyResult) => isEmptyResult,
+  ({ key, value }) => ({ key, value }),
 );
+export const initializeIsEmptyResult = createAction(INITIALIZE_IS_EMPTY_RESULT);
 export const initialize = createAction(INITIALIZE);
 export const initializeOption = createAction(INITIALIZE_OPTION);
 export const initializeResultList = createAction(
@@ -67,7 +69,7 @@ const initialState = {
     blogSort: '',
     blogTerm: '',
   },
-  isEmptyResult: false,
+  isEmptyResult: { total: false, wiki: false, blog: false },
   requestList: false,
   totalList: [],
   totalListError: null,
@@ -85,9 +87,13 @@ const search = handleActions(
       produce(state, (draft) => {
         draft.option[key] = value;
       }),
-    [SET_IS_EMPTY_RESULT]: (state, { payload: isEmptyResult }) => ({
+    [SET_IS_EMPTY_RESULT]: (state, { payload: { key, value } }) =>
+      produce(state, (draft) => {
+        draft.isEmptyResult[key] = value;
+      }),
+    [INITIALIZE_IS_EMPTY_RESULT]: (state) => ({
       ...state,
-      isEmptyResult,
+      isEmptyResult: initialState.isEmptyResult,
     }),
     [INITIALIZE]: () => initialState,
     [INITIALIZE_OPTION]: (state) => ({

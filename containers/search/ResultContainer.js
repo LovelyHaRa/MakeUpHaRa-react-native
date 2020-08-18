@@ -26,7 +26,7 @@ export const TotalResultContainer = ({ navigation }) => {
     requestList,
   } = useSelector(({ search, loading }) => ({
     searchQuery: search.query,
-    isEmptyResult: search.isEmptyResult,
+    isEmptyResult: search.isEmptyResult['total'],
     totalList: search.totalList,
     error: search.totalListError,
     loading: loading['search/GET_TOTAL_LIST'],
@@ -61,11 +61,11 @@ export const TotalResultContainer = ({ navigation }) => {
       }
       if (totalList.length === 0) {
         if (page === 1) {
-          dispatch(setIsEmptyResult(true));
+          dispatch(setIsEmptyResult({ key: 'total', value: true }));
         }
         setIsLastPage(true);
       } else {
-        dispatch(setIsEmptyResult(false));
+        dispatch(setIsEmptyResult({ key: 'total', value: false }));
         setIsLastPage(false);
       }
       setListitem((listItem) => listItem.concat(totalList));
@@ -109,7 +109,7 @@ export const WikiResultContainer = ({ navigation }) => {
     requestList,
   } = useSelector(({ search, wiki, loading }) => ({
     searchQuery: search.query,
-    isEmptyResult: search.isEmptyResult,
+    isEmptyResult: search.isEmptyResult['wiki'],
     documentList: wiki.searchList,
     error: wiki.searchListError,
     loading: loading['wiki/GET_SEARCH_LIST'],
@@ -144,11 +144,11 @@ export const WikiResultContainer = ({ navigation }) => {
       }
       if (documentList.length === 0) {
         if (page === 1 && !loading) {
-          dispatch(setIsEmptyResult(true));
+          dispatch(setIsEmptyResult({ key: 'wiki', value: true }));
         }
         setIsLastPage(true);
       } else {
-        dispatch(setIsEmptyResult(false));
+        dispatch(setIsEmptyResult({ key: 'wiki', value: false }));
         setIsLastPage(false);
       }
       setListitem((listItem) => listItem.concat(documentList));
@@ -192,13 +192,13 @@ export const BlogResultContainer = ({ navigation }) => {
     requestList,
   } = useSelector(({ search, post, loading }) => ({
     searchQuery: search.query,
-    isEmptyResult: search.isEmptyResult,
+    isEmptyResult: search.isEmptyResult['blog'],
     postList: post.searchPostList,
     error: post.searchPostListError,
     loading: loading['post/GET_SEARCH_LIST'],
     requestList: search.requestList,
   }));
-
+  
   const [listItem, setListitem] = useState([]);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -227,11 +227,11 @@ export const BlogResultContainer = ({ navigation }) => {
       }
       if (postList.length === 0) {
         if (page === 1 && !loading) {
-          dispatch(setIsEmptyResult(true));
+          dispatch(setIsEmptyResult({ key: 'blog', value: true }));
         }
         setIsLastPage(true);
       } else {
-        dispatch(setIsEmptyResult(false));
+        dispatch(setIsEmptyResult({ key: 'blog', value: false }));
         setIsLastPage(false);
       }
       setListitem((listItem) => listItem.concat(postList));

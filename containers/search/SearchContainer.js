@@ -7,7 +7,7 @@ import {
   initializeResultList,
   getTotalList,
   setQuery,
-  setIsEmptyResult,
+  initializeIsEmptyResult,
 } from '../../module/redux/search';
 import { getSearchList as getPostSearchList } from '../../module/redux/post';
 import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
@@ -36,7 +36,7 @@ const SearchContainer = () => {
   };
   const handleSubmit = () => {
     setOnSearchState(true);
-    dispatch(setIsEmptyResult(false));
+    dispatch(initializeIsEmptyResult());
     dispatch(setQuery(inputQuery));
     dispatch(initializeResultList(true));
     dispatch(getTotalList({ query: inputQuery }));
