@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import ScanComponent from '../../components/scan/ScanComponent';
 import { useColorScheme } from 'react-native-appearance';
 import { Platform } from 'react-native';
+import NotSupported from '../../components/common/NotSupported';
+import { useDispatch } from 'react-redux';
+import { getDocumentByBarcode } from '../../module/redux/scan';
 
 const ScanContainer = ({ navigation }) => {
+  const dispatch = useDispatch();
   const colorScheme = useColorScheme();
   const [onCamera, setOnCamera] = useState(false);
   useEffect(() => {
@@ -19,14 +23,22 @@ const ScanContainer = ({ navigation }) => {
     });
     return e;
   }, [navigation]);
+
   if (Platform.OS === 'web') {
-    return null;
+    return <NotSupported target={'Web'} colorScheme={colorScheme} />;
   }
+
+  const handlePress = (data) => {
+    dispatch(getDocumentByBarcode({ code: data }));
+    navigation.push('ResultComponent');
+  };
+
   return (
     <ScanComponent
-      navigation={navigation}
       onCamera={onCamera}
       colorScheme={colorScheme}
+      handlePress={handlePress}
+      buttonText={'문서 보기'}
     />
   );
 };

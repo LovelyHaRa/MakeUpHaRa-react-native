@@ -9,13 +9,16 @@ import {
   Dimensions,
 } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { useDispatch } from 'react-redux';
-import { getDocumentByBarcode } from '../../module/redux/scan';
 import palette from '../../lib/styles/open-color';
 import LoadingComponent from '../common/LoadingComponent';
 import AccessDenied from '../common/AccessDenied';
 
-export default function ScanComponent({ navigation, onCamera, colorScheme }) {
+export default function ScanComponent({
+  onCamera,
+  colorScheme,
+  handlePress,
+  buttonText,
+}) {
   if (!onCamera) {
     return null;
   }
@@ -23,8 +26,6 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [scandata, setScanData] = useState(null);
-
-  const dispatch = useDispatch();
 
   const codeTypes = [
     BarCodeScanner.Constants.BarCodeType.ean13,
@@ -104,11 +105,10 @@ export default function ScanComponent({ navigation, onCamera, colorScheme }) {
                   }
                   onPress={() => {
                     setModalVisible(!modalVisible);
-                    dispatch(getDocumentByBarcode({ code: data }));
-                    navigation.push('ResultComponent');
+                    handlePress(data);
                   }}
                 >
-                  <Text>문서 보기</Text>
+                  <Text>{buttonText}</Text>
                 </TouchableHighlight>
                 <TouchableHighlight
                   style={[

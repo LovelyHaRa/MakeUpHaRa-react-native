@@ -9,7 +9,7 @@ const ProfileMenuList = [
   { id: 'logout', name: '로그아웃' },
 ];
 
-const Profile = ({ colorScheme, user, onLogout }) => {
+const Profile = ({ colorScheme, user, onScan, onLogout }) => {
   const MenuItem = ({ item }) => (
     <ListItem
       containerStyle={
@@ -19,6 +19,9 @@ const Profile = ({ colorScheme, user, onLogout }) => {
       titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
       onPress={() => {
         switch (item.id) {
+          case 'codeRegist':
+            onScan();
+            break;
           case 'logout':
             onLogout();
             break;

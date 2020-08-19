@@ -4,6 +4,8 @@ import LoginForm from '../../containers/auth/LoginForm';
 import ProfileContainer from '../../containers/profile/ProfileContainer';
 import { useSelector } from 'react-redux';
 import RegisterForm from '../../containers/auth/RegisterForm';
+import ScanContainer from '../../containers/profile/ScanContainer';
+import BarcodeRegistContainer from '../../containers/profile/BarcodeRegistContainer';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +18,14 @@ const ProfileScreen = () => {
   return (
     <Stack.Navigator headerMode="none">
       {isLoggedIn ? (
-        <Stack.Screen name="Profile" component={ProfileContainer} />
+        <>
+          <Stack.Screen name="Profile" component={ProfileContainer} />
+          <Stack.Screen name="Scan" component={ScanContainer} />
+          <Stack.Screen
+            name="BarcodeRegist"
+            component={BarcodeRegistContainer}
+          />
+        </>
       ) : (
         <>
           <Stack.Screen name="Login" component={LoginForm} />
