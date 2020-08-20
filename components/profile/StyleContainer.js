@@ -23,6 +23,12 @@ export const styles = StyleSheet.create({
   darkSubText: {
     color: palette.gray[5],
   },
+  lightThemeColor: {
+    color: palette.cyan[7],
+  },
+  darkThemeColor: {
+    color: palette.violet[7],
+  },
   userContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -36,5 +42,42 @@ export const styles = StyleSheet.create({
   name: { fontSize: 18 },
   menu: {
     flex: 1,
+  },
+  lightsearchBarContainer: {
+    backgroundColor: palette.gray[0],
+    borderBottomColor: palette.gray[3],
+    borderTopColor: 'transparent',
+  },
+  darksearchBarContainer: {
+    backgroundColor: palette.gray[9],
+    borderColor: palette.gray[9],
+    borderBottomColor: palette.gray[8],
+    borderTopColor: 'transparent',
+  },
+  infoBody: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  infoTitle: {
+    fontSize: 22,
+    margin: 40,
+    fontFamily: 'NanumGothic_400Regular',
+  },
+  infoSubTitle: {
+    fontSize: 16,
+    marginBottom: 12,
+    fontFamily: 'NanumGothic_400Regular',
+  },
+  resultInfoTitle: {
+    fontSize: 16,
+    margin: 16,
+    marginBottom: 28,
+    fontFamily: 'NanumGothic_400Regular',
+  },
+  resultInfoSubTitle: {
+    fontSize: 16,
+    margin: 16,
+    marginBottom: 4,
+    fontFamily: 'NanumGothic_400Regular',
   },
 });

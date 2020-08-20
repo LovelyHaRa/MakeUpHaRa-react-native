@@ -15,7 +15,8 @@ const SET_IS_EMPTY_RESULT = 'search/SET_IS_EMPTY_RESULT';
 const INITIALIZE_IS_EMPTY_RESULT = 'search/INITIALIZE_IS_EMPTY_RESULT';
 const INITIALIZE = 'search/INITIALIZE';
 const INITIALIZE_OPTION = 'search/INITIALIZE_OPTION';
-const INITIALIZE_RESULT_LIST = 'serach/INITIALIZE_RESULT_LIST';
+const INITIALIZE_RESULT_LIST = 'search/INITIALIZE_RESULT_LIST';
+const SET_ACTION_STATE = 'search/SET_ACTION_STATE';
 const [
   GET_TOTAL_LIST,
   GET_TOTAL_LIST_SUCCESS,
@@ -40,6 +41,10 @@ export const initializeOption = createAction(INITIALIZE_OPTION);
 export const initializeResultList = createAction(
   INITIALIZE_RESULT_LIST,
   (requestList) => requestList,
+);
+export const setActionState = createAction(
+  SET_ACTION_STATE,
+  (actionState) => actionState,
 );
 export const getTotalList = createAction(
   GET_TOTAL_LIST,
@@ -69,6 +74,7 @@ const initialState = {
     blogSort: '',
     blogTerm: '',
   },
+  actionState: false,
   isEmptyResult: { total: false, wiki: false, blog: false },
   requestList: false,
   totalList: [],
@@ -103,6 +109,10 @@ const search = handleActions(
     [INITIALIZE_RESULT_LIST]: (state, { payload: requestList }) => ({
       ...state,
       requestList,
+    }),
+    [SET_ACTION_STATE]: (state, { payload: actionState }) => ({
+      ...state,
+      actionState,
     }),
     [GET_TOTAL_LIST_SUCCESS]: (state, { payload: totalList }) => ({
       ...state,

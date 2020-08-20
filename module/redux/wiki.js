@@ -97,6 +97,11 @@ const wiki = handleActions(
       searchList: [],
       searchListError,
     }),
+    [INITIALIZE_SEARCH_LIST]: (state) => ({
+      ...state,
+      searchList: [],
+      searchListError: null,
+    }),
     [READ_DOCUMENT_SUCCESS]: (state, { payload: document }) => ({
       ...state,
       document,

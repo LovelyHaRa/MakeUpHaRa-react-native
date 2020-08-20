@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useColorScheme } from 'react-native-appearance';
 import SearchComponent from '../../components/search/SearchComponent';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import {
   getTotalList,
   setQuery,
   initializeIsEmptyResult,
+  setActionState,
 } from '../../module/redux/search';
 import { getSearchList as getPostSearchList } from '../../module/redux/post';
 import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
@@ -26,16 +27,16 @@ const Tab = createMaterialTopTabNavigator();
 const SearchContainer = () => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-  const { inputQuery } = useSelector(({ search }) => ({
+  const { inputQuery, actionState } = useSelector(({ search }) => ({
     inputQuery: search.inputQuery,
+    actionState: search.actionState,
   }));
-  const [onSearchState, setOnSearchState] = useState(false);
 
   const handleQueryChange = (search) => {
     dispatch(changeInput(search));
   };
   const handleSubmit = () => {
-    setOnSearchState(true);
+    dispatch(setActionState(true));
     dispatch(initializeIsEmptyResult());
     dispatch(setQuery(inputQuery));
     dispatch(initializeResultList(true));
@@ -52,7 +53,7 @@ const SearchContainer = () => {
         handleQueryChange={handleQueryChange}
         handleSubmit={handleSubmit}
       />
-      {!onSearchState ? (
+      {!actionState ? (
         <InfoComponent colorScheme={colorScheme} />
       ) : (
         <Tab.Navigator

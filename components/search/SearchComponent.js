@@ -9,6 +9,7 @@ const SearchComponent = ({
   handleQueryChange,
   handleSubmit,
   colorScheme,
+  placeholder = '검색어를 입력하세요',
 }) => {
   return (
     <View>
@@ -23,7 +24,7 @@ const SearchComponent = ({
               : styles.lightsearchBarContainer
           }
           onChangeText={handleQueryChange}
-          placeholder="검색어를 입력하세요."
+          placeholder={placeholder}
           value={inputQuery}
         />
       </View>
