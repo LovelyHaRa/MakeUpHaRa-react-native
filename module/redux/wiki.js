@@ -30,6 +30,12 @@ const [
   GET_REVISION_DOCUMENT_SUCCESS,
   GET_REVISION_DOCUMENT_FAILURE,
 ] = createRequestActionTypes('wiki/GET_REVISION_DOCUMENT');
+const [
+  FIND_LIST,
+  FIND_LIST_SUCCESS,
+  FIND_LIST_FAILURE,
+] = createRequestActionTypes('wiki/FIND_LIST');
+const INITIALIZE_FIND_LIST = 'wiki/INITIALIZE_FIND_LIST';
 
 /* action */
 export const getSearchList = createAction(
@@ -54,6 +60,11 @@ export const getRevisionDocument = createAction(
   GET_REVISION_DOCUMENT,
   ({ title, r }) => ({ title, r }),
 );
+export const findList = createAction(FIND_LIST, ({ query, page }) => ({
+  query,
+  page,
+}));
+export const initializeFindList = createAction(INITIALIZE_FIND_LIST);
 
 /* redux-saga */
 const getSearchListSaga = createRequestSaga(
@@ -66,12 +77,14 @@ const getRevisionDocumentSaga = createRequestSaga(
   GET_REVISION_DOCUMENT,
   wikiAPI.getRevisionDocument,
 );
+const findListSaga = createRequestSaga(FIND_LIST, wikiAPI.getSearchList);
 
 export function* wikiSaga() {
   yield takeLatest(GET_SEARCH_LIST, getSearchListSaga);
   yield takeLatest(READ_DOCUMENT, readDocumentSaga);
   yield takeLatest(GET_HISTORY, getHistorySaga);
   yield takeLatest(GET_REVISION_DOCUMENT, getRevisionDocumentSaga);
+  yield takeLatest(FIND_LIST, findListSaga);
 }
 
 /* initialize state */
@@ -82,6 +95,8 @@ const initialState = {
   documentError: null,
   historyList: null,
   historyListError: null,
+  findList: [],
+  findListError: null,
 };
 
 /* reducer */
@@ -132,6 +147,21 @@ const wiki = handleActions(
     [GET_REVISION_DOCUMENT_FAILURE]: (state, { payload: documentError }) => ({
       ...state,
       documentError,
+    }),
+    [FIND_LIST_SUCCESS]: (state, { payload: findList }) => ({
+      ...state,
+      findList,
+      findListError: null,
+    }),
+    [FIND_LIST_FAILURE]: (state, { payload: findListError }) => ({
+      ...state,
+      findList: null,
+      findListError,
+    }),
+    [INITIALIZE_FIND_LIST]: (state) => ({
+      ...state,
+      findList: [],
+      findListError: null,
     }),
   },
   initialState,

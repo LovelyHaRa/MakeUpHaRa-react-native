@@ -4,9 +4,6 @@ import { ListItem } from 'react-native-elements';
 import { styles } from './StyleContainer';
 import moment from 'moment';
 import LoadingComponent from '../common/LoadingComponent';
-import { useDispatch } from 'react-redux';
-import { readPost } from '../../module/redux/post';
-import { readDocument } from '../../module/redux/wiki';
 import DismissKeyboard from '../common/DismissKeyboard';
 
 export const TotalResultSearch = ({
@@ -20,19 +17,10 @@ export const TotalResultSearch = ({
   colorScheme,
   isLastPage,
   emptyResult,
-  navigation,
+  handleItemPress,
 }) => {
-  const dispatch = useDispatch();
   const TotalListItem = ({ item }) => {
     const type = !!item.lately ? 'wiki' : 'post';
-    const handleWikiItemPress = () => {
-      dispatch(readDocument({ id: item.name }));
-      navigation.push('ResultWikiView');
-    };
-    const handlePostItemPress = () => {
-      dispatch(readPost({ id: item._id }));
-      navigation.push('ResultPostView');
-    };
     return (
       <ListItem
         containerStyle={
@@ -40,7 +28,10 @@ export const TotalResultSearch = ({
         }
         title={item.name || item.title}
         titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
-        onPress={type === 'wiki' ? handleWikiItemPress : handlePostItemPress}
+        onPress={() => {
+          const id = type === 'wiki' ? item.name : item._id;
+          handleItemPress({ type, id });
+        }}
         subtitle={
           <View>
             <Text
@@ -151,17 +142,15 @@ export const WikiResultSearch = ({
   isLastPage,
   emptyResult,
   colorScheme,
-  navigation,
+  handleItemPress,
 }) => {
-  const dispatch = useDispatch();
   const WikiListItem = ({ item }) => (
     <ListItem
       containerStyle={
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody
       }
       onPress={() => {
-        dispatch(readDocument({ id: item.name }));
-        navigation.push('ResultWikiView');
+        handleItemPress(item.name);
       }}
       title={item.name}
       titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
@@ -227,17 +216,15 @@ export const BlogResultSearch = ({
   isLastPage,
   emptyResult,
   colorScheme,
-  navigation,
+  handleItemPress,
 }) => {
-  const dispatch = useDispatch();
   const PostListItem = ({ item }) => (
     <ListItem
       containerStyle={
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody
       }
       onPress={() => {
-        dispatch(readPost({ id: item._id }));
-        navigation.push('ResultPostView');
+        handleItemPress(item._id);
       }}
       title={item.title}
       titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}

@@ -6,8 +6,14 @@ import {
 } from '../../components/search/ResultComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { useColorScheme } from 'react-native-appearance';
-import { getSearchList as getPostSearchList } from '../../module/redux/post';
-import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
+import {
+  getSearchList as getPostSearchList,
+  readPost,
+} from '../../module/redux/post';
+import {
+  getSearchList as getWikiSearchList,
+  readDocument,
+} from '../../module/redux/wiki';
 import {
   initializeResultList,
   getTotalList,
@@ -49,6 +55,16 @@ export const TotalResultContainer = ({ navigation }) => {
     setListitem([]);
     dispatch(getTotalList({ query: searchQuery, page: 1 }));
   }, [dispatch]);
+
+  const handleItemPress = ({ type, id }) => {
+    if (type === 'wiki') {
+      dispatch(readDocument({ id }));
+      navigation.push('ResultWikiView');
+    } else {
+      dispatch(readPost({ id }));
+      navigation.push('ResultPostView');
+    }
+  };
 
   useEffect(() => {
     if (!loading) {
@@ -93,6 +109,7 @@ export const TotalResultContainer = ({ navigation }) => {
       isLastPage={isLastPage}
       emptyResult={isEmptyResult}
       navigation={navigation}
+      handleItemPress={handleItemPress}
     />
   );
 };
@@ -132,6 +149,11 @@ export const WikiResultContainer = ({ navigation }) => {
     setListitem([]);
     dispatch(getWikiSearchList({ query: searchQuery, page: 1 }));
   }, [dispatch]);
+
+  const handleItemPress = (id) => {
+    dispatch(readDocument({ id }));
+    navigation.push('ResultWikiView');
+  };
 
   useEffect(() => {
     if (!loading) {
@@ -175,7 +197,7 @@ export const WikiResultContainer = ({ navigation }) => {
       refresh={refresh}
       isLastPage={isLastPage}
       emptyResult={isEmptyResult}
-      navigation={navigation}
+      handleItemPress={handleItemPress}
     />
   );
 };
@@ -198,7 +220,7 @@ export const BlogResultContainer = ({ navigation }) => {
     loading: loading['post/GET_SEARCH_LIST'],
     requestList: search.requestList,
   }));
-  
+
   const [listItem, setListitem] = useState([]);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -215,6 +237,11 @@ export const BlogResultContainer = ({ navigation }) => {
     setListitem([]);
     dispatch(getPostSearchList({ query: searchQuery, page: 1 }));
   }, [dispatch]);
+
+  const handleItemPress = (id) => {
+    dispatch(readPost({ id }));
+    navigation.push('ResultPostView');
+  };
 
   useEffect(() => {
     if (!loading) {
@@ -258,7 +285,7 @@ export const BlogResultContainer = ({ navigation }) => {
       refresh={refresh}
       isLastPage={isLastPage}
       emptyResult={isEmptyResult}
-      navigation={navigation}
+      handleItemPress={handleItemPress}
     />
   );
 };

@@ -9,7 +9,7 @@ import { useColorScheme } from 'react-native-appearance';
 const BarcodeRegistContainer = ({ route }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-
+  
   const { code: barcode } = route.params;
 
   const [query, setQuery] = useState('');
