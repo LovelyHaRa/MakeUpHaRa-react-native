@@ -56,15 +56,18 @@ export const TotalResultContainer = ({ navigation }) => {
     dispatch(getTotalList({ query: searchQuery, page: 1 }));
   }, [dispatch]);
 
-  const handleItemPress = ({ type, id }) => {
-    if (type === 'wiki') {
-      dispatch(readDocument({ id }));
-      navigation.push('ResultWikiView');
-    } else {
-      dispatch(readPost({ id }));
-      navigation.push('ResultPostView');
-    }
-  };
+  const handleItemPress = useCallback(
+    ({ type, id }) => {
+      if (type === 'wiki') {
+        dispatch(readDocument({ id }));
+        navigation.push('ResultWikiView');
+      } else {
+        dispatch(readPost({ id }));
+        navigation.push('ResultPostView');
+      }
+    },
+    [dispatch, navigation],
+  );
 
   useEffect(() => {
     if (!loading) {
@@ -108,7 +111,6 @@ export const TotalResultContainer = ({ navigation }) => {
       refresh={refresh}
       isLastPage={isLastPage}
       emptyResult={isEmptyResult}
-      navigation={navigation}
       handleItemPress={handleItemPress}
     />
   );
@@ -150,10 +152,13 @@ export const WikiResultContainer = ({ navigation }) => {
     dispatch(getWikiSearchList({ query: searchQuery, page: 1 }));
   }, [dispatch]);
 
-  const handleItemPress = (id) => {
-    dispatch(readDocument({ id }));
-    navigation.push('ResultWikiView');
-  };
+  const handleItemPress = useCallback(
+    (id) => {
+      dispatch(readDocument({ id }));
+      navigation.push('ResultWikiView');
+    },
+    [dispatch, navigation],
+  );
 
   useEffect(() => {
     if (!loading) {
@@ -238,10 +243,13 @@ export const BlogResultContainer = ({ navigation }) => {
     dispatch(getPostSearchList({ query: searchQuery, page: 1 }));
   }, [dispatch]);
 
-  const handleItemPress = (id) => {
-    dispatch(readPost({ id }));
-    navigation.push('ResultPostView');
-  };
+  const handleItemPress = useCallback(
+    (id) => {
+      dispatch(readPost({ id }));
+      navigation.push('ResultPostView');
+    },
+    [dispatch, navigation],
+  );
 
   useEffect(() => {
     if (!loading) {

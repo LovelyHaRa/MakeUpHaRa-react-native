@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { styles } from './StyleContainer';
 import DismissKeyboard from '../common/DismissKeyboard';
 import SearchComponent from '../search/SearchComponent';
+import { WikiResultSearch } from '../search/ResultComponent';
 
 const InfoComponent = ({ barcode, colorScheme }) => (
   <DismissKeyboard>
@@ -60,9 +61,20 @@ const InfoComponent = ({ barcode, colorScheme }) => (
 const BarcodeRegist = ({
   barcode,
   inputQuery,
+  searchQuery,
   handleQueryChange,
   handleSubmit,
   colorScheme,
+  documentList,
+  error,
+  loading,
+  handleMoreList,
+  handleRefresh,
+  refresh,
+  isLastPage,
+  emptyResult,
+  isRequest,
+  handleItemPress,
 }) => {
   return (
     <View style={styles.container}>
@@ -73,7 +85,23 @@ const BarcodeRegist = ({
         colorScheme={colorScheme}
         placeholder="바코드를 등록할 문서 검색"
       />
-      <InfoComponent barcode={barcode} colorScheme={colorScheme} />
+      {!isRequest ? (
+        <InfoComponent barcode={barcode} colorScheme={colorScheme} />
+      ) : (
+        <WikiResultSearch
+          documentList={documentList}
+          searchQuery={searchQuery}
+          error={error}
+          loading={loading}
+          colorScheme={colorScheme}
+          handleMoreList={handleMoreList}
+          handleRefresh={handleRefresh}
+          refresh={refresh}
+          isLastPage={isLastPage}
+          emptyResult={emptyResult}
+          handleItemPress={handleItemPress}
+        />
+      )}
     </View>
   );
 };
