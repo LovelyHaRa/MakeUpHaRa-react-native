@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthForm';
 import { changeField } from '../../module/redux/auth';
@@ -14,6 +14,8 @@ const RegisterForm = ({ navigation }) => {
     dispatch(changeField({ form: 'register', key, value }));
   };
 
+  const [error, setError] = useState('');
+
   const handleOnRegister = () => {};
 
   return (
@@ -22,6 +24,7 @@ const RegisterForm = ({ navigation }) => {
       form={form}
       onChange={handleChange}
       onSubmit={handleOnRegister}
+      error={error}
       user={user}
       navigation={navigation}
     />

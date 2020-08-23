@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   Text,
@@ -26,6 +26,9 @@ const AuthForm = ({
     return <LoadingComponent />;
   }
   const colorScheme = useColorScheme();
+  const refInputPassword = useRef();
+  const refInputConfirmPassword = useRef();
+  const refInputName = useRef();
   return (
     <DismissKeyboard>
       <View style={styles.container}>
@@ -75,6 +78,10 @@ const AuthForm = ({
               ]}
               value={form.username}
               onChangeText={(text) => onChange('username', text)}
+              onSubmitEditing={() => {
+                refInputPassword.current.focus();
+              }}
+              blurOnSubmit={false}
             />
             <TextInput
               placeholder="Password"
@@ -90,6 +97,15 @@ const AuthForm = ({
               secureTextEntry={true}
               value={form.password}
               onChangeText={(text) => onChange('password', text)}
+              ref={refInputPassword}
+              onSubmitEditing={() => {
+                if (type === 'login') {
+                  onSubmit();
+                } else {
+                  return refInputConfirmPassword.current.focus();
+                }
+              }}
+              blurOnSubmit={type === 'login' ? true : false}
             />
             {type === 'register' && (
               <>
@@ -107,6 +123,9 @@ const AuthForm = ({
                   secureTextEntry={true}
                   value={form.passwordConfirm}
                   onChangeText={(text) => onChange('passwordConfirm', text)}
+                  ref={refInputConfirmPassword}
+                  onSubmitEditing={() => refInputName.current.focus()}
+                  blurOnSubmit={false}
                 />
                 <TextInput
                   placeholder="Name"
@@ -121,6 +140,7 @@ const AuthForm = ({
                   ]}
                   value={form.name}
                   onChangeText={(text) => onChange('name', text)}
+                  ref={refInputName}
                 />
               </>
             )}
