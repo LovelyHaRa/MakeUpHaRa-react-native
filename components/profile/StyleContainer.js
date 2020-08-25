@@ -80,4 +80,24 @@ export const styles = StyleSheet.create({
     marginBottom: 4,
     fontFamily: 'NanumGothic_400Regular',
   },
+  overlayContainer: { margin: 8 },
+  overlayText: {
+    margin: 8,
+    fontSize: 16,
+  },
+  overlayTextCenter: {
+    margin: 8,
+    marginTop: 20,
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  overlayButtonContainer: {
+    margin: 16,
+  },
+  overlayButton: {
+    marginBottom: 28,
+  },
+  darkOverlayButtonComfirm: { backgroundColor: palette.violet[7] },
+  lightOverlayButtonComfirm: { backgroundColor: palette.cyan[7] },
+  overlayTextButtonCancel: { color: palette.red[5] },
 });

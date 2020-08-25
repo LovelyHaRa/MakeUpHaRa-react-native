@@ -53,8 +53,6 @@ const BarcodeRegistContainer = ({ route }) => {
     dispatch(findList({ query, page: 1 }));
   }, [dispatch]);
 
-  const handleItemPress = useCallback(() => {}, []);
-
   useEffect(() => {
     if (!loading) {
       if (page === 1) {
@@ -101,7 +99,6 @@ const BarcodeRegistContainer = ({ route }) => {
       isLastPage={isLastPage}
       emptyResult={isEmptyResult}
       isRequest={isRequest}
-      handleItemPress={handleItemPress}
     />
   );
 };
