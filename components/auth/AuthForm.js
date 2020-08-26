@@ -82,6 +82,7 @@ const AuthForm = ({
                 refInputPassword.current.focus();
               }}
               blurOnSubmit={false}
+              returnKeyType="next"
             />
             <TextInput
               placeholder="Password"
@@ -106,6 +107,7 @@ const AuthForm = ({
                 }
               }}
               blurOnSubmit={type === 'login' ? true : false}
+              returnKeyType={type === 'login' ? 'done' : 'next'}
             />
             {type === 'register' && (
               <>
@@ -126,6 +128,7 @@ const AuthForm = ({
                   ref={refInputConfirmPassword}
                   onSubmitEditing={() => refInputName.current.focus()}
                   blurOnSubmit={false}
+                  returnKeyType="next"
                 />
                 <TextInput
                   placeholder="Name"
@@ -141,6 +144,7 @@ const AuthForm = ({
                   value={form.name}
                   onChangeText={(text) => onChange('name', text)}
                   ref={refInputName}
+                  returnKeyType="done"
                 />
               </>
             )}
