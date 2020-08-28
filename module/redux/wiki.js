@@ -36,6 +36,11 @@ const [
   FIND_LIST_FAILURE,
 ] = createRequestActionTypes('wiki/FIND_LIST');
 const INITIALIZE_FIND_LIST = 'wiki/INITIALIZE_FIND_LIST';
+const [
+  ADD_BARCODE_NUMBER,
+  ADD_BARCODE_NUMBER_SUCCESS,
+  ADD_BARCODE_NUMBER_FAILURE,
+] = createRequestActionTypes('wiki/ADD_BARCODE_NUMBER');
 
 /* action */
 export const getSearchList = createAction(
@@ -65,6 +70,10 @@ export const findList = createAction(FIND_LIST, ({ query, page }) => ({
   page,
 }));
 export const initializeFindList = createAction(INITIALIZE_FIND_LIST);
+export const addBarcodeNumber = createAction(
+  ADD_BARCODE_NUMBER,
+  ({ title, code }) => ({ title, code }),
+);
 
 /* redux-saga */
 const getSearchListSaga = createRequestSaga(
@@ -78,6 +87,10 @@ const getRevisionDocumentSaga = createRequestSaga(
   wikiAPI.getRevisionDocument,
 );
 const findListSaga = createRequestSaga(FIND_LIST, wikiAPI.getSearchList);
+const addBarcodeNumberSaga = createRequestSaga(
+  ADD_BARCODE_NUMBER,
+  wikiAPI.addBarcodeNumber,
+);
 
 export function* wikiSaga() {
   yield takeLatest(GET_SEARCH_LIST, getSearchListSaga);
@@ -85,6 +98,7 @@ export function* wikiSaga() {
   yield takeLatest(GET_HISTORY, getHistorySaga);
   yield takeLatest(GET_REVISION_DOCUMENT, getRevisionDocumentSaga);
   yield takeLatest(FIND_LIST, findListSaga);
+  yield takeLatest(ADD_BARCODE_NUMBER, addBarcodeNumberSaga);
 }
 
 /* initialize state */
@@ -97,6 +111,8 @@ const initialState = {
   historyListError: null,
   findList: [],
   findListError: null,
+  addBarcodeNumberResult: null,
+  addBarcodeNumberResultError: null,
 };
 
 /* reducer */
@@ -162,6 +178,22 @@ const wiki = handleActions(
       ...state,
       findList: [],
       findListError: null,
+    }),
+    [ADD_BARCODE_NUMBER_SUCCESS]: (
+      state,
+      { payload: addBarcodeNumberResult },
+    ) => ({
+      ...state,
+      addBarcodeNumberResult,
+      addBarcodeNumberResultError: null,
+    }),
+    [ADD_BARCODE_NUMBER_FAILURE]: (
+      state,
+      { payload: addBarcodeNumberResultError },
+    ) => ({
+      ...state,
+      addBarcodeNumberResult: null,
+      addBarcodeNumberResultError,
     }),
   },
   initialState,

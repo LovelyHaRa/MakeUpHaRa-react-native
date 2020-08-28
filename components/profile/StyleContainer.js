@@ -29,6 +29,12 @@ export const styles = StyleSheet.create({
   darkThemeColor: {
     color: palette.violet[7],
   },
+  lightErrorText: {
+    color: palette.red[5],
+  },
+  darkErrorText: {
+    color: palette.red[3],
+  },
   userContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -99,5 +105,12 @@ export const styles = StyleSheet.create({
   },
   darkOverlayButtonComfirm: { backgroundColor: palette.violet[7] },
   lightOverlayButtonComfirm: { backgroundColor: palette.cyan[7] },
-  overlayTextButtonCancel: { color: palette.red[5] },
+  overlayButtonCancel: { color: palette.red[5] },
+  lightOverlayButtonClose: { backgroundColor: palette.red[5] },
+  darkOverlayButtonClose: { backgroundColor: palette.red[3] },
+  overlayResultText: {
+    textAlign: 'center',
+    fontSize: 18,
+    margin: 12,
+  },
 });

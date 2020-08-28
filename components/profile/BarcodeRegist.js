@@ -12,6 +12,9 @@ const RegistOverlay = ({
   documentName,
   barcode,
   colorScheme,
+  addBarcodeLoading,
+  handlePress,
+  resultMessage,
 }) => {
   return (
     <Overlay
@@ -77,21 +80,74 @@ const RegistOverlay = ({
         >
           해당 문서에 바코드 정보를 등록하시겠습니까?
         </Text>
+
         <View style={styles.overlayButtonContainer}>
-          <Button
-            buttonStyle={[
-              styles.overlayButton,
-              colorScheme === 'dark'
-                ? { ...styles.darkOverlayButtonComfirm }
-                : { ...styles.lightOverlayButtonComfirm },
-            ]}
-            title={'등록'}
-          />
-          <Button
-            type="clear"
-            titleStyle={styles.overlayTextButtonCancel}
-            title={'취소'}
-          />
+          {resultMessage.state ? (
+            <>
+              {resultMessage.success != '' && (
+                <Text
+                  style={[
+                    styles.overlayResultText,
+                    colorScheme === 'dark'
+                      ? { ...styles.darkSubText }
+                      : { ...styles.lightThemeColor },
+                  ]}
+                >
+                  {resultMessage.success}
+                </Text>
+              )}
+              {resultMessage.failure != '' && (
+                <Text
+                  style={[
+                    styles.overlayResultText,
+                    colorScheme === 'dark'
+                      ? { ...styles.darkErrorText }
+                      : { ...styles.lightErrorText },
+                  ]}
+                >
+                  {resultMessage.failure}
+                </Text>
+              )}
+              <Button
+                buttonStyle={
+                  colorScheme === 'dark'
+                    ? styles.darkOverlayButtonClose
+                    : styles.lightOverlayButtonClose
+                }
+                title={'닫기'}
+                onPress={toggleOverlay}
+              />
+            </>
+          ) : addBarcodeLoading ? (
+            <Button
+              buttonStyle={[
+                styles.overlayButton,
+                colorScheme === 'dark'
+                  ? { ...styles.darkOverlayButtonComfirm }
+                  : { ...styles.lightOverlayButtonComfirm },
+              ]}
+              loading
+            />
+          ) : (
+            <>
+              <Button
+                buttonStyle={[
+                  styles.overlayButton,
+                  colorScheme === 'dark'
+                    ? { ...styles.darkOverlayButtonComfirm }
+                    : { ...styles.lightOverlayButtonComfirm },
+                ]}
+                onPress={() => handlePress(documentName)}
+                title={'등록'}
+              />
+              <Button
+                type="clear"
+                titleStyle={styles.overlayTextButtonCancel}
+                title={'취소'}
+                onPress={toggleOverlay}
+              />
+            </>
+          )}
         </View>
       </View>
     </Overlay>
@@ -167,6 +223,10 @@ const BarcodeRegist = ({
   isLastPage,
   emptyResult,
   isRequest,
+  addBarcodeLoading,
+  handlePress,
+  resultMessage,
+  initResultMessage,
 }) => {
   const [visible, setVisible] = useState(false);
   const [target, setTarget] = useState(null);
@@ -174,6 +234,7 @@ const BarcodeRegist = ({
     setVisible(!visible);
   };
   const handleItemPress = (name) => {
+    initResultMessage();
     toggleOverlay();
     setTarget(name);
   };
@@ -210,6 +271,9 @@ const BarcodeRegist = ({
             documentName={target}
             barcode={barcode}
             colorScheme={colorScheme}
+            addBarcodeLoading={addBarcodeLoading}
+            handlePress={handlePress}
+            resultMessage={resultMessage}
           />
         </>
       )}

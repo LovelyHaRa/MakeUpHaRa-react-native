@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BarcodeRegist from '../../components/profile/BarcodeRegist';
 import { initialize, setActionState } from '../../module/redux/search';
 import {
+  addBarcodeNumber,
   findList,
   initializeSearchList as initWikiSearch,
 } from '../../module/redux/wiki';
@@ -12,10 +13,20 @@ import { useColorScheme } from 'react-native-appearance';
 const BarcodeRegistContainer = ({ route }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-  const { documentList, error, loading } = useSelector(({ wiki, loading }) => ({
+  const {
+    documentList,
+    error,
+    loading,
+    addBarcodeLoading,
+    result,
+    resultError,
+  } = useSelector(({ wiki, loading }) => ({
     documentList: wiki.findList,
     error: wiki.findListError,
     loading: loading['wiki/FIND_LIST'],
+    addBarcodeLoading: loading['wiki/ADD_BARCODE_NUMBER'],
+    result: wiki.addBarcodeNumberResult,
+    resultError: wiki.addBarcodeNumberResultError,
   }));
   const { code: barcode } = route.params;
 
@@ -27,6 +38,11 @@ const BarcodeRegistContainer = ({ route }) => {
   const [refresh, setRefresh] = useState(false);
   const [isEmptyResult, setIsEmptyResult] = useState(false);
   const [isRequest, setIsRequest] = useState(false);
+  const [resultMessage, setResultMessage] = useState({
+    state: false,
+    success: '',
+    failure: '',
+  });
 
   const handleQueryChange = (query) => {
     setInputQuery(query);
@@ -44,14 +60,29 @@ const BarcodeRegistContainer = ({ route }) => {
   const handleMoreList = useCallback(() => {
     dispatch(findList({ query, page: page }));
     setPage((page) => page + 1);
-  }, [dispatch, page]);
+  }, [dispatch, query, page]);
 
   const handleRefresh = useCallback(() => {
     setPage(1);
     setRefresh(true);
     setListitem([]);
     dispatch(findList({ query, page: 1 }));
-  }, [dispatch]);
+  }, [dispatch, query]);
+
+  const handlePress = useCallback(
+    (title) => {
+      dispatch(addBarcodeNumber({ title, code: barcode }));
+    },
+    [barcode, dispatch],
+  );
+
+  const initResultMessage = useCallback(() => {
+    setResultMessage({
+      state: false,
+      success: '',
+      failure: '',
+    });
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -73,7 +104,43 @@ const BarcodeRegistContainer = ({ route }) => {
       }
       setListitem((listItem) => listItem.concat(documentList));
     }
-  }, [documentList, loading, dispatch]);
+  }, [documentList, loading, refresh, dispatch]);
+
+  useEffect(() => {
+    if (result == null && resultError == null) {
+      return;
+    }
+    if (result) {
+      if (!result.error) {
+        setResultMessage({
+          state: true,
+          success: '바코드 번호가 등록되었습니다!',
+          failure: '',
+        });
+      } else {
+        setResultMessage({
+          state: true,
+          success: '',
+          failure: result.message,
+        });
+      }
+    } else if (resultError) {
+      console.log(resultError);
+      if (resultError.response && resultError.response.status === 401) {
+        setResultMessage({
+          state: true,
+          success: '',
+          failure: '로그인 후 등록할 수 있습니다.',
+        });
+      } else {
+        setResultMessage({
+          state: true,
+          success: '',
+          failure: resultError.message,
+        });
+      }
+    }
+  }, [result, resultError]);
 
   useEffect(() => {
     dispatch(initialize());
@@ -99,6 +166,10 @@ const BarcodeRegistContainer = ({ route }) => {
       isLastPage={isLastPage}
       emptyResult={isEmptyResult}
       isRequest={isRequest}
+      addBarcodeLoading={addBarcodeLoading}
+      handlePress={handlePress}
+      resultMessage={resultMessage}
+      initResultMessage={initResultMessage}
     />
   );
 };
