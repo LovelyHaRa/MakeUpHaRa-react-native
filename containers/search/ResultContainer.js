@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   TotalResultSearch,
   WikiResultSearch,
@@ -40,21 +40,21 @@ export const TotalResultContainer = ({ navigation }) => {
   }));
 
   const [listItem, setListitem] = useState([]);
-  const [page, setPage] = useState(1);
+  const page = useRef(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const handleMoreList = useCallback(() => {
-    dispatch(getTotalList({ query: searchQuery, page: page }));
-    setPage((page) => page + 1);
-  }, [dispatch, page]);
+    page.current += 1;
+    dispatch(getTotalList({ query: searchQuery, page: page.current }));
+  }, [dispatch, searchQuery]);
 
   const handleRefresh = useCallback(() => {
-    setPage(1);
+    page.current = 1;
     setRefresh(true);
     setListitem([]);
     dispatch(getTotalList({ query: searchQuery, page: 1 }));
-  }, [dispatch]);
+  }, [dispatch, searchQuery]);
 
   const handleItemPress = useCallback(
     ({ type, id }) => {
@@ -71,15 +71,9 @@ export const TotalResultContainer = ({ navigation }) => {
 
   useEffect(() => {
     if (!loading) {
-      if (page === 1) {
-        setPage((page) => page + 1);
-      }
-      if (refresh) {
-        setRefresh(false);
-        setListitem([]);
-      }
+      setRefresh(false);
       if (totalList.length === 0) {
-        if (page === 1) {
+        if (page.current === 1) {
           dispatch(setIsEmptyResult({ key: 'total', value: true }));
         }
         setIsLastPage(true);
@@ -94,7 +88,7 @@ export const TotalResultContainer = ({ navigation }) => {
   useEffect(() => {
     if (requestList) {
       setListitem([]);
-      setPage(1);
+      page.current = 1;
       dispatch(initializeResultList(false));
     }
   }, [dispatch, requestList]);
@@ -136,21 +130,21 @@ export const WikiResultContainer = ({ navigation }) => {
   }));
 
   const [listItem, setListitem] = useState([]);
-  const [page, setPage] = useState(1);
+  const page = useRef(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const handleMoreList = useCallback(() => {
-    dispatch(getWikiSearchList({ query: searchQuery, page: page }));
-    setPage((page) => page + 1);
-  }, [dispatch, page]);
+    page.current += 1;
+    dispatch(getWikiSearchList({ query: searchQuery, page: page.current }));
+  }, [dispatch, searchQuery]);
 
   const handleRefresh = useCallback(() => {
-    setPage(1);
+    page.current = 1;
     setRefresh(true);
     setListitem([]);
     dispatch(getWikiSearchList({ query: searchQuery, page: 1 }));
-  }, [dispatch]);
+  }, [dispatch, searchQuery]);
 
   const handleItemPress = useCallback(
     (id) => {
@@ -162,15 +156,9 @@ export const WikiResultContainer = ({ navigation }) => {
 
   useEffect(() => {
     if (!loading) {
-      if (page === 1) {
-        setPage((page) => page + 1);
-      }
-      if (refresh) {
-        setRefresh(false);
-        setListitem([]);
-      }
+      setRefresh(false);
       if (documentList.length === 0) {
-        if (page === 1 && !loading) {
+        if (page.current === 1) {
           dispatch(setIsEmptyResult({ key: 'wiki', value: true }));
         }
         setIsLastPage(true);
@@ -185,7 +173,7 @@ export const WikiResultContainer = ({ navigation }) => {
   useEffect(() => {
     if (requestList) {
       setListitem([]);
-      setPage(1);
+      page.current = 1;
       dispatch(initializeResultList(false));
     }
   }, [dispatch, requestList]);
@@ -227,21 +215,21 @@ export const BlogResultContainer = ({ navigation }) => {
   }));
 
   const [listItem, setListitem] = useState([]);
-  const [page, setPage] = useState(1);
+  const page = useRef(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const handleMoreList = useCallback(() => {
-    dispatch(getPostSearchList({ query: searchQuery, page: page }));
-    setPage((page) => page + 1);
-  }, [dispatch, page]);
+    page.current += 1;
+    dispatch(getPostSearchList({ query: searchQuery, page: page.current }));
+  }, [dispatch, searchQuery]);
 
   const handleRefresh = useCallback(() => {
-    setPage(1);
+    page.current = 1;
     setRefresh(true);
     setListitem([]);
-    dispatch(getPostSearchList({ query: searchQuery, page: 1 }));
-  }, [dispatch]);
+    dispatch(getPostSearchList({ query: searchQuery, page: page.current }));
+  }, [dispatch, searchQuery]);
 
   const handleItemPress = useCallback(
     (id) => {
@@ -253,15 +241,9 @@ export const BlogResultContainer = ({ navigation }) => {
 
   useEffect(() => {
     if (!loading) {
-      if (page === 1) {
-        setPage((page) => page + 1);
-      }
-      if (refresh) {
-        setRefresh(false);
-        setListitem([]);
-      }
+      setRefresh(false);
       if (postList.length === 0) {
-        if (page === 1 && !loading) {
+        if (page.current === 1) {
           dispatch(setIsEmptyResult({ key: 'blog', value: true }));
         }
         setIsLastPage(true);
@@ -276,7 +258,7 @@ export const BlogResultContainer = ({ navigation }) => {
   useEffect(() => {
     if (requestList) {
       setListitem([]);
-      setPage(1);
+      page.current = 1;
       dispatch(initializeResultList(false));
     }
   }, [dispatch, requestList]);

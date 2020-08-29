@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BarcodeRegist from '../../components/profile/BarcodeRegist';
 import { initialize, setActionState } from '../../module/redux/search';
@@ -33,7 +33,7 @@ const BarcodeRegistContainer = ({ route }) => {
   const [inputQuery, setInputQuery] = useState('');
   const [query, setQuery] = useState('');
   const [listItem, setListitem] = useState([]);
-  const [page, setPage] = useState(1);
+  const page = useRef(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isEmptyResult, setIsEmptyResult] = useState(false);
@@ -52,18 +52,18 @@ const BarcodeRegistContainer = ({ route }) => {
     setQuery(inputQuery);
     setIsEmptyResult(false);
     setListitem([]);
-    setPage(1);
+    page.current = 1;
     dispatch(findList({ query: inputQuery, page: 1 }));
     setIsRequest(true);
   };
 
   const handleMoreList = useCallback(() => {
-    dispatch(findList({ query, page: page }));
-    setPage((page) => page + 1);
-  }, [dispatch, query, page]);
+    page.current += 1;
+    dispatch(findList({ query, page: page.current }));
+  }, [dispatch, query]);
 
   const handleRefresh = useCallback(() => {
-    setPage(1);
+    page.current = 1;
     setRefresh(true);
     setListitem([]);
     dispatch(findList({ query, page: 1 }));
@@ -86,15 +86,9 @@ const BarcodeRegistContainer = ({ route }) => {
 
   useEffect(() => {
     if (!loading) {
-      if (page === 1) {
-        setPage((page) => page + 1);
-      }
-      if (refresh) {
-        setRefresh(false);
-        setListitem([]);
-      }
+      setRefresh(false);
       if (documentList.length === 0) {
-        if (page === 1 && !loading) {
+        if (page.current === 1) {
           setIsEmptyResult(true);
         }
         setIsLastPage(true);
@@ -104,7 +98,7 @@ const BarcodeRegistContainer = ({ route }) => {
       }
       setListitem((listItem) => listItem.concat(documentList));
     }
-  }, [documentList, loading, refresh, dispatch]);
+  }, [documentList, loading, dispatch]);
 
   useEffect(() => {
     if (result == null && resultError == null) {
@@ -125,7 +119,6 @@ const BarcodeRegistContainer = ({ route }) => {
         });
       }
     } else if (resultError) {
-      console.log(resultError);
       if (resultError.response && resultError.response.status === 401) {
         setResultMessage({
           state: true,
