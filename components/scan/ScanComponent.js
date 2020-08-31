@@ -19,9 +19,7 @@ export default function ScanComponent({
   handlePress,
   buttonText,
 }) {
-  if (!onCamera) {
-    return null;
-  }
+  
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -139,6 +137,10 @@ export default function ScanComponent({
   }
   if (hasPermission === false) {
     return <AccessDenied target={'카메라'} colorScheme={colorScheme} />;
+  }
+
+  if (!onCamera) {
+    return null;
   }
 
   return (

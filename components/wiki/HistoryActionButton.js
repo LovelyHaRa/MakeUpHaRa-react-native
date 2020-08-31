@@ -9,6 +9,8 @@ const HistoryActionButton = ({
   dispatch,
   title,
   component,
+  handleHistoryPress,
+  handleBackPress,
 }) => {
   return (
     <View style={styles.buttonSection}>
@@ -19,10 +21,7 @@ const HistoryActionButton = ({
             ? { ...styles.darkButton }
             : { ...styles.lightButton },
         ]}
-        onPress={() => {
-          dispatch(getHistory({ title: title.name }));
-          navigation.push(component);
-        }}
+        onPress={() => handleHistoryPress(title.name)}
       >
         <Text>히스토리</Text>
       </TouchableOpacity>
@@ -33,7 +32,7 @@ const HistoryActionButton = ({
             ? { ...styles.darkButton }
             : { ...styles.lightButton },
         ]}
-        onPress={() => navigation.goBack()}
+        onPress={() => handleBackPress()}
       >
         <Text>뒤로가기</Text>
       </TouchableOpacity>

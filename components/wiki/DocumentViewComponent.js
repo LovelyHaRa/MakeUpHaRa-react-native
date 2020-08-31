@@ -10,13 +10,14 @@ import LoadingComponent from '../common/LoadingComponent';
 import HistoryActionButton from './HistoryActionButton';
 
 const DocumentViewComponent = ({
-  navigation,
   historyListComponent,
   getHistory,
   colorScheme,
   document,
   loading,
   error,
+  handleHistoryPress,
+  handleBackPress,
 }) => {
   if (loading) {
     return <LoadingComponent colorScheme={colorScheme} />;
@@ -68,7 +69,7 @@ const DocumentViewComponent = ({
                 ? { ...styles.darkButton }
                 : { ...styles.lightButton },
             ]}
-            onPress={() => navigation.goBack()}
+            onPress={()=>handleBackPress()}
           >
             <Text style={styles.errorButtonText}>뒤로가기</Text>
           </TouchableOpacity>
@@ -76,7 +77,6 @@ const DocumentViewComponent = ({
       </View>
     );
   }
-  const dispatch = useDispatch();
   const { title, publishedDate, body } = document;
   const titleName =
     title.name.length <= 30 ? title.name : title.name.slice(0, 25) + '...';
@@ -131,12 +131,12 @@ const DocumentViewComponent = ({
         />
       </View>
       <HistoryActionButton
-        navigation={navigation}
         colorScheme={colorScheme}
         getHistory={getHistory}
-        dispatch={dispatch}
         title={title}
         component={historyListComponent}
+        handleHistoryPress={handleHistoryPress}
+        handleBackPress={handleBackPress}
       />
     </View>
   );
