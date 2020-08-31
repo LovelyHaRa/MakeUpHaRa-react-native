@@ -6,7 +6,6 @@ import { getHistory } from '../../module/redux/wiki';
 
 const DocumentViewContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
-  const dispatch = useDispatch();
   const { document, documentError, loading } = useSelector(
     ({ wiki, loading }) => ({
       document: wiki.document,

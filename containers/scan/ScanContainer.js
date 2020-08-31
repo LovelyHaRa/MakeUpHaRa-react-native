@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ScanComponent from '../../components/scan/ScanComponent';
 import { useColorScheme } from 'react-native-appearance';
 import { Platform } from 'react-native';
@@ -24,14 +24,17 @@ const ScanContainer = ({ navigation }) => {
     return e;
   }, [navigation]);
 
+  const handlePress = useCallback(
+    (data) => {
+      dispatch(getDocumentByBarcode({ code: data }));
+      navigation.push('ResultComponent');
+    },
+    [dispatch, navigation],
+  );
+
   if (Platform.OS === 'web') {
     return <NotSupported target={'Web'} colorScheme={colorScheme} />;
   }
-
-  const handlePress = (data) => {
-    dispatch(getDocumentByBarcode({ code: data }));
-    navigation.push('ResultComponent');
-  };
 
   return (
     <ScanComponent

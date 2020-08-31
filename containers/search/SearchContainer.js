@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useColorScheme } from 'react-native-appearance';
 import SearchComponent from '../../components/search/SearchComponent';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,10 +32,14 @@ const SearchContainer = () => {
     actionState: search.actionState,
   }));
 
-  const handleQueryChange = (search) => {
-    dispatch(changeInput(search));
-  };
-  const handleSubmit = () => {
+  const handleQueryChange = useCallback(
+    (search) => {
+      dispatch(changeInput(search));
+    },
+    [dispatch],
+  );
+
+  const handleSubmit = useCallback(() => {
     dispatch(setActionState(true));
     dispatch(initializeIsEmptyResult());
     dispatch(setQuery(inputQuery));
@@ -43,7 +47,7 @@ const SearchContainer = () => {
     dispatch(getTotalList({ query: inputQuery }));
     dispatch(getWikiSearchList({ query: inputQuery }));
     dispatch(getPostSearchList({ query: inputQuery }));
-  };
+  }, [dispatch, inputQuery]);
 
   return (
     <View style={styles.container}>

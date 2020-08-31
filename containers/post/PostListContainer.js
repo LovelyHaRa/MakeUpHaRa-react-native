@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useColorScheme } from 'react-native-appearance';
 import PostList from '../../components/post/PostList';
 import { useSelector, useDispatch } from 'react-redux';
-import { getList } from '../../module/redux/post';
+import { getList, readPost } from '../../module/redux/post';
 
 const PostListContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
@@ -12,8 +12,9 @@ const PostListContainer = ({ navigation }) => {
     error: post.postListError,
     loading: loading['post/GET_LIST'],
   }));
+
   const [listItem, setListitem] = useState([]);
-  const [page, setPage] = useState(1);
+  const page = useRef(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const firstLoading = useRef(false);
@@ -23,10 +24,7 @@ const PostListContainer = ({ navigation }) => {
       setListitem([]);
       firstLoading.current = false;
     }
-    if (refresh) {
-      setRefresh(false);
-      setListitem([]);
-    }
+    setRefresh(false);
     if (postList.length === 0) {
       setIsLastPage(true);
     } else {
@@ -38,31 +36,38 @@ const PostListContainer = ({ navigation }) => {
   useEffect(() => {
     const e = navigation.addListener('focus', () => {
       firstLoading.current = true;
-      dispatch(getList({ page }));
-      setPage((page) => page + 1);
+      dispatch(getList({ page: 1 }));
     });
     return e;
   }, [dispatch, navigation, page]);
 
   useEffect(() => {
     const e = navigation.addListener('blur', () => {
-      setPage(1);
+      page.current = 1;
       setListitem([]);
     });
     return e;
   }, [navigation]);
 
   const handleMoreList = useCallback(() => {
-    dispatch(getList({ page: page }));
-    setPage((page) => page + 1);
+    page.current += 1;
+    dispatch(getList({ page: page.current }));
   }, [dispatch, page]);
 
   const handleRefresh = useCallback(() => {
-    setPage(1);
+    page.current = 1;
     setRefresh(true);
+    setListitem([]);
     dispatch(getList({ page: 1 }));
-    setPage((page) => page + 1);
   }, [dispatch, page]);
+
+  const handleItemPress = useCallback(
+    (id) => {
+      dispatch(readPost({ id }));
+      navigation.push('PostView');
+    },
+    [dispatch, navigation],
+  );
 
   return (
     <PostList
@@ -71,9 +76,9 @@ const PostListContainer = ({ navigation }) => {
       loading={!!firstLoading.current}
       handleMoreList={handleMoreList}
       handleRefresh={handleRefresh}
+      handleItemPress={handleItemPress}
       refresh={refresh}
       isLastPage={isLastPage}
-      navigation={navigation}
       colorScheme={colorScheme}
     />
   );

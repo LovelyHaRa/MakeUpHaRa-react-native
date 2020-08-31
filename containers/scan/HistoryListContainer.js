@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useColorScheme } from 'react-native-appearance';
 import HistoryListComponent from '../../components/wiki/HistoryListComponent';
@@ -15,9 +15,12 @@ const HistoryListContainer = ({ navigation }) => {
     }),
   );
 
-  const handlePress = ({ id, r }) => {
-    dispatch(getRevisionDocument({ id, r }));
-  };
+  const handlePress = useCallback(
+    ({ id, r }) => {
+      dispatch(getRevisionDocument({ id, r }));
+    },
+    [dispatch],
+  );
 
   return (
     <HistoryListComponent

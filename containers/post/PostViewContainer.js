@@ -10,6 +10,7 @@ const PostViewContainer = ({ navigation }) => {
     error: post.postError,
     loading: loading['post/READ_POST'],
   }));
+  
   return (
     <PostView
       post={post}

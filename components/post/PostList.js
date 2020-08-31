@@ -9,8 +9,6 @@ import {
 import { styles } from './StyleContainer';
 import CustomStatusBar from '../common/CustomStatusBar';
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { readPost } from '../../module/redux/post';
 import palette from '../../lib/styles/open-color';
 import LoadingComponent from '../common/LoadingComponent';
 
@@ -20,22 +18,11 @@ const PostList = ({
   loading,
   handleMoreList,
   handleRefresh,
+  handleItemPress,
   refresh,
   isLastPage,
-  navigation,
   colorScheme,
 }) => {
-  if (loading) {
-    return <LoadingComponent colorScheme={colorScheme} />;
-  }
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>잘못된 접근입니다.</Text>
-      </View>
-    );
-  }
-  const dispatch = useDispatch();
   const PostItem = ({ id, title, publisher, publishedDate, tags, body }) => (
     <View
       style={[
@@ -47,10 +34,7 @@ const PostList = ({
     >
       <TouchableOpacity
         style={styles.listItem}
-        onPress={() => {
-          dispatch(readPost({ id }));
-          navigation.push('PostView');
-        }}
+        onPress={() => handleItemPress(id)}
       >
         <Text
           style={[
@@ -129,41 +113,49 @@ const PostList = ({
           </Text>
         </View>
       </View>
-      <FlatList
-        data={postList}
-        style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item, index }) => (
-          <PostItem
-            id={item._id}
-            title={item.title}
-            publisher={item.publisher}
-            publishedDate={item.publishedDate}
-            tags={item.tags}
-            body={item.body}
-          />
-        )}
-        onEndReached={() => {
-          handleMoreList();
-        }}
-        onEndReachedThreshold={0.1}
-        refreshControl={
-          <RefreshControl
-            refreshing={!!refresh}
-            onRefresh={() => {
-              handleRefresh();
-            }}
-            progressBackgroundColor={
-              colorScheme === 'dark' ? palette.violet[3] : palette.pink[1]
-            }
-          />
-        }
-        ListFooterComponent={
-          postList.length > 0 && !isLastPage ? (
-            <LoadingComponent colorScheme={colorScheme} hasMarginTop />
-          ) : null
-        }
-      />
+      {loading && <LoadingComponent colorScheme={colorScheme} />}
+      {error && (
+        <View style={styles.container}>
+          <Text>잘못된 접근입니다.</Text>
+        </View>
+      )}
+      {!loading && !error && (
+        <FlatList
+          data={postList}
+          style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item, index }) => (
+            <PostItem
+              id={item._id}
+              title={item.title}
+              publisher={item.publisher}
+              publishedDate={item.publishedDate}
+              tags={item.tags}
+              body={item.body}
+            />
+          )}
+          onEndReached={() => {
+            handleMoreList();
+          }}
+          onEndReachedThreshold={0.1}
+          refreshControl={
+            <RefreshControl
+              refreshing={!!refresh}
+              onRefresh={() => {
+                handleRefresh();
+              }}
+              progressBackgroundColor={
+                colorScheme === 'dark' ? palette.violet[3] : palette.pink[1]
+              }
+            />
+          }
+          ListFooterComponent={
+            postList.length > 0 && !isLastPage ? (
+              <LoadingComponent colorScheme={colorScheme} hasMarginTop />
+            ) : null
+          }
+        />
+      )}
     </View>
   );
 };

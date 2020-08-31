@@ -22,13 +22,14 @@ const AuthForm = ({
   user,
   navigation,
 }) => {
-  if (user) {
-    return <LoadingComponent />;
-  }
   const colorScheme = useColorScheme();
   const refInputPassword = useRef();
   const refInputConfirmPassword = useRef();
   const refInputName = useRef();
+
+  if (user) {
+    return <LoadingComponent />;
+  }
   return (
     <DismissKeyboard>
       <View style={styles.container}>

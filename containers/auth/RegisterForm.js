@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthForm';
 import { changeField } from '../../module/redux/auth';
@@ -10,9 +10,12 @@ const RegisterForm = ({ navigation }) => {
     user: user.user,
   }));
 
-  const handleChange = (key, value) => {
-    dispatch(changeField({ form: 'register', key, value }));
-  };
+  const handleChange = useCallback(
+    (key, value) => {
+      dispatch(changeField({ form: 'register', key, value }));
+    },
+    [dispatch],
+  );
 
   const [error, setError] = useState('');
 

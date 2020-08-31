@@ -44,18 +44,18 @@ const BarcodeRegistContainer = ({ route }) => {
     failure: '',
   });
 
-  const handleQueryChange = (query) => {
+  const handleQueryChange = useCallback((query) => {
     setInputQuery(query);
-  };
+  }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     setQuery(inputQuery);
     setIsEmptyResult(false);
     setListitem([]);
     page.current = 1;
     dispatch(findList({ query: inputQuery, page: 1 }));
     setIsRequest(true);
-  };
+  }, [dispatch, inputQuery]);
 
   const handleMoreList = useCallback(() => {
     page.current += 1;
