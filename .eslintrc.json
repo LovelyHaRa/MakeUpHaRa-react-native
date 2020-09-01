@@ -16,7 +16,7 @@
   },
   "plugins": ["react-native", "prettier", "react-hooks"],
   "rules": {
-    "react-native/no-unused-styles": 2,
+    "react-native/no-unused-styles": 1,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }

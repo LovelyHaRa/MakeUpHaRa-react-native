@@ -3,23 +3,18 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
   Modal,
   TouchableHighlight,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import palette from '../../lib/styles/open-color';
 import LoadingComponent from '../common/LoadingComponent';
 import AccessDenied from '../common/AccessDenied';
 
-export default function ScanComponent({
-  onCamera,
-  colorScheme,
-  handlePress,
-  buttonText,
-}) {
-  
+const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -132,55 +127,81 @@ export default function ScanComponent({
     );
   };
 
-  if (hasPermission === null) {
+  if (hasPermission === null || !onCamera) {
     return <LoadingComponent colorScheme={colorScheme} />;
   }
   if (hasPermission === false) {
     return <AccessDenied target={'카메라'} colorScheme={colorScheme} />;
   }
 
-  if (!onCamera) {
-    return null;
-  }
-
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-      }}
-    >
+    <View style={styles.container}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         barCodeTypes={codeTypes}
         style={[
-          { ...StyleSheet.absoluteFillObject },
+          StyleSheet.absoluteFillObject,
           colorScheme === 'dark'
             ? { ...styles.darkBody }
             : { ...styles.lightBody },
         ]}
-      />
-
+      >
+        <View style={styles.blurContainer}>
+          <View style={styles.scanInfoContainer}>
+            <Text style={styles.scanText}>
+              바코드/QR코드를 스캔할 수 있습니다.
+            </Text>
+          </View>
+        </View>
+        <View style={styles.middleContainer}>
+          <View style={styles.blurContainer} />
+          <View style={styles.focusContainer} />
+          <View style={styles.blurContainer} />
+        </View>
+        <View style={styles.blurContainer} />
+      </BarCodeScanner>
       {scanned && (
         <>
-          <Button
-            title={'다시 스캔하기'}
-            onPress={() => setScanned(false)}
-            color={colorScheme === 'dark' ? palette.violet[3] : palette.pink[3]}
-          />
+          <TouchableOpacity onPress={() => setScanned(false)}>
+            <View>
+              <MaterialCommunityIcons
+                name="refresh"
+                size={120}
+                color={
+                  colorScheme === 'dark' ? palette.violet[3] : palette.pink[3]
+                }
+              />
+            </View>
+          </TouchableOpacity>
           <ScanResult />
         </>
       )}
     </View>
   );
-}
+};
+
+export default React.memo(ScanComponent);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  scanInfoContainer: {
+    flex: 1,
+    marginBottom: 24,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  scanText: { color: palette.gray[1], fontSize: 18 },
+  blurContainer: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)' },
+  middleContainer: { flexDirection: 'row', flex: 1 },
+  focusContainer: {
+    flex: 10,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   modal: {
     flexDirection: 'row',
