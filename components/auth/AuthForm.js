@@ -150,7 +150,7 @@ const AuthForm = ({
               </>
             )}
           </View>
-          {error.length > 0 && (
+          {error && (
             <View
               style={[
                 styles.errorContainer,

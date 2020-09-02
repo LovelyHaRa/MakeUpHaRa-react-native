@@ -13,6 +13,9 @@ const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
   'auth/LOGIN',
 );
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
+  'auth/REGISTER',
+);
 
 /* action */
 export const changeField = createAction(
@@ -24,12 +27,18 @@ export const login = createAction(LOGIN, ({ username, password }) => ({
   username,
   password,
 }));
+export const register = createAction(
+  REGISTER,
+  ({ username, password, name }) => ({ username, password, name }),
+);
 
 /* redux-saga */
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(REGISTER, registerSaga);
 }
 
 /* initialize state */
@@ -46,6 +55,8 @@ const initialState = {
   },
   auth: null,
   authError: null,
+  registerResult: null,
+  registerResultError: null,
 };
 
 /* reducer */
@@ -68,6 +79,16 @@ const auth = handleActions(
       ...state,
       auth: null,
       authError,
+    }),
+    [REGISTER_SUCCESS]: (state, { payload: registerResult }) => ({
+      ...state,
+      registerResult,
+      registerResultError: null,
+    }),
+    [REGISTER_FAILURE]: (state, { payload: registerResultError }) => ({
+      ...state,
+      registerResult: null,
+      registerResultError,
     }),
   },
   initialState,

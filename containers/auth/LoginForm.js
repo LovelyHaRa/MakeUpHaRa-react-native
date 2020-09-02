@@ -13,21 +13,21 @@ const LoginForm = ({ navigation }) => {
     user: user.user,
   }));
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
 
   const handleChange = useCallback(
     (key, value) => {
-      setError('');
+      setError(null);
       dispatch(changeField({ form: 'login', key, value }));
     },
     [dispatch],
   );
 
   const handleOnLogin = useCallback(() => {
-    setError('');
+    setError(null);
     const { username, password } = form;
     if ([username, password].includes('')) {
-      setError('비어있는 항목이 있습니다.')
+      setError('비어있는 항목이 있습니다.');
       return;
     }
     dispatch(login({ username, password }));
