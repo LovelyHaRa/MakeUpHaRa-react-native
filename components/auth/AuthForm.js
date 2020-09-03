@@ -16,6 +16,8 @@ import DismissKeyboard from '../common/DismissKeyboard';
 const AuthForm = ({
   type = 'login',
   form,
+  isValid,
+  validMessage,
   onChange,
   onSubmit,
   error,
@@ -85,6 +87,9 @@ const AuthForm = ({
               blurOnSubmit={false}
               returnKeyType="next"
             />
+            {type === 'register' && !isValid.username && (
+              <Text style={styles.validText}>{validMessage.username}</Text>
+            )}
             <TextInput
               placeholder="Password"
               placeholderTextColor={
@@ -110,6 +115,9 @@ const AuthForm = ({
               blurOnSubmit={type === 'login' ? true : false}
               returnKeyType={type === 'login' ? 'done' : 'next'}
             />
+            {type === 'register' && !isValid.password && (
+              <Text style={styles.validText}>{validMessage.password}</Text>
+            )}
             {type === 'register' && (
               <>
                 <TextInput
@@ -131,6 +139,11 @@ const AuthForm = ({
                   blurOnSubmit={false}
                   returnKeyType="next"
                 />
+                {type === 'register' && !isValid.passwordConfirm && (
+                  <Text style={styles.validText}>
+                    {validMessage.passwordConfirm}
+                  </Text>
+                )}
                 <TextInput
                   placeholder="Name"
                   placeholderTextColor={
@@ -147,6 +160,9 @@ const AuthForm = ({
                   ref={refInputName}
                   returnKeyType="done"
                 />
+                {type === 'register' && !isValid.name && (
+                  <Text style={styles.validText}>{validMessage.name}</Text>
+                )}
               </>
             )}
           </View>
@@ -171,6 +187,13 @@ const AuthForm = ({
                   ? { ...styles.darkLoginButton }
                   : { ...styles.lightLoginButton },
               ]}
+              disabled={
+                type === 'register' &&
+                (!isValid.username ||
+                  !isValid.password ||
+                  !isValid.passwordConfirm ||
+                  !isValid.name)
+              }
               onPress={() => {
                 Keyboard.dismiss();
                 onSubmit();

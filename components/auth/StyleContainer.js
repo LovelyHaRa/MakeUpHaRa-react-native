@@ -100,4 +100,8 @@ export const styles = StyleSheet.create({
   errorText: {
     color: palette.red[7],
   },
+  validText: {
+    paddingLeft: 14,
+    color: palette.red[7],
+  },
 });
