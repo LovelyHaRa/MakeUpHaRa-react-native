@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "makeuphara-react-native",
-    "slug": "makeuphara-react-native",
+    "name": "makeuphara",
+    "slug": "makeuphara",
     "platforms": [
       "ios",
       "android",
@@ -23,11 +23,10 @@
     ],
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true,
-      "userInterfaceStyle": "automatic"
+      "bundleIdentifier": "com.codetender94.makeuphara"
     },
     "android": {
-      "userInterfaceStyle": "automatic"
+      "package": "com.codetender94.makeuphara"
     },
     "description": "MakeUpHaRa for React-Native",
     "githubUrl": "https://github.com/LovelyHaRa/MakeUpHaRa-react-native"

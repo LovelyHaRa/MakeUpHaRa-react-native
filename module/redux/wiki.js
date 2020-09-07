@@ -171,7 +171,7 @@ const wiki = handleActions(
     }),
     [FIND_LIST_FAILURE]: (state, { payload: findListError }) => ({
       ...state,
-      findList: null,
+      findList: [],
       findListError,
     }),
     [INITIALIZE_FIND_LIST]: (state) => ({

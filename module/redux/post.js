@@ -92,7 +92,7 @@ const post = handleActions(
     }),
     [GET_LIST_FAILURE]: (state, { payload: postListError }) => ({
       ...state,
-      postList: null,
+      postList: [],
       postListError,
     }),
     [INITIALIZE_LIST]: (state) => ({
@@ -107,7 +107,7 @@ const post = handleActions(
     }),
     [GET_SEARCH_LIST_FAILURE]: (state, { payload: searchPostListError }) => ({
       ...state,
-      searchPostList: null,
+      searchPostList: [],
       searchPostListError,
     }),
     [INITIALIZE_SEARCH_LIST]: (state) => ({
