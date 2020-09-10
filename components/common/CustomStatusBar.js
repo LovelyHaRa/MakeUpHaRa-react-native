@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import palette from '../../lib/styles/open-color';
 
-const CustomStatusBar = ({ colorScheme }) => {correspondence
+const CustomStatusBar = ({ colorScheme }) => {
   return Platform.OS === 'ios' ? (
     <View
       style={{
