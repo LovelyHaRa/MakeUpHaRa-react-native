@@ -9,20 +9,35 @@ const ProfileContainer = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector(({ user }) => ({ user: user.user }));
 
-  const onScan = useCallback(() => {
-    navigation.push('Scan');
-  }, [navigation]);
-  
-  const onLogout = useCallback(() => {
-    dispatch(logout());
-  }, [dispatch]);
+  const ProfileMenuList = [
+    { id: 'codeRegist', name: '문서 바코드 등록' },
+    { id: 'changePassword', name: '비밀번호 변경' },
+    { id: 'logout', name: '로그아웃' },
+  ];
+
+  const handleItemPress = useCallback(
+    (item) => {
+      switch (item) {
+        case 'codeRegist':
+          navigation.push('Scan');
+          break;
+        case 'changePassword':
+          navigation.push('ChangePassword');
+          break;
+        case 'logout':
+          dispatch(logout());
+          break;
+      }
+    },
+    [navigation, dispatch],
+  );
 
   return (
     <Profile
       colorScheme={colorScheme}
+      ProfileMenuList={ProfileMenuList}
       user={user}
-      onScan={onScan}
-      onLogout={onLogout}
+      handleItemPress={handleItemPress}
     />
   );
 };

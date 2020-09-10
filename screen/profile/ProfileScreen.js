@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import RegisterForm from '../../containers/auth/RegisterForm';
 import ScanContainer from '../../containers/profile/ScanContainer';
 import BarcodeRegistContainer from '../../containers/profile/BarcodeRegistContainer';
+import ChangePasswordContainer from '../../containers/profile/ChangePasswordContainer';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,10 @@ const ProfileScreen = () => {
           <Stack.Screen
             name="BarcodeRegist"
             component={BarcodeRegistContainer}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePasswordContainer}
           />
         </>
       ) : (

@@ -43,11 +43,10 @@ export const styles = StyleSheet.create({
     fontSize: 32,
     margin: 4,
   },
-  subTitle: { fontSize: 16, margin: 4 },
+  subTitle: { fontSize: 16, margin: 4, marginLeft: 8 },
   inputContainer: { margin: 16 },
   input: {
     backgroundColor: 'transparent',
-    borderColor: '#ba5370',
     borderBottomWidth: 2,
     borderRadius: 0,
     height: 48,

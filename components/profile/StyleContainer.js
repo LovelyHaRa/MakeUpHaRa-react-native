@@ -5,9 +5,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  lightBody: {
-    backgroundColor: palette.gray[0],
-  },
   darkBody: {
     backgroundColor: palette.gray[9],
   },
@@ -112,5 +109,69 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     margin: 12,
+  },
+  centerFlex: { flex: 1, justifyContent: 'center' },
+  lightBody: {
+    backgroundColor: palette.gray[0],
+  },
+  header: {
+    marginTop: 4,
+    marginBottom: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backButton: {
+    paddingLeft: 12,
+    paddingRight: 4,
+    paddingTop: 16,
+    paddingBottom: 16,
+  },
+  changePasswordTitleContainer: {
+    justifyContent: 'center',
+    margin: 20,
+  },
+  changePasswordTitle: {
+    fontFamily: 'NanumGothic_400Regular',
+    fontSize: 32,
+    margin: 4,
+  },
+  changePasswordSubTitle: {
+    fontSize: 16,
+    margin: 4,
+    marginLeft: 8,
+  },
+  changePasswordInputContainer: {
+    margin: 16,
+  },
+  changePasswordInput: {
+    backgroundColor: 'transparent',
+    borderBottomWidth: 2,
+    borderRadius: 0,
+    height: 48,
+    padding: 4,
+    margin: 10,
+    fontSize: 16,
+  },
+  lightChangePasswordInput: {
+    borderColor: palette.pink[5],
+    color: palette.gray[9],
+  },
+  darkChangePasswordInput: {
+    borderColor: palette.violet[3],
+    color: palette.gray[0],
+  },
+  changePasswordButtonContainer: {
+    margin: 16,
+  },
+  changePasswordButton: {
+    margin: 10,
+    height: 48,
+    borderRadius: 10,
+  },
+  lightChangePasswordButton: {
+    backgroundColor: palette.red[4],
+  },
+  darkChangePasswordButton: {
+    backgroundColor: palette.violet[4],
   },
 });

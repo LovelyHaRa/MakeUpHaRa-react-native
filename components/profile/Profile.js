@@ -4,12 +4,7 @@ import { ListItem, Avatar } from 'react-native-elements';
 import LoadingComponent from '../common/LoadingComponent';
 import { styles } from './StyleContainer';
 
-const ProfileMenuList = [
-  { id: 'codeRegist', name: '문서 바코드 등록' },
-  { id: 'logout', name: '로그아웃' },
-];
-
-const Profile = ({ colorScheme, user, onScan, onLogout }) => {
+const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
   const MenuItem = ({ item }) => (
     <ListItem
       containerStyle={
@@ -17,16 +12,7 @@ const Profile = ({ colorScheme, user, onScan, onLogout }) => {
       }
       title={item.name}
       titleStyle={colorScheme === 'dark' ? styles.darkText : styles.lightText}
-      onPress={() => {
-        switch (item.id) {
-          case 'codeRegist':
-            onScan();
-            break;
-          case 'logout':
-            onLogout();
-            break;
-        }
-      }}
+      onPress={() => handleItemPress(item.id)}
       bottomDivider
       chevron
     />
