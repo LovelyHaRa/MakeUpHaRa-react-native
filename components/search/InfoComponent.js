@@ -8,18 +8,15 @@ const InfoComponent = ({ colorScheme }) => {
     <DismissKeyboard>
       <View
         style={[
-          { ...styles.container, ...styles.infoBody },
-          colorScheme === 'dark'
-            ? { ...styles.darkBody }
-            : { ...styles.lightBody },
+          styles.container,
+          styles.infoBody,
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
         <Text
           style={[
             styles.infoTitle,
-            colorScheme === 'dark'
-              ? { ...styles.darkText }
-              : { ...styles.lightText },
+            colorScheme === 'dark' ? styles.darkText : styles.lightText,
           ]}
         >
           MAKE UP HARA - 통합검색

@@ -26,10 +26,10 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <View
           style={[
-            { ...styles.header },
+            styles.header,
             colorScheme === 'dark'
-              ? { ...styles.darkListItemBorder }
-              : { ...styles.lightListItemBorder },
+              ? styles.darkListItemBorder
+              : styles.lightListItemBorder,
           ]}
         >
           <TouchableOpacity
@@ -48,10 +48,8 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
           </TouchableOpacity>
           <Text
             style={[
-              { ...styles.headerTitle },
-              colorScheme === 'dark'
-                ? { ...styles.darkText }
-                : { ...styles.lightText },
+              styles.headerTitle,
+              colorScheme === 'dark' ? styles.darkText : styles.lightText,
             ]}
           >
             포스트
@@ -62,30 +60,24 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
         <View style={styles.topContainer}>
           <Text
             style={[
-              { ...styles.title },
-              colorScheme === 'dark'
-                ? { ...styles.darkTitle }
-                : { ...styles.lightTitle },
+              styles.title,
+              colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
             ]}
           >
             {title}
           </Text>
           <Text
             style={[
-              { ...styles.subinfo },
-              colorScheme === 'dark'
-                ? { ...styles.darkSubinfo }
-                : { ...styles.lightSubinfo },
+              styles.subinfo,
+              colorScheme === 'dark' ? styles.darkSubinfo : styles.lightSubinfo,
             ]}
           >
             {publisher.usename}
           </Text>
           <Text
             style={[
-              { ...styles.subinfo },
-              colorScheme === 'dark'
-                ? { ...styles.darkSubinfo }
-                : { ...styles.lightSubinfo },
+              styles.subinfo,
+              colorScheme === 'dark' ? styles.darkSubinfo : styles.lightSubinfo,
             ]}
           >
             {moment(publishedDate).format('YYYY-MM-DD HH:mm:ss')}
@@ -95,10 +87,8 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
               <Text
                 key={tag}
                 style={[
-                  { ...styles.tag },
-                  colorScheme === 'dark'
-                    ? { ...styles.darkTag }
-                    : { ...styles.lightTag },
+                  styles.tag,
+                  colorScheme === 'dark' ? styles.darkTag : styles.lightTag,
                 ]}
               >
                 #{tag}
@@ -109,10 +99,8 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
       </View>
       <View
         style={[
-          { ...styles.webContainer },
-          colorScheme === 'dark'
-            ? { ...styles.darkWeb }
-            : { ...styles.lightWeb },
+          styles.webContainer,
+          colorScheme === 'dark' ? styles.darkWeb : styles.lightWeb,
         ]}
       >
         <WebView
@@ -121,10 +109,8 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
             html: getInnerHtml({ body, colorScheme }),
           }}
           style={[
-            { ...styles.web },
-            colorScheme === 'dark'
-              ? { ...styles.darkWeb }
-              : { ...styles.lightWeb },
+            styles.web,
+            colorScheme === 'dark' ? styles.darkWeb : styles.lightWeb,
           ]}
         />
       </View>

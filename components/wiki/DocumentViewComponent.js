@@ -26,10 +26,8 @@ const DocumentViewComponent = ({
     return (
       <View
         style={[
-          { ...styles.error },
-          colorScheme === 'dark'
-            ? { ...styles.darkError }
-            : { ...styles.lightError },
+          styles.error,
+          colorScheme === 'dark' ? styles.darkError : styles.lightError,
         ]}
       >
         <CustomStatusBar colorScheme={colorScheme} />
@@ -41,10 +39,8 @@ const DocumentViewComponent = ({
           <View style={styles.titleBox}>
             <Text
               style={[
-                { ...styles.title },
-                colorScheme === 'dark'
-                  ? { ...styles.darkTitle }
-                  : { ...styles.lightTitle },
+                styles.title,
+                colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
               ]}
             >
               스캔 결과
@@ -53,10 +49,8 @@ const DocumentViewComponent = ({
         </View>
         <Text
           style={[
-            { ...styles.errorMessage },
-            colorScheme === 'dark'
-              ? { ...styles.darkError }
-              : { ...styles.lightError },
+            styles.errorMessage,
+            colorScheme === 'dark' ? styles.darkError : styles.lightError,
           ]}
         >
           {document.message}
@@ -64,12 +58,10 @@ const DocumentViewComponent = ({
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
             style={[
-              { ...styles.button },
-              colorScheme === 'dark'
-                ? { ...styles.darkButton }
-                : { ...styles.lightButton },
+              styles.button,
+              colorScheme === 'dark' ? styles.darkButton : styles.lightButton,
             ]}
-            onPress={()=>handleBackPress()}
+            onPress={() => handleBackPress()}
           >
             <Text style={styles.errorButtonText}>뒤로가기</Text>
           </TouchableOpacity>
@@ -89,10 +81,8 @@ const DocumentViewComponent = ({
         <View style={styles.titleBox}>
           <Text
             style={[
-              { ...styles.title },
-              colorScheme === 'dark'
-                ? { ...styles.darkTitle }
-                : { ...styles.lightTitle },
+              styles.title,
+              colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
             ]}
           >
             {titleName}
@@ -101,10 +91,8 @@ const DocumentViewComponent = ({
         <View style={styles.dateBox}>
           <Text
             style={[
-              { ...styles.date },
-              colorScheme === 'dark'
-                ? { ...styles.darkDate }
-                : { ...styles.lightDate },
+              styles.date,
+              colorScheme === 'dark' ? styles.darkDate : styles.lightDate,
             ]}
           >
             문서 업데이트: {moment(publishedDate).format('YYYY-MM-DD')}
@@ -113,20 +101,16 @@ const DocumentViewComponent = ({
       </View>
       <View
         style={[
-          { ...styles.webContainer },
-          colorScheme === 'dark'
-            ? { ...styles.darkWeb }
-            : { ...styles.lightWeb },
+          styles.webContainer,
+          colorScheme === 'dark' ? styles.darkWeb : styles.lightWeb,
         ]}
       >
         <WebView
           originWhitelist={['*']}
           source={{ html: getInnerHtml({ body, colorScheme }) }}
           style={[
-            { ...styles.web },
-            colorScheme === 'dark'
-              ? { ...styles.darkWeb }
-              : { ...styles.lightWeb },
+            styles.web,
+            colorScheme === 'dark' ? styles.darkWeb : styles.lightWeb,
           ]}
         />
       </View>

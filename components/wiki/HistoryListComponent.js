@@ -58,10 +58,8 @@ const HistoryListComponent = ({
         <View style={styles.titleBox}>
           <Text
             style={[
-              { ...styles.title },
-              colorScheme === 'dark'
-                ? { ...styles.darkTitle }
-                : { ...styles.lightTitle },
+              styles.title,
+              colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
             ]}
           >
             {titleName}
@@ -70,10 +68,10 @@ const HistoryListComponent = ({
         <View style={styles.subTitleBox}>
           <Text
             style={[
-              { ...styles.subTitle },
+              styles.subTitle,
               colorScheme === 'dark'
-                ? { ...styles.darkSubTitle }
-                : { ...styles.lightSubTitle },
+                ? styles.darkSubTitle
+                : styles.lightSubTitle,
             ]}
           >
             문서 역사
@@ -83,9 +81,7 @@ const HistoryListComponent = ({
       <FlatList
         data={historyList}
         style={
-          colorScheme === 'dark'
-            ? { ...styles.darkContainer }
-            : { ...styles.lightContainer }
+          colorScheme === 'dark' ? styles.darkContainer : styles.lightContainer
         }
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => (
@@ -95,16 +91,17 @@ const HistoryListComponent = ({
             borderStyle={
               index === 0
                 ? [
-                    { ...styles.listItemBorder, ...styles.listItemBorderTop },
+                    styles.listItemBorder,
+                    styles.listItemBorderTop,
                     colorScheme === 'dark'
-                      ? { ...styles.darkListItemBorder }
-                      : { ...styles.lightListItemBorder },
+                      ? styles.darkListItemBorder
+                      : styles.lightListItemBorder,
                   ]
                 : [
-                    { ...styles.listItemBorder },
+                    styles.listItemBorder,
                     colorScheme === 'dark'
-                      ? { ...styles.darkListItemBorder }
-                      : { ...styles.lightListItemBorder },
+                      ? styles.darkListItemBorder
+                      : styles.lightListItemBorder,
                   ]
             }
           />
@@ -113,10 +110,8 @@ const HistoryListComponent = ({
       <View style={styles.buttonSection}>
         <TouchableOpacity
           style={[
-            { ...styles.button },
-            colorScheme === 'dark'
-              ? { ...styles.darkButton }
-              : { ...styles.lightButton },
+            styles.button,
+            colorScheme === 'dark' ? styles.darkButton : styles.lightButton,
           ]}
           onPress={() => navigation.goBack()}
         >

@@ -40,18 +40,14 @@ const AuthForm = ({
         <View
           style={[
             styles.centerFlex,
-            colorScheme === 'dark'
-              ? { ...styles.darkBody }
-              : { ...styles.lightBody },
+            colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
           ]}
         >
           <View style={styles.logoContainer}>
             <Text
               style={[
                 styles.logo,
-                colorScheme === 'dark'
-                  ? { ...styles.darkText }
-                  : { ...styles.lightText },
+                colorScheme === 'dark' ? styles.darkText : styles.lightText,
               ]}
             >
               {type === 'login' ? '로그인' : '회원가입'}
@@ -60,8 +56,8 @@ const AuthForm = ({
               style={[
                 styles.subTitle,
                 colorScheme === 'dark'
-                  ? { ...styles.darkSubText }
-                  : { ...styles.lightSubText },
+                  ? styles.darkSubText
+                  : styles.lightSubText,
               ]}
             >
               {type === 'login'
@@ -77,9 +73,7 @@ const AuthForm = ({
               }
               style={[
                 styles.input,
-                colorScheme === 'dark'
-                  ? { ...styles.darkInput }
-                  : { ...styles.lightInput },
+                colorScheme === 'dark' ? styles.darkInput : styles.lightInput,
               ]}
               value={form.username}
               onChangeText={(text) => onChange('username', text)}
@@ -99,9 +93,7 @@ const AuthForm = ({
               }
               style={[
                 styles.input,
-                colorScheme === 'dark'
-                  ? { ...styles.darkInput }
-                  : { ...styles.lightInput },
+                colorScheme === 'dark' ? styles.darkInput : styles.lightInput,
               ]}
               secureTextEntry={true}
               value={form.password}
@@ -130,8 +122,8 @@ const AuthForm = ({
                   style={[
                     styles.input,
                     colorScheme === 'dark'
-                      ? { ...styles.darkInput }
-                      : { ...styles.lightInput },
+                      ? styles.darkInput
+                      : styles.lightInput,
                   ]}
                   secureTextEntry={true}
                   value={form.passwordConfirm}
@@ -154,8 +146,8 @@ const AuthForm = ({
                   style={[
                     styles.input,
                     colorScheme === 'dark'
-                      ? { ...styles.darkInput }
-                      : { ...styles.lightInput },
+                      ? styles.darkInput
+                      : styles.lightInput,
                   ]}
                   value={form.name}
                   onChangeText={(text) => onChange('name', text)}
@@ -172,9 +164,7 @@ const AuthForm = ({
             <View
               style={[
                 styles.errorContainer,
-                colorScheme === 'dark'
-                  ? { ...styles.darkBody }
-                  : { ...styles.lightBody },
+                colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
               ]}
             >
               <Text style={styles.errorText}>{error}</Text>
@@ -186,8 +176,8 @@ const AuthForm = ({
               buttonStyle={[
                 styles.button,
                 colorScheme === 'dark'
-                  ? { ...styles.darkLoginButton }
-                  : { ...styles.lightLoginButton },
+                  ? styles.darkLoginButton
+                  : styles.lightLoginButton,
               ]}
               disabled={
                 type === 'register' &&
@@ -207,8 +197,8 @@ const AuthForm = ({
                 buttonStyle={[
                   styles.button,
                   colorScheme === 'dark'
-                    ? { ...styles.darkSignUpButton }
-                    : { ...styles.lightSignUpButton },
+                    ? styles.darkSignUpButton
+                    : styles.lightSignUpButton,
                 ]}
                 onPress={() => {
                   Keyboard.dismiss();
@@ -225,8 +215,8 @@ const AuthForm = ({
                   <Text
                     style={[
                       colorScheme === 'dark'
-                        ? { ...styles.darkThemeColor }
-                        : { ...styles.lightThemeColor },
+                        ? styles.darkThemeColor
+                        : styles.lightThemeColor,
                     ]}
                   >
                     로그인 페이지로 돌아가기.
@@ -239,9 +229,7 @@ const AuthForm = ({
         <View
           style={[
             styles.footerContainer,
-            colorScheme === 'dark'
-              ? { ...styles.darkBody }
-              : { ...styles.lightBody },
+            colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
           ]}
         >
           <Text

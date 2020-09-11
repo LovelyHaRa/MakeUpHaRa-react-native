@@ -7,17 +7,13 @@ const AccessDenied = ({ target, colorScheme }) => {
     <View
       style={[
         styles.container,
-        colorScheme === 'dark'
-          ? { ...styles.darkBody }
-          : { ...styles.lightBody },
+        colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
     >
       <Text
         style={[
           styles.title,
-          colorScheme === 'dark'
-            ? { ...styles.darkText }
-            : { ...styles.lightText },
+          colorScheme === 'dark' ? styles.darkText : styles.lightText,
         ]}
       >
         {target}에 대한 접근 권한이 없습니다.

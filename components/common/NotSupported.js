@@ -7,17 +7,13 @@ const NotSupported = ({ target, colorScheme }) => {
     <View
       style={[
         styles.container,
-        colorScheme === 'dark'
-          ? { ...styles.darkBody }
-          : { ...styles.lightBody },
+        colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
     >
       <Text
         style={[
           styles.title,
-          colorScheme === 'dark'
-            ? { ...styles.darkText }
-            : { ...styles.lightText },
+          colorScheme === 'dark' ? styles.darkText : styles.lightText,
         ]}
       >
         해당 기능은{' '}

@@ -16,10 +16,9 @@ const HistoryActionButton = ({
     <View style={styles.buttonSection}>
       <TouchableOpacity
         style={[
-          { ...styles.button, ...styles.buttonFirst },
-          colorScheme === 'dark'
-            ? { ...styles.darkButton }
-            : { ...styles.lightButton },
+          styles.button,
+          styles.buttonFirst,
+          colorScheme === 'dark' ? styles.darkButton : styles.lightButton,
         ]}
         onPress={() => handleHistoryPress(title.name)}
       >
@@ -27,10 +26,8 @@ const HistoryActionButton = ({
       </TouchableOpacity>
       <TouchableOpacity
         style={[
-          { ...styles.button },
-          colorScheme === 'dark'
-            ? { ...styles.darkButton }
-            : { ...styles.lightButton },
+          styles.button,
+          colorScheme === 'dark' ? styles.darkButton : styles.lightButton,
         ]}
         onPress={() => handleBackPress()}
       >

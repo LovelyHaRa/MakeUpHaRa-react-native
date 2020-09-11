@@ -26,10 +26,10 @@ const PostList = ({
   const PostItem = ({ id, title, publisher, publishedDate, tags, body }) => (
     <View
       style={[
-        { ...styles.listItemBorder },
+        styles.listItemBorder,
         colorScheme === 'dark'
-          ? { ...styles.darkListItemBorder }
-          : { ...styles.lightListItemBorder },
+          ? styles.darkListItemBorder
+          : styles.lightListItemBorder,
       ]}
     >
       <TouchableOpacity
@@ -38,25 +38,29 @@ const PostList = ({
       >
         <Text
           style={[
-            { ...styles.itemTitle },
+            styles.itemTitle,
             colorScheme === 'dark' ? styles.darkText : styles.lightText,
           ]}
         >
           {title}
         </Text>
-        <TouchableOpacity>
-          <Text
-            style={[
-              { ...styles.itemPublisher },
-              colorScheme === 'dark' ? styles.darkSubinfo : styles.lightSubinfo,
-            ]}
-          >
-            {publisher.username}
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.publisherContainer}>
+          <TouchableOpacity>
+            <Text
+              style={[
+                styles.itemPublisher,
+                colorScheme === 'dark'
+                  ? styles.darkSubinfo
+                  : styles.lightSubinfo,
+              ]}
+            >
+              {publisher.username}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Text
           style={[
-            { ...styles.itemPublishDate },
+            styles.itemPublishDate,
             colorScheme === 'dark' ? styles.darkSubinfo : styles.lightSubinfo,
           ]}
         >
@@ -67,10 +71,8 @@ const PostList = ({
             <TouchableOpacity key={tag}>
               <Text
                 style={[
-                  { ...styles.itemTag },
-                  colorScheme === 'dark'
-                    ? { ...styles.darkTag }
-                    : { ...styles.lightTag },
+                  styles.itemTag,
+                  colorScheme === 'dark' ? styles.darkTag : styles.lightTag,
                 ]}
               >
                 #{tag}
@@ -80,7 +82,7 @@ const PostList = ({
         </View>
         <Text
           style={[
-            { ...styles.itemBody },
+            styles.itemBody,
             colorScheme === 'dark' ? styles.darkText : styles.lightText,
           ]}
         >
@@ -95,18 +97,16 @@ const PostList = ({
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <View
           style={[
-            { ...styles.header },
+            styles.header,
             colorScheme === 'dark'
-              ? { ...styles.darkListItemBorder }
-              : { ...styles.lightListItemBorder },
+              ? styles.darkListItemBorder
+              : styles.lightListItemBorder,
           ]}
         >
           <Text
             style={[
-              { ...styles.headerTitle },
-              colorScheme === 'dark'
-                ? { ...styles.darkText }
-                : { ...styles.lightText },
+              styles.headerTitle,
+              colorScheme === 'dark' ? styles.darkText : styles.lightText,
             ]}
           >
             포스트 목록

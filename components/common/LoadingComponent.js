@@ -7,11 +7,10 @@ const LoadingComponent = ({ colorScheme, hasMarginTop }) => {
   return (
     <View
       style={[
-        { ...styles.container, ...styles.loading },
-        colorScheme === 'dark'
-          ? { ...styles.darkLoading }
-          : { ...styles.lightLoading },
-        hasMarginTop && { ...styles.hasMarginTop },
+        styles.container,
+        styles.loading,
+        colorScheme === 'dark' ? styles.darkLoading : styles.lightLoading,
+        hasMarginTop && styles.hasMarginTop,
       ]}
     >
       <CustomStatusBar colorScheme={colorScheme} />

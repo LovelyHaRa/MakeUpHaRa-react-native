@@ -45,6 +45,10 @@ export const styles = StyleSheet.create({
   },
   lightSubinfo: { color: palette.gray[6] },
   darkSubinfo: { color: palette.gray[5] },
+  publisherContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   tagContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',

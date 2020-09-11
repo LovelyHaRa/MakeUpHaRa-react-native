@@ -24,9 +24,7 @@ const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
     <View
       style={[
         styles.container,
-        colorScheme === 'dark'
-          ? { ...styles.darkBody }
-          : { ...styles.lightBody },
+        colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
     >
       <View style={styles.userContainer}>
@@ -34,9 +32,7 @@ const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
           <Text
             style={[
               styles.username,
-              colorScheme === 'dark'
-                ? { ...styles.darkText }
-                : { ...styles.lightText },
+              colorScheme === 'dark' ? styles.darkText : styles.lightText,
             ]}
           >
             {user && user.username}
@@ -44,9 +40,7 @@ const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
           <Text
             style={[
               styles.name,
-              colorScheme === 'dark'
-                ? { ...styles.darkSubText }
-                : { ...styles.lightSubText },
+              colorScheme === 'dark' ? styles.darkSubText : styles.lightSubText,
             ]}
           >
             {user && user.name}

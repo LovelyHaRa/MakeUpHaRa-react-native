@@ -25,17 +25,13 @@ const RegistOverlay = ({
       <View
         style={[
           styles.overlayContainer,
-          colorScheme === 'dark'
-            ? { ...styles.darkBody }
-            : { ...styles.lightBody },
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
         <Text
           style={[
             styles.overlayText,
-            colorScheme === 'dark'
-              ? { ...styles.darkText }
-              : { ...styles.lightText },
+            colorScheme === 'dark' ? styles.darkText : styles.lightText,
           ]}
         >
           문서 이름
@@ -44,8 +40,8 @@ const RegistOverlay = ({
           style={[
             styles.overlayText,
             colorScheme === 'dark'
-              ? { ...styles.darkSubText }
-              : { ...styles.lightThemeColor },
+              ? styles.darkSubText
+              : styles.lightThemeColor,
           ]}
         >
           [{documentName}]
@@ -53,9 +49,7 @@ const RegistOverlay = ({
         <Text
           style={[
             styles.overlayText,
-            colorScheme === 'dark'
-              ? { ...styles.darkText }
-              : { ...styles.lightText },
+            colorScheme === 'dark' ? styles.darkText : styles.lightText,
           ]}
         >
           바코드 정보
@@ -64,8 +58,8 @@ const RegistOverlay = ({
           style={[
             styles.overlayText,
             colorScheme === 'dark'
-              ? { ...styles.darkSubText }
-              : { ...styles.lightThemeColor },
+              ? styles.darkSubText
+              : styles.lightThemeColor,
           ]}
         >
           [{barcode}]
@@ -73,9 +67,7 @@ const RegistOverlay = ({
         <Text
           style={[
             styles.overlayTextCenter,
-            colorScheme === 'dark'
-              ? { ...styles.darkText }
-              : { ...styles.lightText },
+            colorScheme === 'dark' ? styles.darkText : styles.lightText,
           ]}
         >
           해당 문서에 바코드 정보를 등록하시겠습니까?
@@ -89,8 +81,8 @@ const RegistOverlay = ({
                   style={[
                     styles.overlayResultText,
                     colorScheme === 'dark'
-                      ? { ...styles.darkSubText }
-                      : { ...styles.lightThemeColor },
+                      ? styles.darkSubText
+                      : styles.lightThemeColor,
                   ]}
                 >
                   {resultMessage.success}
@@ -101,8 +93,8 @@ const RegistOverlay = ({
                   style={[
                     styles.overlayResultText,
                     colorScheme === 'dark'
-                      ? { ...styles.darkErrorText }
-                      : { ...styles.lightErrorText },
+                      ? styles.darkErrorText
+                      : styles.lightErrorText,
                   ]}
                 >
                   {resultMessage.failure}
@@ -123,8 +115,8 @@ const RegistOverlay = ({
               buttonStyle={[
                 styles.overlayButton,
                 colorScheme === 'dark'
-                  ? { ...styles.darkOverlayButtonComfirm }
-                  : { ...styles.lightOverlayButtonComfirm },
+                  ? styles.darkOverlayButtonComfirm
+                  : styles.lightOverlayButtonComfirm,
               ]}
               loading
             />
@@ -134,8 +126,8 @@ const RegistOverlay = ({
                 buttonStyle={[
                   styles.overlayButton,
                   colorScheme === 'dark'
-                    ? { ...styles.darkOverlayButtonComfirm }
-                    : { ...styles.lightOverlayButtonComfirm },
+                    ? styles.darkOverlayButtonComfirm
+                    : styles.lightOverlayButtonComfirm,
                 ]}
                 onPress={() => handlePress(documentName)}
                 title={'등록'}
@@ -158,18 +150,15 @@ const InfoComponent = ({ barcode, colorScheme }) => (
   <DismissKeyboard>
     <View
       style={[
-        { ...styles.container, ...styles.infoBody },
-        colorScheme === 'dark'
-          ? { ...styles.darkBody }
-          : { ...styles.lightBody },
+        styles.container,
+        styles.infoBody,
+        colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
     >
       <Text
         style={[
           styles.infoTitle,
-          colorScheme === 'dark'
-            ? { ...styles.darkText }
-            : { ...styles.lightText },
+          colorScheme === 'dark' ? styles.darkText : styles.lightText,
         ]}
       >
         문서 바코드 등록

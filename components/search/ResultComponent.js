@@ -64,10 +64,10 @@ export const TotalResultSearch = ({
                   <Text
                     key={`${item._id}${tag}`}
                     style={[
-                      { ...styles.tag },
+                      styles.tag,
                       colorScheme === 'dark'
-                        ? { ...styles.darkThemeColor }
-                        : { ...styles.lightThemeColor },
+                        ? styles.darkThemeColor
+                        : styles.lightThemeColor,
                     ]}
                   >
                     #{tag}
@@ -88,10 +88,8 @@ export const TotalResultSearch = ({
     <DismissKeyboard>
       <View
         style={[
-          { ...styles.container },
-          colorScheme === 'dark'
-            ? { ...styles.darkBody }
-            : { ...styles.lightBody },
+          styles.container,
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
         {emptyResult ? (
@@ -162,10 +160,8 @@ export const WikiResultSearch = ({
     <DismissKeyboard>
       <View
         style={[
-          { ...styles.container },
-          colorScheme === 'dark'
-            ? { ...styles.darkBody }
-            : { ...styles.lightBody },
+          styles.container,
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
         {emptyResult ? (
@@ -244,10 +240,10 @@ export const BlogResultSearch = ({
               <Text
                 key={`${item._id}${tag}`}
                 style={[
-                  { ...styles.tag },
+                  styles.tag,
                   colorScheme === 'dark'
-                    ? { ...styles.darkThemeColor }
-                    : { ...styles.lightThemeColor },
+                    ? styles.darkThemeColor
+                    : styles.lightThemeColor,
                 ]}
               >
                 #{tag}
@@ -264,10 +260,8 @@ export const BlogResultSearch = ({
     <DismissKeyboard>
       <View
         style={[
-          { ...styles.container },
-          colorScheme === 'dark'
-            ? { ...styles.darkBody }
-            : { ...styles.lightBody },
+          styles.container,
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
         {emptyResult ? (
@@ -312,15 +306,13 @@ const EmptyResultComponent = ({ colorScheme, query }) => (
     style={[
       styles.container,
       styles.resultInfoBody,
-      colorScheme === 'dark' ? { ...styles.darkBody } : { ...styles.lightBody },
+      colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
     ]}
   >
     <Text
       style={[
         styles.resultInfoTitle,
-        colorScheme === 'dark'
-          ? { ...styles.darkText }
-          : { ...styles.lightText },
+        colorScheme === 'dark' ? styles.darkText : styles.lightText,
       ]}
     >
       <Text

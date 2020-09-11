@@ -53,19 +53,17 @@ const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
           <View style={styles.container}>
             <View
               style={[
-                { ...styles.modal },
-                colorScheme === 'dark'
-                  ? { ...styles.darkModal }
-                  : { ...styles.lightModal },
+                styles.modal,
+                colorScheme === 'dark' ? styles.darkModal : styles.lightModal,
               ]}
             >
               <View>
                 <Text
                   style={[
-                    { ...styles.text },
+                    styles.text,
                     colorScheme === 'dark'
-                      ? { ...styles.darkTitle }
-                      : { ...styles.lightTitle },
+                      ? styles.darkTitle
+                      : styles.lightTitle,
                   ]}
                 >
                   바코드 타입:{' '}
@@ -75,10 +73,10 @@ const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
                 </Text>
                 <Text
                   style={[
-                    { ...styles.text },
+                    styles.text,
                     colorScheme === 'dark'
-                      ? { ...styles.darkTitle }
-                      : { ...styles.lightTitle },
+                      ? styles.darkTitle
+                      : styles.lightTitle,
                   ]}
                 >
                   코드내용:{' '}
@@ -88,10 +86,10 @@ const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
               <View style={styles.buttonGroup}>
                 <TouchableHighlight
                   style={[
-                    { ...styles.button },
+                    styles.button,
                     colorScheme === 'dark'
-                      ? { ...styles.darkButton }
-                      : { ...styles.lightButton },
+                      ? styles.darkButton
+                      : styles.lightButton,
                   ]}
                   underlayColor={
                     colorScheme === 'dark' ? palette.violet[1] : palette.pink[1]
@@ -105,10 +103,10 @@ const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
                 </TouchableHighlight>
                 <TouchableHighlight
                   style={[
-                    { ...styles.button },
+                    styles.button,
                     colorScheme === 'dark'
-                      ? { ...styles.darkButton }
-                      : { ...styles.lightButton },
+                      ? styles.darkButton
+                      : styles.lightButton,
                   ]}
                   underlayColor={
                     colorScheme === 'dark' ? palette.violet[1] : palette.pink[1]
@@ -141,9 +139,7 @@ const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
         barCodeTypes={codeTypes}
         style={[
           StyleSheet.absoluteFillObject,
-          colorScheme === 'dark'
-            ? { ...styles.darkBody }
-            : { ...styles.lightBody },
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
         <View style={styles.blurContainer}>
