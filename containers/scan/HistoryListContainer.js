@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useColorScheme } from 'react-native-appearance';
 import HistoryListComponent from '../../components/wiki/HistoryListComponent';
-import { getRevisionDocument } from '../../module/redux/wiki';
+import { getRevisionDocument } from '../../module/redux/scan';
 
 const HistoryListContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
@@ -16,20 +16,23 @@ const HistoryListContainer = ({ navigation }) => {
   );
 
   const handlePress = useCallback(
-    ({ id, r }) => {
-      dispatch(getRevisionDocument({ id, r }));
+    ({ title, r }) => {
+      dispatch(getRevisionDocument({ title, r }));
+      navigation.goBack();
     },
-    [dispatch],
+    [dispatch, navigation],
   );
+
+  const handleBackPress = useCallback(() => navigation.goBack(), [navigation]);
 
   return (
     <HistoryListComponent
-      navigation={navigation}
       colorScheme={colorScheme}
       historyList={historyList}
       loading={loading}
       historyListError={historyListError}
       handlePress={handlePress}
+      handleBackPress={handleBackPress}
     />
   );
 };

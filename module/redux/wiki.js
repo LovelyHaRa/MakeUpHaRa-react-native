@@ -151,9 +151,11 @@ const wiki = handleActions(
     [GET_HISTORY_SUCCESS]: (state, { payload: historyList }) => ({
       ...state,
       historyList,
+      historyListError: null,
     }),
     [GET_HISTORY_FAILURE]: (state, { payload: historyListError }) => ({
       ...state,
+      historyList: null,
       historyListError,
     }),
     [GET_REVISION_DOCUMENT_SUCCESS]: (state, { payload: document }) => ({

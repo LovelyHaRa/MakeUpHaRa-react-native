@@ -3,12 +3,8 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import styles from './StyleContainer';
 
 const HistoryActionButton = ({
-  navigation,
   colorScheme,
-  getHistory,
-  dispatch,
   title,
-  component,
   handleHistoryPress,
   handleBackPress,
 }) => {
