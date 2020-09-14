@@ -10,7 +10,7 @@ import {
 import { initializeSearchList as initPostSearch } from '../../module/redux/post';
 import { useColorScheme } from 'react-native-appearance';
 
-const BarcodeRegistContainer = ({ route }) => {
+const BarcodeRegistContainer = ({ navigation, route }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const {
@@ -75,6 +75,10 @@ const BarcodeRegistContainer = ({ route }) => {
     },
     [barcode, dispatch],
   );
+
+  const hadnleBackPress = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   const initResultMessage = useCallback(() => {
     setResultMessage({
@@ -161,6 +165,7 @@ const BarcodeRegistContainer = ({ route }) => {
       isRequest={isRequest}
       addBarcodeLoading={addBarcodeLoading}
       handlePress={handlePress}
+      hadnleBackPress={hadnleBackPress}
       resultMessage={resultMessage}
       initResultMessage={initResultMessage}
     />
