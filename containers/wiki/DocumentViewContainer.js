@@ -7,11 +7,12 @@ import { getHistory } from '../../module/redux/wiki';
 const DocumentViewContainer = ({ navigation }) => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-  const { document, documentError, loading } = useSelector(
+  const { document, documentError, loading, revisionLoading } = useSelector(
     ({ wiki, loading }) => ({
       document: wiki.document,
       documentError: wiki.documentError,
       loading: loading['wiki/READ_DOCUMENT'],
+      revisionLoading: loading['wiki/GET_REVISION_DOCUMENT'],
     }),
   );
 
@@ -20,7 +21,7 @@ const DocumentViewContainer = ({ navigation }) => {
   const handleHistoryPress = useCallback(
     (title) => {
       dispatch(getHistory({ title }));
-      navigation.push('HistoryListComponent');
+      navigation.push('ResultHistoryView');
     },
     [dispatch, navigation],
   );
@@ -40,7 +41,7 @@ const DocumentViewContainer = ({ navigation }) => {
       historyListComponent="ResultHistoryView"
       colorScheme={colorScheme}
       document={document}
-      loading={loading}
+      loading={loading || revisionLoading}
       documentError={documentError}
       error={error}
       handleHistoryPress={handleHistoryPress}

@@ -17,11 +17,21 @@ const styles = StyleSheet.create({
   darkHeader: {
     backgroundColor: palette.gray[9],
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  backButton: {
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 8,
+  },
   titleBox: {
     marginTop: 20,
     marginBottom: 20,
-    marginLeft: 16,
-    marginRight: 16,
+    marginLeft: 8,
+    marginRight: 8,
     flexDirection: 'row',
     justifyContent: 'center',
   },

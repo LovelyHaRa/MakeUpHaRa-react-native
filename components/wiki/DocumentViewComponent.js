@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import WebView from 'react-native-webview';
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
 import styles from './StyleContainer';
 import CustomStatusBar from '../common/CustomStatusBar';
 import getInnerHtml from '../../lib/getInnerHtml';
 import LoadingComponent from '../common/LoadingComponent';
 import HistoryActionButton from './HistoryActionButton';
+import TitleWithBackButton from './TitleWithBackButton';
 
 const DocumentViewComponent = ({
   historyListComponent,
@@ -36,16 +36,21 @@ const DocumentViewComponent = ({
             colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader
           }
         >
-          <View style={styles.titleBox}>
-            <Text
-              style={[
-                styles.title,
-                colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
-              ]}
-            >
-              스캔 결과
-            </Text>
-          </View>
+          <TitleWithBackButton
+            colorScheme={colorScheme}
+            handleBackPress={handleBackPress}
+          >
+            <View style={styles.titleBox}>
+              <Text
+                style={[
+                  styles.title,
+                  colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
+                ]}
+              >
+                스캔 결과
+              </Text>
+            </View>
+          </TitleWithBackButton>
         </View>
         <Text
           style={[
@@ -76,18 +81,25 @@ const DocumentViewComponent = ({
     <View style={styles.container}>
       <CustomStatusBar colorScheme={colorScheme} />
       <View
-        style={colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader}
+        style={[
+          colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader,
+        ]}
       >
-        <View style={styles.titleBox}>
-          <Text
-            style={[
-              styles.title,
-              colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
-            ]}
-          >
-            {titleName}
-          </Text>
-        </View>
+        <TitleWithBackButton
+          colorScheme={colorScheme}
+          handleBackPress={handleBackPress}
+        >
+          <View style={styles.titleBox}>
+            <Text
+              style={[
+                styles.title,
+                colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
+              ]}
+            >
+              {titleName}
+            </Text>
+          </View>
+        </TitleWithBackButton>
         <View style={styles.dateBox}>
           <Text
             style={[

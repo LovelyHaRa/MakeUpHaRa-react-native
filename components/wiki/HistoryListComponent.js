@@ -4,13 +4,14 @@ import moment from 'moment';
 import CustomStatusBar from '../common/CustomStatusBar';
 import LoadingComponent from '../common/LoadingComponent';
 import styles from './StyleContainer';
+import TitleWithBackButton from './TitleWithBackButton';
 
 const HistoryListComponent = ({
-  navigation,
   colorScheme,
   historyList,
   loading,
   handlePress,
+  handleBackPress,
 }) => {
   if (loading || !historyList) {
     return <LoadingComponent colorScheme={colorScheme} />;
@@ -23,8 +24,7 @@ const HistoryListComponent = ({
         <TouchableOpacity
           style={styles.listItem}
           onPress={() => {
-            handlePress({ id: title, r: revision });
-            navigation.goBack();
+            handlePress({ title, r: revision });
           }}
         >
           <Text
@@ -55,16 +55,21 @@ const HistoryListComponent = ({
           colorScheme === 'dark' ? styles.darkContainer : styles.lightContainer
         }
       >
-        <View style={styles.titleBox}>
-          <Text
-            style={[
-              styles.title,
-              colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
-            ]}
-          >
-            {titleName}
-          </Text>
-        </View>
+        <TitleWithBackButton
+          colorScheme={colorScheme}
+          handleBackPress={handleBackPress}
+        >
+          <View style={styles.titleBox}>
+            <Text
+              style={[
+                styles.title,
+                colorScheme === 'dark' ? styles.darkTitle : styles.lightTitle,
+              ]}
+            >
+              {titleName}
+            </Text>
+          </View>
+        </TitleWithBackButton>
         <View style={styles.subTitleBox}>
           <Text
             style={[
@@ -113,7 +118,7 @@ const HistoryListComponent = ({
             styles.button,
             colorScheme === 'dark' ? styles.darkButton : styles.lightButton,
           ]}
-          onPress={() => navigation.goBack()}
+          onPress={() => handleBackPress()}
         >
           <Text>뒤로가기</Text>
         </TouchableOpacity>
