@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './StyleContainer';
 import DismissKeyboard from '../common/DismissKeyboard';
 import SearchComponent from '../search/SearchComponent';
 import { WikiResultSearch } from '../search/ResultComponent';
-import { Button, Overlay } from 'react-native-elements';
+import { Button, Overlay, SearchBar } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const RegistOverlay = ({
   visible,
@@ -214,6 +215,7 @@ const BarcodeRegist = ({
   isRequest,
   addBarcodeLoading,
   handlePress,
+  hadnleBackPress,
   resultMessage,
   initResultMessage,
 }) => {
@@ -230,13 +232,40 @@ const BarcodeRegist = ({
 
   return (
     <View style={styles.container}>
-      <SearchComponent
-        inputQuery={inputQuery}
-        handleQueryChange={handleQueryChange}
-        handleSubmit={handleSubmit}
-        colorScheme={colorScheme}
-        placeholder="바코드를 등록할 문서 검색"
-      />
+      <View
+        style={[
+          styles.searchBarContainer,
+          colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
+        ]}
+      >
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => hadnleBackPress()}
+        >
+          <MaterialIcons
+            name="keyboard-arrow-left"
+            size={36}
+            color={
+              colorScheme === 'dark'
+                ? styles.darkText.color
+                : styles.lightText.color
+            }
+          />
+        </TouchableOpacity>
+        <SearchBar
+          onSubmitEditing={handleSubmit}
+          lightTheme={colorScheme !== 'dark'}
+          containerStyle={
+            colorScheme === 'dark'
+              ? styles.darksearchBarContainer
+              : styles.lightsearchBarContainer
+          }
+          onChangeText={handleQueryChange}
+          placeholder={'바코드를 등록할 문서 검색'}
+          value={inputQuery}
+        />
+      </View>
+
       {!isRequest ? (
         <InfoComponent barcode={barcode} colorScheme={colorScheme} />
       ) : (

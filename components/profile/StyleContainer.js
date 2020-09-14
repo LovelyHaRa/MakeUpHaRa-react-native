@@ -46,16 +46,25 @@ export const styles = StyleSheet.create({
   menu: {
     flex: 1,
   },
+  searchBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
   lightsearchBarContainer: {
+    flex: 1,
     backgroundColor: palette.gray[0],
-    borderBottomColor: palette.gray[3],
+    borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
   },
   darksearchBarContainer: {
+    flex: 1,
     backgroundColor: palette.gray[9],
-    borderColor: palette.gray[9],
-    borderBottomColor: palette.gray[8],
+    borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
+  },
+  backButtonBorder: {
+    borderBottomWidth: 1,
   },
   infoBody: {
     justifyContent: 'center',
