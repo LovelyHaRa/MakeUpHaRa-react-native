@@ -29,6 +29,10 @@ const ScanContainer = ({ navigation }) => {
     [navigation],
   );
 
+  const handleBackPress = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
+
   if (Platform.OS === 'web') {
     return <NotSupported target={'Web'} colorScheme={colorScheme} />;
   }
@@ -38,6 +42,7 @@ const ScanContainer = ({ navigation }) => {
       onCamera={onCamera}
       colorScheme={colorScheme}
       handlePress={handlePress}
+      handleBackPress={handleBackPress}
       buttonText={'코드 등록'}
     />
   );

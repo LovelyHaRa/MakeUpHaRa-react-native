@@ -13,8 +13,15 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import palette from '../../lib/styles/open-color';
 import LoadingComponent from '../common/LoadingComponent';
 import AccessDenied from '../common/AccessDenied';
+import { MaterialIcons } from '@expo/vector-icons';
 
-const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
+const ScanComponent = ({
+  onCamera,
+  colorScheme,
+  handlePress,
+  handleBackPress,
+  buttonText,
+}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -142,19 +149,33 @@ const ScanComponent = ({ onCamera, colorScheme, handlePress, buttonText }) => {
           colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
-        <View style={styles.blurContainer}>
-          <View style={styles.scanInfoContainer}>
-            <Text style={styles.scanText}>
-              바코드/QR코드를 스캔할 수 있습니다.
-            </Text>
+        <>
+          <View style={styles.blurContainer}>
+            <View style={styles.scanInfoContainer}>
+              <View style={styles.topContainer}>
+                <TouchableOpacity
+                  style={styles.backButton}
+                  onPress={() => handleBackPress()}
+                >
+                  <MaterialIcons
+                    name="keyboard-arrow-left"
+                    size={48}
+                    color={palette.gray[0]}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.scanText}>
+                바코드/QR코드를 스캔할 수 있습니다.
+              </Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.middleContainer}>
+          <View style={styles.middleContainer}>
+            <View style={styles.blurContainer} />
+            <View style={styles.focusContainer} />
+            <View style={styles.blurContainer} />
+          </View>
           <View style={styles.blurContainer} />
-          <View style={styles.focusContainer} />
-          <View style={styles.blurContainer} />
-        </View>
-        <View style={styles.blurContainer} />
+        </>
       </BarCodeScanner>
       {scanned && (
         <>
@@ -187,12 +208,21 @@ const styles = StyleSheet.create({
   scanInfoContainer: {
     flex: 1,
     marginBottom: 24,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  scanText: { color: palette.gray[1], fontSize: 18 },
-  blurContainer: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)' },
-  middleContainer: { flexDirection: 'row', flex: 1 },
+  scanText: { color: palette.gray[1], fontSize: 18, textAlign: 'center' },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  blurContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+  },
+  middleContainer: {
+    flexDirection: 'row',
+    flex: 1,
+  },
   focusContainer: {
     flex: 10,
     padding: 10,
@@ -253,5 +283,10 @@ const styles = StyleSheet.create({
   },
   darkBody: {
     backgroundColor: palette.gray[9],
+  },
+  backButton: {
+    marginTop: 16,
+    marginBottom: 8,
+    marginLeft: 8,
   },
 });
