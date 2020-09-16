@@ -12,14 +12,18 @@ const ScanContainer = ({ navigation }) => {
   const [onCamera, setOnCamera] = useState(false);
   useEffect(() => {
     const e = navigation.addListener('focus', () => {
-      setOnCamera(true);
+      setTimeout(() => {
+        setOnCamera(true);
+      }, 500);
     });
     return e;
   }, [navigation]);
 
   useEffect(() => {
     const e = navigation.addListener('blur', () => {
-      setOnCamera(false);
+      setTimeout(() => {
+        setOnCamera(false);
+      }, 500);
     });
     return e;
   }, [navigation]);
@@ -32,7 +36,9 @@ const ScanContainer = ({ navigation }) => {
     [dispatch, navigation],
   );
 
-  const handleBackPress = useCallback(() => {}, []);
+  const handleBackPress = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   if (Platform.OS === 'web') {
     return <NotSupported target={'Web'} colorScheme={colorScheme} />;
