@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Modal,
   TouchableHighlight,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,6 +13,7 @@ import palette from '../../lib/styles/open-color';
 import LoadingComponent from '../common/LoadingComponent';
 import AccessDenied from '../common/AccessDenied';
 import { MaterialIcons } from '@expo/vector-icons';
+import { styles } from './StyleContainer';
 
 const ScanComponent = ({
   onCamera,
@@ -57,7 +57,7 @@ const ScanComponent = ({
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={styles.container}>
+          <View style={[styles.container, styles.centerFlex]}>
             <View
               style={[
                 styles.modal,
@@ -140,7 +140,7 @@ const ScanComponent = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.centerFlex]}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         barCodeTypes={codeTypes}
@@ -198,95 +198,3 @@ const ScanComponent = ({
 };
 
 export default React.memo(ScanComponent);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  scanInfoContainer: {
-    flex: 1,
-    marginBottom: 24,
-    justifyContent: 'space-between',
-  },
-  scanText: { color: palette.gray[1], fontSize: 18, textAlign: 'center' },
-  topContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  blurContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-  },
-  middleContainer: {
-    flexDirection: 'row',
-    flex: 1,
-  },
-  focusContainer: {
-    flex: 10,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modal: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: Dimensions.get('window').width * 0.9,
-    height: Dimensions.get('window').height * 0.15,
-    marginTop: Dimensions.get('window').height * 0.65,
-    borderRadius: 8,
-    elevation: 10,
-  },
-  lightModal: { backgroundColor: palette.pink[0] },
-  darkModal: { backgroundColor: palette.gray[8] },
-  text: { fontFamily: 'NanumGothic_400Regular' },
-  lightTitle: {
-    marginLeft: 10,
-    marginTop: 5,
-    marginBottom: 5,
-    fontSize: 14,
-    color: palette.gray[9],
-  },
-  darkTitle: {
-    marginLeft: 10,
-    marginTop: 5,
-    marginBottom: 5,
-    fontSize: 14,
-    color: palette.gray[0],
-  },
-  buttonGroup: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginRight: 5,
-  },
-  button: {
-    marginTop: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    alignItems: 'center',
-    borderRadius: 5,
-    padding: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  lightButton: {
-    backgroundColor: palette.pink[2],
-  },
-  darkButton: {
-    backgroundColor: palette.violet[2],
-  },
-  lightBody: {
-    backgroundColor: palette.gray[0],
-  },
-  darkBody: {
-    backgroundColor: palette.gray[9],
-  },
-  backButton: {
-    marginTop: 16,
-    marginBottom: 8,
-    marginLeft: 8,
-  },
-});
