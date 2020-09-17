@@ -4,6 +4,7 @@ import ChangePassword from '../../components/profile/ChangePassword';
 
 const ChangePasswordContainer = () => {
   const colorScheme = useColorScheme();
+
   return <ChangePassword colorScheme={colorScheme} />;
 };
 
