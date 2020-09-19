@@ -1,5 +1,11 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Button } from 'react-native-elements';
 import CustomStatusBar from '../common/CustomStatusBar';
 import DismissKeyboard from '../common/DismissKeyboard';
@@ -7,7 +13,18 @@ import { styles } from './StyleContainer';
 import { MaterialIcons } from '@expo/vector-icons';
 import palette from '../../lib/styles/open-color';
 
-const ChangePassword = ({ colorScheme }) => {
+const ChangePassword = ({
+  colorScheme,
+  form,
+  handleBackButton,
+  handleChange,
+  handleSubmit,
+  isValid,
+  validMessage,
+  submitPassword,
+  changePasswordLoading,
+}) => {
+  const { curPassword, newPassword, confirmPassword } = form;
   return (
     <DismissKeyboard>
       <View
@@ -18,7 +35,10 @@ const ChangePassword = ({ colorScheme }) => {
       >
         <CustomStatusBar colorScheme={colorScheme} />
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => handleBackButton()}
+          >
             <MaterialIcons
               name="keyboard-arrow-left"
               size={36}
@@ -61,7 +81,13 @@ const ChangePassword = ({ colorScheme }) => {
                   ? styles.darkChangePasswordInput
                   : styles.lightChangePasswordInput,
               ]}
+              secureTextEntry={true}
+              value={curPassword}
+              onChangeText={(text) => handleChange('curPassword', text)}
             />
+            {!isValid.curPassword && validMessage.curPassword && (
+              <Text style={styles.validText}>{validMessage.curPassword}</Text>
+            )}
             <TextInput
               placeholder="새로운 비밀번호"
               placeholderTextColor={
@@ -73,7 +99,13 @@ const ChangePassword = ({ colorScheme }) => {
                   ? styles.darkChangePasswordInput
                   : styles.lightChangePasswordInput,
               ]}
+              secureTextEntry={true}
+              value={newPassword}
+              onChangeText={(text) => handleChange('newPassword', text)}
             />
+            {!isValid.newPassword && validMessage.newPassword && (
+              <Text style={styles.validText}>{validMessage.newPassword}</Text>
+            )}
             <TextInput
               placeholderTextColor={
                 colorScheme === 'dark' ? palette.violet[5] : palette.pink[7]
@@ -85,7 +117,15 @@ const ChangePassword = ({ colorScheme }) => {
                   ? styles.darkChangePasswordInput
                   : styles.lightChangePasswordInput,
               ]}
+              secureTextEntry={true}
+              value={confirmPassword}
+              onChangeText={(text) => handleChange('confirmPassword', text)}
             />
+            {!isValid.confirmPassword && validMessage.confirmPassword && (
+              <Text style={styles.validText}>
+                {validMessage.confirmPassword}
+              </Text>
+            )}
           </View>
           <View style={styles.changePasswordButtonContainer}>
             <Button
@@ -96,8 +136,33 @@ const ChangePassword = ({ colorScheme }) => {
                   ? styles.darkChangePasswordButton
                   : styles.lightChangePasswordButton,
               ]}
+              onPress={() => {
+                Keyboard.dismiss();
+                handleSubmit();
+              }}
+              disabled={
+                !isValid.curPassword ||
+                !isValid.newPassword ||
+                !isValid.confirmPassword
+              }
+              loading={changePasswordLoading}
             />
           </View>
+          {submitPassword.message && (
+            <View style={styles.changePasswordResultContainer}>
+              <Text
+                style={
+                  submitPassword.result
+                    ? colorScheme === 'dark'
+                      ? styles.darkThemeColor
+                      : styles.lightThemeColor
+                    : styles.errorText
+                }
+              >
+                {submitPassword.message}
+              </Text>
+            </View>
+          )}
         </View>
       </View>
     </DismissKeyboard>
