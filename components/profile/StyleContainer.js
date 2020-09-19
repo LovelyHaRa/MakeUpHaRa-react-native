@@ -138,6 +138,7 @@ export const styles = StyleSheet.create({
   changePasswordTitleContainer: {
     justifyContent: 'center',
     margin: 20,
+    marginLeft: 40,
   },
   changePasswordTitle: {
     fontFamily: 'NanumGothic_400Regular',
@@ -151,6 +152,8 @@ export const styles = StyleSheet.create({
   },
   changePasswordInputContainer: {
     margin: 16,
+    marginLeft: 40,
+    marginRight: 40,
   },
   changePasswordInput: {
     backgroundColor: 'transparent',
@@ -171,6 +174,8 @@ export const styles = StyleSheet.create({
   },
   changePasswordButtonContainer: {
     margin: 16,
+    marginLeft: 40,
+    marginRight: 40,
   },
   changePasswordButton: {
     margin: 10,
@@ -182,5 +187,15 @@ export const styles = StyleSheet.create({
   },
   darkChangePasswordButton: {
     backgroundColor: palette.violet[4],
+  },
+  errorText: {
+    color: palette.red[7],
+  },
+  validText: {
+    paddingLeft: 14,
+    color: palette.red[7],
+  },
+  changePasswordResultContainer: {
+    alignItems: 'center',
   },
 });
