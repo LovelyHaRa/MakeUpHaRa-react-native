@@ -67,10 +67,8 @@ const ScanComponent = ({
               <View>
                 <Text
                   style={[
-                    styles.text,
-                    colorScheme === 'dark'
-                      ? styles.darkTitle
-                      : styles.lightTitle,
+                    styles.title,
+                    colorScheme === 'dark' ? styles.darkText : styles.lightText,
                   ]}
                 >
                   바코드 타입:{' '}
@@ -80,10 +78,8 @@ const ScanComponent = ({
                 </Text>
                 <Text
                   style={[
-                    styles.text,
-                    colorScheme === 'dark'
-                      ? styles.darkTitle
-                      : styles.lightTitle,
+                    styles.title,
+                    colorScheme === 'dark' ? styles.darkText : styles.lightText,
                   ]}
                 >
                   코드내용:{' '}

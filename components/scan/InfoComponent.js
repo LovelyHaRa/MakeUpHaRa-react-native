@@ -21,7 +21,11 @@ const InfoComponent = ({ navigation }) => {
           <MaterialCommunityIcons
             name="barcode-scan"
             size={72}
-            color={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}
+            color={
+              colorScheme === 'dark'
+                ? styles.darkText.color
+                : styles.lightText.color
+            }
           />
         </View>
         <View style={styles.infoTitleContainer}>

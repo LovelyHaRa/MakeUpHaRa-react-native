@@ -45,20 +45,12 @@ export const styles = StyleSheet.create({
   },
   lightModal: { backgroundColor: palette.pink[0] },
   darkModal: { backgroundColor: palette.gray[8] },
-  text: { fontFamily: 'NanumGothic_400Regular' },
-  lightTitle: {
+  title: {
+    fontFamily: 'NanumGothic_400Regular',
     marginLeft: 10,
     marginTop: 5,
     marginBottom: 5,
     fontSize: 14,
-    color: palette.gray[9],
-  },
-  darkTitle: {
-    marginLeft: 10,
-    marginTop: 5,
-    marginBottom: 5,
-    fontSize: 14,
-    color: palette.gray[0],
   },
   buttonGroup: {
     display: 'flex',
