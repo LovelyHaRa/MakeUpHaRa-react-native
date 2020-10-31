@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import { styles } from './StyleContainer';
-import CustomStatusBar from '../common/CustomStatusBar';
 import { SearchBar } from 'react-native-elements';
 
 const SearchComponent = ({
@@ -13,7 +12,6 @@ const SearchComponent = ({
 }) => {
   return (
     <View>
-      <CustomStatusBar colorScheme={colorScheme} />
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <SearchBar
           onSubmitEditing={handleSubmit}

@@ -13,6 +13,7 @@ const CustomStatusBar = ({ colorScheme }) => {
     >
       <StatusBar
         barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+        translucent
         backgroundColor={
           colorScheme === 'dark' ? palette.gray[9] : palette.gray[0]
         }

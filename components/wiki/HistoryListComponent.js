@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import moment from 'moment';
-import CustomStatusBar from '../common/CustomStatusBar';
 import LoadingComponent from '../common/LoadingComponent';
 import styles from './StyleContainer';
 import TitleWithBackButton from './TitleWithBackButton';
+import ResponsiveView from '../common/ResponsiveView';
 
 const HistoryListComponent = ({
   colorScheme,
@@ -48,8 +48,10 @@ const HistoryListComponent = ({
     );
   };
   return (
-    <View style={styles.container}>
-      <CustomStatusBar colorScheme={colorScheme} />
+    <ResponsiveView
+      containerStyle={[styles.container]}
+      colorScheme={colorScheme}
+    >
       <View
         style={
           colorScheme === 'dark' ? styles.darkContainer : styles.lightContainer
@@ -123,7 +125,7 @@ const HistoryListComponent = ({
           <Text>뒤로가기</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ResponsiveView>
   );
 };
 

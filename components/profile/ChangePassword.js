@@ -7,11 +7,11 @@ import {
   View,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import CustomStatusBar from '../common/CustomStatusBar';
 import DismissKeyboard from '../common/DismissKeyboard';
 import { styles } from './StyleContainer';
 import { MaterialIcons } from '@expo/vector-icons';
 import palette from '../../lib/styles/open-color';
+import ResponsiveView from '../common/ResponsiveView';
 
 const ChangePassword = ({
   colorScheme,
@@ -27,13 +27,13 @@ const ChangePassword = ({
   const { curPassword, newPassword, confirmPassword } = form;
   return (
     <DismissKeyboard>
-      <View
-        style={[
+      <ResponsiveView
+        containerStyle={[
           styles.container,
           colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
+        colorScheme={colorScheme}
       >
-        <CustomStatusBar colorScheme={colorScheme} />
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
@@ -164,7 +164,7 @@ const ChangePassword = ({
             </View>
           )}
         </View>
-      </View>
+      </ResponsiveView>
     </DismissKeyboard>
   );
 };

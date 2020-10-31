@@ -1,21 +1,21 @@
 import React from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import CustomStatusBar from './CustomStatusBar';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import palette from '../../lib/styles/open-color';
+import ResponsiveView from './ResponsiveView';
 
 const LoadingComponent = ({ colorScheme, hasMarginTop }) => {
   return (
-    <View
-      style={[
+    <ResponsiveView
+      containerStyle={[
         styles.container,
         styles.loading,
         colorScheme === 'dark' ? styles.darkLoading : styles.lightLoading,
         hasMarginTop && styles.hasMarginTop,
       ]}
+      colorScheme={colorScheme}
     >
-      <CustomStatusBar colorScheme={colorScheme} />
       <ActivityIndicator size="large" color="#d6336c" />
-    </View>
+    </ResponsiveView>
   );
 };
 

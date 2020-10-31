@@ -12,7 +12,7 @@ import { useColorScheme } from 'react-native-appearance';
 import palette from '../../lib/styles/open-color';
 import LoadingComponent from '../common/LoadingComponent';
 import DismissKeyboard from '../common/DismissKeyboard';
-import CustomStatusBar from '../common/CustomStatusBar';
+import ResponsiveView from '../common/ResponsiveView';
 
 const AuthForm = ({
   type = 'login',
@@ -35,8 +35,10 @@ const AuthForm = ({
   }
   return (
     <DismissKeyboard>
-      <View style={styles.container}>
-        <CustomStatusBar colorScheme={colorScheme} />
+      <ResponsiveView
+        containerStyle={[styles.container]}
+        colorScheme={colorScheme}
+      >
         <View
           style={[
             styles.centerFlex,
@@ -243,7 +245,7 @@ const AuthForm = ({
             MAKE UP HARA
           </Text>
         </View>
-      </View>
+      </ResponsiveView>
     </DismissKeyboard>
   );
 };

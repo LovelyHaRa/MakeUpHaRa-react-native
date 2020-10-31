@@ -13,7 +13,6 @@ import {
 import { getSearchList as getPostSearchList } from '../../module/redux/post';
 import { getSearchList as getWikiSearchList } from '../../module/redux/wiki';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { View } from 'react-native';
 import { styles } from '../../components/search/StyleContainer';
 import {
   BlogResultContainer,
@@ -21,6 +20,7 @@ import {
   WikiResultContainer,
 } from './ResultContainer';
 import InfoComponent from '../../components/search/InfoComponent';
+import ResponsiveView from '../../components/common/ResponsiveView';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -50,7 +50,10 @@ const SearchContainer = () => {
   }, [dispatch, inputQuery]);
 
   return (
-    <View style={styles.container}>
+    <ResponsiveView
+      containerStyle={[styles.container]}
+      colorScheme={colorScheme}
+    >
       <SearchComponent
         colorScheme={colorScheme}
         inputQuery={inputQuery}
@@ -78,7 +81,7 @@ const SearchContainer = () => {
           <Tab.Screen name="블로그" component={BlogResultContainer} />
         </Tab.Navigator>
       )}
-    </View>
+    </ResponsiveView>
   );
 };
 
