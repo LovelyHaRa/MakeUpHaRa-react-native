@@ -6,12 +6,13 @@ import ResponsiveView from './ResponsiveView';
 const LoadingComponent = ({ colorScheme, hasMarginTop }) => {
   return (
     <ResponsiveView
-      conatinerStyle={[
+      containerStyle={[
         styles.container,
         styles.loading,
         colorScheme === 'dark' ? styles.darkLoading : styles.lightLoading,
         hasMarginTop && styles.hasMarginTop,
       ]}
+      colorScheme={colorScheme}
     >
       <ActivityIndicator size="large" color="#d6336c" />
     </ResponsiveView>

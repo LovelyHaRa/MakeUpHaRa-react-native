@@ -11,6 +11,7 @@ import DismissKeyboard from '../common/DismissKeyboard';
 import { styles } from './StyleContainer';
 import { MaterialIcons } from '@expo/vector-icons';
 import palette from '../../lib/styles/open-color';
+import ResponsiveView from '../common/ResponsiveView';
 
 const ChangePassword = ({
   colorScheme,
@@ -31,6 +32,7 @@ const ChangePassword = ({
           styles.container,
           colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
+        colorScheme={colorScheme}
       >
         <View style={styles.header}>
           <TouchableOpacity

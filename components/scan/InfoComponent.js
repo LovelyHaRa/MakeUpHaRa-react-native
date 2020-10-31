@@ -14,6 +14,7 @@ const InfoComponent = ({ navigation }) => {
         styles.container,
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
+      colorScheme={colorScheme}
     >
       <View style={styles.infoContainer}>
         <View style={styles.infoIcon}>

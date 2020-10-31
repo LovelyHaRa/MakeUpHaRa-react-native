@@ -2,13 +2,13 @@ import Constants from 'expo-constants';
 
 const ENV = {
   dev: {
-    apiUrl: 'http://39.113.253.217:4000',
+    apiUrl: 'https://makeuphara.azurewebsites.net/',
   },
   staging: {
-    apiUrl: 'https://makeuphara.herokuapp.com/',
+    apiUrl: 'https://makeuphara.azurewebsites.net/',
   },
   prod: {
-    apiUrl: 'https://makeuphara.herokuapp.com/',
+    apiUrl: 'https://makeuphara.azurewebsites.net/',
   },
 };
 

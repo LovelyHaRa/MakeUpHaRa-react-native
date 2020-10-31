@@ -35,7 +35,10 @@ const AuthForm = ({
   }
   return (
     <DismissKeyboard>
-      <ResponsiveView containerStyle={[styles.container]} colorScheme>
+      <ResponsiveView
+        containerStyle={[styles.container]}
+        colorScheme={colorScheme}
+      >
         <View
           style={[
             styles.centerFlex,

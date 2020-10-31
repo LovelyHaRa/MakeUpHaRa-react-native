@@ -48,7 +48,10 @@ const HistoryListComponent = ({
     );
   };
   return (
-    <ResponsiveView containerStyle={[styles.container]}>
+    <ResponsiveView
+      containerStyle={[styles.container]}
+      colorScheme={colorScheme}
+    >
       <View
         style={
           colorScheme === 'dark' ? styles.darkContainer : styles.lightContainer

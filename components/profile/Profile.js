@@ -27,6 +27,7 @@ const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
         styles.container,
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
+      colorScheme={colorScheme}
     >
       <View style={styles.userContainer}>
         <View>

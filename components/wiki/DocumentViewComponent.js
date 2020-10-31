@@ -29,6 +29,7 @@ const DocumentViewComponent = ({
           styles.error,
           colorScheme === 'dark' ? styles.darkError : styles.lightError,
         ]}
+        colorScheme={colorScheme}
       >
         <View
           style={

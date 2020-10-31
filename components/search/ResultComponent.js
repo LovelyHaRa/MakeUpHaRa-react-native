@@ -264,6 +264,7 @@ export const BlogResultSearch = ({
           styles.container,
           colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
+        colorScheme={colorScheme}
       >
         {emptyResult ? (
           <EmptyResultComponent colorScheme={colorScheme} query={searchQuery} />

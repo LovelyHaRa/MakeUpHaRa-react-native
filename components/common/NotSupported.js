@@ -10,6 +10,7 @@ const NotSupported = ({ target, colorScheme }) => {
         styles.container,
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
+      colorScheme={colorScheme}
     >
       <Text
         style={[
