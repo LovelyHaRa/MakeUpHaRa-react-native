@@ -6,6 +6,7 @@ import {
   Modal,
   TouchableHighlight,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -150,7 +151,10 @@ const ScanComponent = ({
             <View style={styles.scanInfoContainer}>
               <View style={styles.topContainer}>
                 <TouchableOpacity
-                  style={styles.backButton}
+                  style={[
+                    styles.backButton,
+                    Platform.OS === 'ios' && { marginTop: 36 },
+                  ]}
                   onPress={() => handleBackPress()}
                 >
                   <MaterialIcons

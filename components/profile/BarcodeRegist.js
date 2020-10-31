@@ -6,6 +6,7 @@ import SearchComponent from '../search/SearchComponent';
 import { WikiResultSearch } from '../search/ResultComponent';
 import { Button, Overlay, SearchBar } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
+import ResponsiveView from '../common/ResponsiveView';
 
 const RegistOverlay = ({
   visible,
@@ -231,7 +232,7 @@ const BarcodeRegist = ({
   };
 
   return (
-    <View style={styles.container}>
+    <ResponsiveView containerStyle={styles.container} colorScheme={colorScheme}>
       <View
         style={[
           styles.searchBarContainer,
@@ -295,7 +296,7 @@ const BarcodeRegist = ({
           />
         </>
       )}
-    </View>
+    </ResponsiveView>
   );
 };
 

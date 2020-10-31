@@ -5,6 +5,7 @@ import { styles } from './StyleContainer';
 import moment from 'moment';
 import LoadingComponent from '../common/LoadingComponent';
 import DismissKeyboard from '../common/DismissKeyboard';
+import ResponsiveView from '../common/ResponsiveView';
 
 export const TotalResultSearch = ({
   totalList,
@@ -258,8 +259,8 @@ export const BlogResultSearch = ({
   );
   return (
     <DismissKeyboard>
-      <View
-        style={[
+      <ResponsiveView
+        containerStyle={[
           styles.container,
           colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
@@ -296,7 +297,7 @@ export const BlogResultSearch = ({
             }
           />
         )}
-      </View>
+      </ResponsiveView>
     </DismissKeyboard>
   );
 };

@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import CustomStatusBar from '../common/CustomStatusBar';
 import DismissKeyboard from '../common/DismissKeyboard';
 import { styles } from './StyleContainer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -27,13 +26,12 @@ const ChangePassword = ({
   const { curPassword, newPassword, confirmPassword } = form;
   return (
     <DismissKeyboard>
-      <View
-        style={[
+      <ResponsiveView
+        containerStyle={[
           styles.container,
           colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
         ]}
       >
-        <CustomStatusBar colorScheme={colorScheme} />
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
@@ -164,7 +162,7 @@ const ChangePassword = ({
             </View>
           )}
         </View>
-      </View>
+      </ResponsiveView>
     </DismissKeyboard>
   );
 };

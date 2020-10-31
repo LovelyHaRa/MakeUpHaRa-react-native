@@ -7,10 +7,10 @@ import {
   RefreshControl,
 } from 'react-native';
 import { styles } from './StyleContainer';
-import CustomStatusBar from '../common/CustomStatusBar';
 import moment from 'moment';
 import palette from '../../lib/styles/open-color';
 import LoadingComponent from '../common/LoadingComponent';
+import ResponsiveView from '../common/ResponsiveView';
 
 const PostList = ({
   postList,
@@ -92,8 +92,10 @@ const PostList = ({
     </View>
   );
   return (
-    <View style={styles.container}>
-      <CustomStatusBar colorScheme={colorScheme} />
+    <ResponsiveView
+      containerStyle={[styles.container]}
+      colorScheme={colorScheme}
+    >
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <View
           style={[
@@ -114,8 +116,14 @@ const PostList = ({
         </View>
       </View>
       {loading && <LoadingComponent colorScheme={colorScheme} />}
-      {error && (
-        <View style={styles.container}>
+      {!loading && error && (
+        <View
+          style={{
+            ...styles.container,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Text>잘못된 접근입니다.</Text>
         </View>
       )}
@@ -156,7 +164,7 @@ const PostList = ({
           }
         />
       )}
-    </View>
+    </ResponsiveView>
   );
 };
 

@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import palette from '../../lib/styles/open-color';
+import ResponsiveView from './ResponsiveView';
 
 const AccessDenied = ({ target, colorScheme }) => {
   return (
-    <View
-      style={[
+    <ResponsiveView
+      containerStyle={[
         styles.container,
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
@@ -30,7 +31,7 @@ const AccessDenied = ({ target, colorScheme }) => {
         </Text>{' '}
         에서 접근 권한을 확인해 주십시오.
       </Text>
-    </View>
+    </ResponsiveView>
   );
 };
 

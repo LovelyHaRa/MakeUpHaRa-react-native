@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import WebView from 'react-native-webview';
 import moment from 'moment';
 import styles from './StyleContainer';
-import CustomStatusBar from '../common/CustomStatusBar';
 import getInnerHtml from '../../lib/getInnerHtml';
 import LoadingComponent from '../common/LoadingComponent';
 import HistoryActionButton from './HistoryActionButton';
 import TitleWithBackButton from './TitleWithBackButton';
+import ResponsiveView from '../common/ResponsiveView';
 
 const DocumentViewComponent = ({
   historyListComponent,
@@ -24,13 +24,12 @@ const DocumentViewComponent = ({
   }
   if (error) {
     return (
-      <View
-        style={[
+      <ResponsiveView
+        containerStyle={[
           styles.error,
           colorScheme === 'dark' ? styles.darkError : styles.lightError,
         ]}
       >
-        <CustomStatusBar colorScheme={colorScheme} />
         <View
           style={
             colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader
@@ -71,15 +70,17 @@ const DocumentViewComponent = ({
             <Text style={styles.errorButtonText}>뒤로가기</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ResponsiveView>
     );
   }
   const { title, publishedDate, body } = document;
   const titleName =
     title.name.length <= 30 ? title.name : title.name.slice(0, 25) + '...';
   return (
-    <View style={styles.container}>
-      <CustomStatusBar colorScheme={colorScheme} />
+    <ResponsiveView
+      containerStyle={[styles.container]}
+      colorScheme={colorScheme}
+    >
       <View
         style={[
           colorScheme === 'dark' ? styles.darkHeader : styles.lightHeader,
@@ -134,7 +135,7 @@ const DocumentViewComponent = ({
         handleHistoryPress={handleHistoryPress}
         handleBackPress={handleBackPress}
       />
-    </View>
+    </ResponsiveView>
   );
 };
 

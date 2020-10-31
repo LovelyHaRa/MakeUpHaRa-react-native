@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import LoadingComponent from '../common/LoadingComponent';
+import ResponsiveView from '../common/ResponsiveView';
 import { styles } from './StyleContainer';
 
 const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
@@ -21,8 +22,8 @@ const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
     return <LoadingComponent />;
   }
   return (
-    <View
-      style={[
+    <ResponsiveView
+      containerStyle={[
         styles.container,
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
@@ -69,7 +70,7 @@ const Profile = ({ colorScheme, ProfileMenuList, user, handleItemPress }) => {
           renderItem={MenuItem}
         />
       </View>
-    </View>
+    </ResponsiveView>
   );
 };
 

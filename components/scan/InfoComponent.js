@@ -1,21 +1,20 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
-import CustomStatusBar from '../common/CustomStatusBar';
 import { styles } from './StyleContainer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-elements';
+import ResponsiveView from '../common/ResponsiveView';
 
 const InfoComponent = ({ navigation }) => {
   const colorScheme = useColorScheme();
   return (
-    <View
-      style={[
+    <ResponsiveView
+      containerStyle={[
         styles.container,
         colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
       ]}
     >
-      <CustomStatusBar colorScheme={colorScheme} />
       <View style={styles.infoContainer}>
         <View style={styles.infoIcon}>
           <MaterialCommunityIcons
@@ -58,7 +57,7 @@ const InfoComponent = ({ navigation }) => {
           onPress={() => navigation.push('ScanComponent')}
         />
       </View>
-    </View>
+    </ResponsiveView>
   );
 };
 

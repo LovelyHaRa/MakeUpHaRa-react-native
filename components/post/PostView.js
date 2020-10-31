@@ -4,9 +4,9 @@ import { styles } from './StyleContainer';
 import moment from 'moment';
 import WebView from 'react-native-webview';
 import getInnerHtml from '../../lib/getInnerHtml';
-import CustomStatusBar from '../common/CustomStatusBar';
 import LoadingComponent from '../common/LoadingComponent';
 import { MaterialIcons } from '@expo/vector-icons';
+import ResponsiveView from '../common/ResponsiveView';
 
 const PostView = ({ post, error, loading, colorScheme, navigation }) => {
   if (loading || !post) {
@@ -14,15 +14,14 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
   }
   if (error) {
     return (
-      <View style={styles.container}>
+      <ResponsiveView style={[styles.container]} colorScheme={colorScheme}>
         <Text>잘못된 접근입니다.</Text>
-      </View>
+      </ResponsiveView>
     );
   }
   const { title, publisher, publishedDate, tags, body } = post;
   return (
-    <View style={styles.container}>
-      <CustomStatusBar colorScheme={colorScheme} />
+    <ResponsiveView style={[styles.container]} colorScheme={colorScheme}>
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <View
           style={[
@@ -114,7 +113,7 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
           ]}
         />
       </View>
-    </View>
+    </ResponsiveView>
   );
 };
 
