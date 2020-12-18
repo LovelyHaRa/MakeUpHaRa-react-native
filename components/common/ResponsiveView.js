@@ -11,18 +11,15 @@ const ResponsiveView = ({ children, containerStyle, colorScheme }) =>
         translucent
       />
       <SafeAreaView
-        style={[
-          {
-            backgroundColor: colorScheme
-              ? colorScheme === 'dark'
-                ? palette.gray[9]
-                : palette.gray[0]
+        style={{
+          flex: 1,
+          backgroundColor:
+            colorScheme && colorScheme === 'dark'
+              ? palette.gray[9]
               : palette.gray[0],
-          },
-          ...containerStyle,
-        ]}
+        }}
       >
-        {children}
+        <View style={containerStyle}>{children}</View>
       </SafeAreaView>
     </>
   ) : (
