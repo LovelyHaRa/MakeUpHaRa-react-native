@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "@expo-google-fonts/nanum-gothic": "^0.1.0",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@testing-library/react-native": "^7.1.0",
+    "@types/jest": "^26.0.19",
     "babel-eslint": "^10.1.0",
     "babel-preset-expo": "^8.2.3",
     "eslint": "^7.7.0",
