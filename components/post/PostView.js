@@ -29,7 +29,7 @@ const Container = ({ children, style, colorScheme }) =>
   );
 
 const PostView = ({ post, error, loading, colorScheme, navigation }) => {
-  if (loading || !post) {
+  if (loading) {
     return <LoadingComponent colorScheme={colorScheme} />;
   }
   if (error) {
