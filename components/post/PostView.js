@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  SafeAreaView,
+} from 'react-native';
 import { styles } from './StyleContainer';
 import moment from 'moment';
 import WebView from 'react-native-webview';
@@ -8,8 +14,22 @@ import LoadingComponent from '../common/LoadingComponent';
 import { MaterialIcons } from '@expo/vector-icons';
 import ResponsiveView from '../common/ResponsiveView';
 
+const Container = ({ children, style, colorScheme }) =>
+  Platform.OS === 'ios' ? (
+    <SafeAreaView
+      style={[
+        style,
+        colorScheme === 'dark' ? styles.darkBody : styles.lightBody,
+      ]}
+    >
+      <View style={style}>{children}</View>
+    </SafeAreaView>
+  ) : (
+    <View style={style}>{children}</View>
+  );
+
 const PostView = ({ post, error, loading, colorScheme, navigation }) => {
-  if (loading || !post) {
+  if (loading) {
     return <LoadingComponent colorScheme={colorScheme} />;
   }
   if (error) {
@@ -21,7 +41,7 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
   }
   const { title, publisher, publishedDate, tags, body } = post;
   return (
-    <ResponsiveView style={[styles.container]} colorScheme={colorScheme}>
+    <Container style={styles.container} colorScheme={colorScheme}>
       <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
         <View
           style={[
@@ -54,8 +74,7 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
             포스트
           </Text>
         </View>
-      </View>
-      <View style={colorScheme === 'dark' ? styles.darkBody : styles.lightBody}>
+
         <View style={styles.topContainer}>
           <Text
             style={[
@@ -71,7 +90,7 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
               colorScheme === 'dark' ? styles.darkSubinfo : styles.lightSubinfo,
             ]}
           >
-            {publisher.usename}
+            {publisher.username}
           </Text>
           <Text
             style={[
@@ -96,12 +115,7 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
           </View>
         </View>
       </View>
-      <View
-        style={[
-          styles.webContainer,
-          colorScheme === 'dark' ? styles.darkWeb : styles.lightWeb,
-        ]}
-      >
+      <View style={[styles.webContainer]}>
         <WebView
           originWhitelist={['*']}
           source={{
@@ -113,7 +127,7 @@ const PostView = ({ post, error, loading, colorScheme, navigation }) => {
           ]}
         />
       </View>
-    </ResponsiveView>
+    </Container>
   );
 };
 

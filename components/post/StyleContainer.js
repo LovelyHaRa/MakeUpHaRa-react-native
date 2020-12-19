@@ -76,8 +76,8 @@ export const styles = StyleSheet.create({
   },
   web: {
     flex: 1,
-    marginLeft: 8,
-    marginRight: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
   },
   lightWeb: {
     backgroundColor: palette.gray[0],
