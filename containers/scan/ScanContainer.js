@@ -5,28 +5,23 @@ import { Platform } from 'react-native';
 import NotSupported from '../../components/common/NotSupported';
 import { useDispatch } from 'react-redux';
 import { getDocumentByBarcode } from '../../module/redux/scan';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ScanContainer = ({ navigation }) => {
   const dispatch = useDispatch();
   const colorScheme = useColorScheme();
   const [onCamera, setOnCamera] = useState(false);
-  useEffect(() => {
-    const e = navigation.addListener('focus', () => {
+
+  useFocusEffect(
+    useCallback(() => {
       setTimeout(() => {
         setOnCamera(true);
       }, 500);
-    });
-    return e;
-  }, [navigation]);
-
-  useEffect(() => {
-    const e = navigation.addListener('blur', () => {
-      setTimeout(() => {
+      return () => {
         setOnCamera(false);
-      }, 500);
-    });
-    return e;
-  }, [navigation]);
+      };
+    }, []),
+  );
 
   const handlePress = useCallback(
     (data) => {
