@@ -19,10 +19,75 @@ import {
 } from '@expo-google-fonts/nanum-gothic';
 import { AppLoading } from 'expo';
 
-const Tab = createMaterialBottomTabNavigator();
+export const AppNavigator = () => {
+  const Tab = createMaterialBottomTabNavigator();
+  const colorScheme = useColorScheme();
+
+  return (
+    <Tab.Navigator
+      barStyle={{
+        backgroundColor:
+          colorScheme === 'dark' ? palette.gray[9] : palette.gray[0],
+      }}
+      sceneAnimationEnabled={false}
+      backBehavior="none"
+      keyboardHidesNavigationBar={false}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          switch (route.name) {
+            case 'SCAN':
+              return (
+                <MaterialCommunityIcons
+                  name="barcode-scan"
+                  size={24}
+                  color={
+                    colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                  }
+                />
+              );
+            case 'SEARCH':
+              return (
+                <MaterialIcons
+                  name="search"
+                  size={24}
+                  color={
+                    colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                  }
+                />
+              );
+            case 'BLOG':
+              return (
+                <Entypo
+                  name="documents"
+                  size={24}
+                  color={
+                    colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                  }
+                />
+              );
+            case 'MY PAGE':
+              return (
+                <MaterialCommunityIcons
+                  name={focused ? 'account' : 'account-outline'}
+                  size={24}
+                  color={
+                    colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
+                  }
+                />
+              );
+          }
+        },
+      })}
+    >
+      <Tab.Screen name="SEARCH" component={SearchScreen} />
+      <Tab.Screen name="SCAN" component={ScanScreen} />
+      <Tab.Screen name="BLOG" component={BlogScreen} />
+      <Tab.Screen name="MY PAGE" component={ProfileScreen} />
+    </Tab.Navigator>
+  );
+};
 
 const Main = () => {
-  const colorScheme = useColorScheme();
   let [fontsLoaded] = useFonts({
     NanumGothic_400Regular,
     NanumGothic_700Bold,
@@ -32,66 +97,7 @@ const Main = () => {
   }
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        barStyle={{
-          backgroundColor:
-            colorScheme === 'dark' ? palette.gray[9] : palette.gray[0],
-        }}
-        sceneAnimationEnabled={false}
-        backBehavior="none"
-        keyboardHidesNavigationBar={false}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            switch (route.name) {
-              case 'SCAN':
-                return (
-                  <MaterialCommunityIcons
-                    name="barcode-scan"
-                    size={24}
-                    color={
-                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
-                    }
-                  />
-                );
-              case 'SEARCH':
-                return (
-                  <MaterialIcons
-                    name="search"
-                    size={24}
-                    color={
-                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
-                    }
-                  />
-                );
-              case 'BLOG':
-                return (
-                  <Entypo
-                    name="documents"
-                    size={24}
-                    color={
-                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
-                    }
-                  />
-                );
-              case 'MY PAGE':
-                return (
-                  <MaterialCommunityIcons
-                    name={focused ? 'account' : 'account-outline'}
-                    size={24}
-                    color={
-                      colorScheme === 'dark' ? palette.gray[0] : palette.gray[9]
-                    }
-                  />
-                );
-            }
-          },
-        })}
-      >
-        <Tab.Screen name="SEARCH" component={SearchScreen} />
-        <Tab.Screen name="SCAN" component={ScanScreen} />
-        <Tab.Screen name="BLOG" component={BlogScreen} />
-        <Tab.Screen name="MY PAGE" component={ProfileScreen} />
-      </Tab.Navigator>
+      <AppNavigator />
     </NavigationContainer>
   );
 };
